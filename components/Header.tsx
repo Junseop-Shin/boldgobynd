@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import DropdownMenu, { DropdownMenuOptionProps } from "./DropdownMenu";
 
 const NavContainer = styled.nav<{ scrolled: boolean }>`
   position: fixed;
@@ -23,10 +27,19 @@ const NavContent = styled.div`
   margin: 0 auto;
 `;
 
-const Logo = styled.a<{ scrolled: boolean }>`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${(props) => (props.scrolled ? "#333" : "white")};
+const Logo = styled(Link)<{ scrolled: boolean }>`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: ${(props) => (props.scrolled ? "white" : "#212121")};
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
+const LogoImage = styled(Image)`
+  height: auto;
+  transition: opacity 0.3s ease;
 `;
 
 const NavLinks = styled.div`
@@ -38,13 +51,24 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled.a<{ scrolled: boolean }>`
-  color: ${(props) => (props.scrolled ? "#333" : "white")};
-  font-weight: 500;
+const NavLink = styled(Link)<{ scrolled: boolean; active: boolean }>`
+  color: #212121;
+  font-weight: bold;
   transition: color 0.3s ease;
 
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: ${(props) => (props.active ? "100%" : "0")};
+    height: 2px;
+    background-color: #212121;
+    opacity: 0.5;
+    transition: width 0.3s ease;
+  }
   &:hover {
-    color: #0070f3;
+    opacity: 0.5;
   }
 `;
 
@@ -90,9 +114,19 @@ const CloseButton = styled.button`
   margin-bottom: 2rem;
 `;
 
+const WorksMenuOptions: DropdownMenuOptionProps[] = [
+  { title: "ALL", subtitle: "전체", address: "" },
+  { title: "BRANDING", subtitle: "브랜딩·로고", address: "/#branding" },
+  { title: "PACKAGE", subtitle: "패키지", address: "/#package" },
+  { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/#ad" },
+];
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [worksMenuOpen, setWorksMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const targetRef = useRef<HTMLAnchorElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -114,21 +148,38 @@ export default function Header() {
     <>
       <NavContainer scrolled={scrolled}>
         <NavContent>
-          <Logo href="#" scrolled={scrolled}>
-            BOLD GO BEYOND
+          <Logo href="/" scrolled={scrolled}>
+            <LogoImage
+              src="/favicon.ico"
+              alt="BOLD GO BEYOND"
+              width={150}
+              height={40}
+              priority
+            />
           </Logo>
           <NavLinks>
-            <NavLink href="#about" scrolled={scrolled}>
-              About
+            <NavLink
+              href="/about"
+              scrolled={scrolled}
+              active={router.pathname === "/about"}
+            >
+              ABOUT
             </NavLink>
-            <NavLink href="#services" scrolled={scrolled}>
-              Services
+            <NavLink
+              href="/works"
+              scrolled={scrolled}
+              active={router.pathname === "/works"}
+              ref={targetRef}
+              onMouseEnter={() => setWorksMenuOpen(true)}
+            >
+              WORKS
             </NavLink>
-            <NavLink href="#portfolio" scrolled={scrolled}>
-              Portfolio
-            </NavLink>
-            <NavLink href="#contact" scrolled={scrolled}>
-              Contact
+            <NavLink
+              href="/contact"
+              scrolled={scrolled}
+              active={router.pathname === "/contact"}
+            >
+              CONTACT
             </NavLink>
           </NavLinks>
           <MobileMenuButton
@@ -139,7 +190,14 @@ export default function Header() {
           </MobileMenuButton>
         </NavContent>
       </NavContainer>
-
+      {worksMenuOpen && (
+        <DropdownMenu
+          isOpened={worksMenuOpen}
+          setIsOpened={setWorksMenuOpen}
+          targetRef={targetRef}
+          options={WorksMenuOptions}
+        />
+      )}
       {mobileMenuOpen && (
         <MobileMenu
           initial={{ x: 300 }}
@@ -156,12 +214,6 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Services
-          </MobileNavLink>
-          <MobileNavLink
-            href="#portfolio"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Portfolio
           </MobileNavLink>
           <MobileNavLink
             href="#contact"
