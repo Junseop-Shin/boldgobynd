@@ -35,7 +35,7 @@ const Copyright = styled.p`
   font-weight: bold;
 `;
 
-const footerList = {
+export const footerList = {
   company: "BOLD (볼드)",
   ceo: "신혜승",
   businessRegistrationNumber: "201-18-99848",
