@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
+import { footerList } from "./Footer";
 
 const ContactSection = styled.section`
   padding: 5rem 2rem;
-  background-color: white;
+  background-color: #d9ffe0;
 `;
 
 const ContactContainer = styled.div`
@@ -13,44 +14,51 @@ const ContactContainer = styled.div`
   margin: 0 auto;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background-color: #0070f3;
-  }
-`;
-
 const ContactGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
+  margin-top: 3rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
+const SectionTitle = styled.h2`
+  font-size: 1.286em;
+  text-align: left;
+  line-height: 1.5;
+  color: rgb(84, 84, 87);
+  font-weight: 700;
+`;
+
+const SectionSubtitle = styled.p`
+  font-size: 36px;
+  text-align: left;
+  font-weight: 700;
+`;
+
+const SectionBody = styled.p`
+  font-size: 18px;
+  line-height: 1.8;
+  text-align: left;
+  color: rgb(33, 33, 33);
+  font-weight: 400;
+`;
+
 const ContactInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+  gap: 1.5rem;
 `;
 
 const ContactInfoItem = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+  flex: 1 1 0;
 `;
 
 const ContactIcon = styled.div`
@@ -62,12 +70,12 @@ const ContactIcon = styled.div`
 const ContactDetails = styled.div``;
 
 const ContactTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
 `;
 
 const ContactText = styled.p`
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #666;
 `;
 
@@ -77,15 +85,34 @@ const ContactForm = styled.form`
   gap: 1.5rem;
 `;
 
+const FormGroupGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 `;
 
-const FormLabel = styled.label`
+const FormLabel = styled.label<{ required?: boolean }>`
   font-size: 1rem;
   font-weight: 500;
+
+  ${({ required }) =>
+    required &&
+    `
+    &::after {
+      content: "*";
+      color: red;
+    }
+  `}
 `;
 
 const FormInput = styled.input`
@@ -116,10 +143,11 @@ const FormTextarea = styled.textarea`
 
 const SubmitButton = styled.button`
   padding: 0.8rem 2rem;
-  background-color: #0070f3;
+  background-color: #121212;
+  width: 100%;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -127,7 +155,7 @@ const SubmitButton = styled.button`
   align-self: flex-start;
 
   &:hover {
-    background-color: #0051a8;
+    opacity: 0.8;
   }
 `;
 
@@ -142,9 +170,10 @@ const SuccessMessage = styled.div`
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
-    subject: "",
-    message: "",
+    project: "",
+    file: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -168,9 +197,10 @@ export default function Contact() {
     // 폼 초기화
     setFormData({
       name: "",
+      phone: "",
       email: "",
-      subject: "",
-      message: "",
+      project: "",
+      file: "",
     });
 
     // 3초 후 성공 메시지 숨기기
@@ -182,61 +212,98 @@ export default function Contact() {
   return (
     <ContactSection id="contact">
       <ContactContainer>
-        <FadeUpAnimation>
-          <SectionTitle>Contact Us</SectionTitle>
-        </FadeUpAnimation>
-
         <ContactGrid>
-          <FadeUpAnimation delay={0.2}>
-            <ContactInfo>
-              <ContactInfoItem>
-                <ContactIcon>
-                  <FaMapMarkerAlt />
-                </ContactIcon>
-                <ContactDetails>
-                  <ContactTitle>Our Location</ContactTitle>
-                  <ContactText>서울특별시 강남구 테헤란로 123, 5층</ContactText>
-                </ContactDetails>
-              </ContactInfoItem>
+          <div>
+            <FadeUpAnimation>
+              <SectionTitle>문의하기</SectionTitle>
+            </FadeUpAnimation>
+            <FadeUpAnimation delay={0.1}>
+              <SectionSubtitle>
+                <br />
+              </SectionSubtitle>
+              <SectionSubtitle>아이디어를 남겨주세요.</SectionSubtitle>
+              <SectionSubtitle>BOLD가 실현을 돕겠습니다.</SectionSubtitle>
+              <SectionSubtitle>
+                <br />
+              </SectionSubtitle>
+              <SectionBody>
+                원하는 서비스의 내용, 예산, 일정을 알려주시면,
+              </SectionBody>
+              <SectionBody>
+                빠른 시간 내에 구체적인 견적 및 제작 일정을 안내해 드립니다.
+              </SectionBody>
+              <SectionBody>함께 새로운 가능성을 만들어가요!🚀</SectionBody>
+            </FadeUpAnimation>
+            <FadeUpAnimation delay={0.2}>
+              <ContactInfo>
+                <ContactInfoItem>
+                  <ContactIcon>
+                    <FaMapMarkerAlt />
+                  </ContactIcon>
+                  <ContactDetails>
+                    <ContactTitle>Our Location</ContactTitle>
+                    <ContactText>{footerList.address}</ContactText>
+                  </ContactDetails>
+                </ContactInfoItem>
 
-              <ContactInfoItem>
-                <ContactIcon>
-                  <FaPhone />
-                </ContactIcon>
-                <ContactDetails>
-                  <ContactTitle>Phone Number</ContactTitle>
-                  <ContactText>+82 02-1234-5678</ContactText>
-                </ContactDetails>
-              </ContactInfoItem>
+                <ContactInfoItem>
+                  <ContactIcon>
+                    <FaPhone />
+                  </ContactIcon>
+                  <ContactDetails>
+                    <ContactTitle>Phone Number</ContactTitle>
+                    <ContactText>{footerList.phone}</ContactText>
+                  </ContactDetails>
+                </ContactInfoItem>
 
-              <ContactInfoItem>
-                <ContactIcon>
-                  <FaEnvelope />
-                </ContactIcon>
-                <ContactDetails>
-                  <ContactTitle>Email Address</ContactTitle>
-                  <ContactText>info@boldgobeyond.com</ContactText>
-                </ContactDetails>
-              </ContactInfoItem>
-            </ContactInfo>
-          </FadeUpAnimation>
+                <ContactInfoItem>
+                  <ContactIcon>
+                    <FaEnvelope />
+                  </ContactIcon>
+                  <ContactDetails>
+                    <ContactTitle>Email Address</ContactTitle>
+                    <ContactText>{footerList.email}</ContactText>
+                  </ContactDetails>
+                </ContactInfoItem>
+              </ContactInfo>
+            </FadeUpAnimation>
+          </div>
 
           <FadeUpAnimation delay={0.4}>
             <ContactForm onSubmit={handleSubmit}>
-              <FormGroup>
-                <FormLabel htmlFor="name">Your Name</FormLabel>
-                <FormInput
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
+              <FormGroupGrid>
+                <FormGroup>
+                  <FormLabel htmlFor="name" required>
+                    NAME OF COMPANY
+                  </FormLabel>
+                  <FormInput
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
 
+                <FormGroup>
+                  <FormLabel htmlFor="phone" required>
+                    PHONE
+                  </FormLabel>
+                  <FormInput
+                    type="phone"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+              </FormGroupGrid>
               <FormGroup>
-                <FormLabel htmlFor="email">Your Email</FormLabel>
+                <FormLabel htmlFor="email" required>
+                  EMAIL
+                </FormLabel>
                 <FormInput
                   type="email"
                   id="email"
@@ -248,29 +315,30 @@ export default function Contact() {
               </FormGroup>
 
               <FormGroup>
-                <FormLabel htmlFor="subject">Subject</FormLabel>
-                <FormInput
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
+                <FormLabel htmlFor="project" required>
+                  ABOUT PROJECT
+                </FormLabel>
+                <FormTextarea
+                  id="project"
+                  name="project"
+                  value={formData.project}
                   onChange={handleChange}
                   required
                 />
               </FormGroup>
 
               <FormGroup>
-                <FormLabel htmlFor="message">Your Message</FormLabel>
-                <FormTextarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
+                <FormLabel htmlFor="message">UPLOAD</FormLabel>
+                <FormInput
+                  type="file"
+                  id="file"
+                  name="file"
+                  value={formData.file}
                   onChange={handleChange}
-                  required
                 />
               </FormGroup>
 
-              <SubmitButton type="submit">Send Message</SubmitButton>
+              <SubmitButton type="submit">제출하기</SubmitButton>
 
               {isSubmitted && (
                 <SuccessMessage>
