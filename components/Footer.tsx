@@ -1,17 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaHeart,
-} from "react-icons/fa";
 
 const FooterSection = styled.footer`
+  display: flex;
   background-color: #222;
   color: white;
-  padding: 4rem 2rem 2rem;
+  padding: 2rem 2rem 0.5rem;
+  justify-content: center;
 `;
 
 const FooterContainer = styled.div`
@@ -19,111 +14,36 @@ const FooterContainer = styled.div`
   margin: 0 auto;
 `;
 
-const FooterGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
-  margin-bottom: 3rem;
-`;
-
-const FooterColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FooterLogo = styled.h3`
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-`;
-
 const FooterDescription = styled.p`
-  font-size: 1rem;
+  text-align: center;
+  font-size: 14px;
   color: #aaa;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-`;
-
-const FooterTitle = styled.h4`
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 30px;
-    height: 2px;
-    background-color: #0070f3;
-  }
-`;
-
-const FooterLinks = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const FooterLink = styled.li`
-  margin-bottom: 0.8rem;
-
-  a {
-    color: #aaa;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #0070f3;
-    }
-  }
-`;
-
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const SocialLink = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: #333;
-  border-radius: 50%;
-  color: white;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: #0070f3;
-    transform: translateY(-3px);
-  }
+  line-height: 1.5;
+  word-wrap: break-word;
 `;
 
 const FooterBottom = styled.div`
   text-align: center;
   padding-top: 2rem;
-  border-top: 1px solid #444;
 `;
 
 const Copyright = styled.p`
-  font-size: 0.9rem;
-  color: #aaa;
-
-  a {
-    color: #0070f3;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: white;
-    }
-  }
+  font-size: 14px;
+  color: #9c9ea2;
+  font-family: "BebasNeue", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
+    "Nanum Gothic", "Noto Sans", "sans-serif";
+  font-weight: bold;
 `;
 
-const HeartIcon = styled(FaHeart)`
-  color: #ff4757;
-  margin: 0 0.3rem;
-`;
+const footerList = {
+  company: "BOLD (볼드)",
+  ceo: "신혜승",
+  businessRegistrationNumber: "201-18-99848",
+  phone: "070. 8080. 3150",
+  email: "bold@studiobold.co.kr",
+  operatingTime: "월-금 09:00 - 17:00 ㅣ 토,일,공휴일 휴무",
+  address: "서울특별시 양천구 신정중앙로 77 경동빌딩 4층",
+};
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -131,80 +51,20 @@ export default function Footer() {
   return (
     <FooterSection>
       <FooterContainer>
-        <FooterGrid>
-          <FooterColumn>
-            <FooterLogo>BOLD GO BEYOND</FooterLogo>
-            <FooterDescription>
-              혁신적인 디자인과 기술로 비즈니스의 새로운 가능성을 열어갑니다.
-              우리는 고객의 성공을 위해 최선을 다합니다.
-            </FooterDescription>
-            <SocialLinks>
-              <SocialLink href="#" aria-label="Facebook">
-                <FaFacebookF />
-              </SocialLink>
-              <SocialLink href="#" aria-label="Twitter">
-                <FaTwitter />
-              </SocialLink>
-              <SocialLink href="#" aria-label="Instagram">
-                <FaInstagram />
-              </SocialLink>
-              <SocialLink href="#" aria-label="LinkedIn">
-                <FaLinkedinIn />
-              </SocialLink>
-            </SocialLinks>
-          </FooterColumn>
-
-          <FooterColumn>
-            <FooterTitle>Quick Links</FooterTitle>
-            <FooterLinks>
-              <FooterLink>
-                <a href="#about">About Us</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#services">Services</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#portfolio">Portfolio</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#contact">Contact Us</a>
-              </FooterLink>
-            </FooterLinks>
-          </FooterColumn>
-
-          <FooterColumn>
-            <FooterTitle>Services</FooterTitle>
-            <FooterLinks>
-              <FooterLink>
-                <a href="#">Web Design</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#">App Development</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#">E-commerce Solutions</a>
-              </FooterLink>
-              <FooterLink>
-                <a href="#">Digital Marketing</a>
-              </FooterLink>
-            </FooterLinks>
-          </FooterColumn>
-
-          <FooterColumn>
-            <FooterTitle>Contact Info</FooterTitle>
-            <FooterLinks>
-              <FooterLink>서울특별시 강남구 테헤란로 123, 5층</FooterLink>
-              <FooterLink>+82 02-1234-5678</FooterLink>
-              <FooterLink>info@boldgobeyond.com</FooterLink>
-              <FooterLink>월-금: 9:00 AM - 6:00 PM</FooterLink>
-            </FooterLinks>
-          </FooterColumn>
-        </FooterGrid>
-
+        <FooterDescription>
+          {`${footerList.company}  |  대표 ${footerList.ceo}`}
+        </FooterDescription>
+        <FooterDescription>
+          사업자등록번호 {footerList.businessRegistrationNumber}
+        </FooterDescription>
+        <FooterDescription>
+          {`${footerList.phone}  |  ${footerList.email}`}
+        </FooterDescription>
+        <FooterDescription>{footerList.operatingTime}</FooterDescription>
+        <FooterDescription>{footerList.address}</FooterDescription>
         <FooterBottom>
           <Copyright>
-            &copy; {currentYear} BOLD GO BEYOND. All Rights Reserved. Made with{" "}
-            <HeartIcon /> by <a href="#">Your Name</a>
+            COPYRIGHT ⓒ {currentYear} STUDIOBOLD ALL RIGHTS RESERVED.
           </Copyright>
         </FooterBottom>
       </FooterContainer>
