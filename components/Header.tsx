@@ -27,19 +27,22 @@ const NavContent = styled.div`
   margin: 0 auto;
 `;
 
-const Logo = styled(Link)<{ scrolled: boolean }>`
+const Logo = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${(props) => (props.scrolled ? "white" : "#212121")};
   &:hover {
     opacity: 0.5;
   }
 `;
 
-const LogoImage = styled(Image)`
+const LogoImage = styled(Image)<{ scrolled: boolean; headerColor?: boolean }>`
   height: auto;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  filter: ${(props) =>
+    !props.scrolled && !props.headerColor
+      ? "brightness(0) invert(1)" // 흰색으로 변환
+      : "none"};
 `;
 
 const NavLinks = styled.div`
@@ -51,8 +54,14 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled(Link)<{ scrolled: boolean; active: boolean }>`
-  color: #212121;
+const NavLink = styled(Link)<{
+  scrolled: boolean;
+  active: boolean;
+  headerColor?: boolean;
+}>`
+  position: relative;
+  color: ${(props) =>
+    props.headerColor ? "#212121" : props.scrolled ? "#212121" : "white"};
   font-weight: bold;
   transition: color 0.3s ease;
 
@@ -63,7 +72,8 @@ const NavLink = styled(Link)<{ scrolled: boolean; active: boolean }>`
     left: 0;
     width: ${(props) => (props.active ? "100%" : "0")};
     height: 2px;
-    background-color: #212121;
+    background-color: ${(props) =>
+      props.headerColor ? "#212121" : props.scrolled ? "#212121" : "white"};
     opacity: 0.5;
     transition: width 0.3s ease;
   }
@@ -72,12 +82,16 @@ const NavLink = styled(Link)<{ scrolled: boolean; active: boolean }>`
   }
 `;
 
-const MobileMenuButton = styled.button<{ scrolled: boolean }>`
+const MobileMenuButton = styled.button<{
+  scrolled: boolean;
+  headerColor?: boolean;
+}>`
   display: none;
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: ${(props) => (props.scrolled ? "#333" : "white")};
+  color: ${(props) =>
+    props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
   cursor: pointer;
 
   @media (max-width: 768px) {
@@ -121,7 +135,7 @@ const WorksMenuOptions: DropdownMenuOptionProps[] = [
   { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/#ad" },
 ];
 
-export default function Header() {
+export default function Header({ headerColor = true }) {
   const [scrolled, setScrolled] = useState(false);
   const [worksMenuOpen, setWorksMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -148,10 +162,12 @@ export default function Header() {
     <>
       <NavContainer scrolled={scrolled}>
         <NavContent>
-          <Logo href="/" scrolled={scrolled}>
+          <Logo href="/">
             <LogoImage
               src="/favicon.ico"
               alt="BOLD GO BEYOND"
+              scrolled={scrolled}
+              headerColor={headerColor}
               width={150}
               height={40}
               priority
@@ -161,6 +177,7 @@ export default function Header() {
             <NavLink
               href="/about"
               scrolled={scrolled}
+              headerColor={headerColor}
               active={router.pathname === "/about"}
             >
               ABOUT
@@ -168,6 +185,7 @@ export default function Header() {
             <NavLink
               href="/works"
               scrolled={scrolled}
+              headerColor={headerColor}
               active={router.pathname === "/works"}
               ref={targetRef}
               onMouseEnter={() => setWorksMenuOpen(true)}
@@ -176,6 +194,7 @@ export default function Header() {
             </NavLink>
             <NavLink
               href="/contact"
+              headerColor={headerColor}
               scrolled={scrolled}
               active={router.pathname === "/contact"}
             >
@@ -184,6 +203,7 @@ export default function Header() {
           </NavLinks>
           <MobileMenuButton
             scrolled={scrolled}
+            headerColor={headerColor}
             onClick={() => setMobileMenuOpen(true)}
           >
             ☰

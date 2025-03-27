@@ -1,56 +1,120 @@
 import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import ImageCarousel from "./ImageCarousel";
+
+const GalleryImages = [
+  {
+    src: "/resources/gallery/ad1.jpg",
+    alt: "AD 1",
+  },
+  {
+    src: "/resources/gallery/ad2.jpg",
+    alt: "AD 2",
+  },
+  {
+    src: "/resources/gallery/ad3.jpg",
+    alt: "AD 3",
+  },
+  {
+    src: "/resources/gallery/package1.jpg",
+    alt: "PACKAGE 1",
+  },
+  {
+    src: "/resources/gallery/package2.jpg",
+    alt: "PACKAGE 2",
+  },
+  {
+    src: "/resources/gallery/package3.jpg",
+    alt: "PACKAGE 3",
+  },
+  {
+    src: "/resources/gallery/package4.jpg",
+    alt: "PACKAGE 4",
+  },
+  {
+    src: "/resources/gallery/package5.jpg",
+    alt: "PACKAGE 5",
+  },
+  {
+    src: "/resources/gallery/package6.jpg",
+    alt: "PACKAGE 6",
+  },
+  {
+    src: "/resources/gallery/package7.jpg",
+    alt: "PACKAGE 7",
+  },
+  {
+    src: "/resources/gallery/package8.jpg",
+    alt: "PACKAGE 8",
+  },
+  {
+    src: "/resources/gallery/package9.jpg",
+    alt: "PACKAGE 9",
+  },
+  {
+    src: "/resources/gallery/package10.jpg",
+    alt: "PACKAGE 10",
+  },
+  {
+    src: "/resources/gallery/package11.jpg",
+    alt: "PACKAGE 11",
+  },
+  {
+    src: "/resources/gallery/package12.jpg",
+    alt: "PACKAGE 12",
+  },
+];
 
 const AboutSection = styled.section`
   padding: 5rem 2rem;
-  background-color: #f8f9fa;
+  background-color: #1e1e20;
 `;
 
 const AboutContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
+  justify-content: center;
+  align-items: center;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
+const SectionTitle = styled.p`
+  text-align: left;
+  font-size: 36px;
+  color: rgb(199, 202, 207);
+  letter-spacing: -1px;
+  font-weight: 700;
+  line-height: 1.3;
+`;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background-color: #0070f3;
+const SectionSubtitle = styled.p`
+  color: rgb(141, 143, 147);
+  font-size: 20px;
+  text-align: left;
+  font-weight: 350;
+  line-height: 1.8;
+`;
+
+const AboutTitleImage = styled(Image)`
+  flex: 1;
+  transition: opacity 0.3s ease;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
   }
 `;
 
-const AboutGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-`;
+const AboutSubtitleImage = styled(Image)`
+  flex: 1;
+  transition: opacity 0.3s ease;
 
-const AboutCard = styled.div`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-`;
-
-const AboutCardTitle = styled.h3`
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
-
-const AboutCardContent = styled.p`
-  font-size: 1rem;
-  color: #666;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export default function About() {
@@ -58,37 +122,83 @@ export default function About() {
     <AboutSection id="about">
       <AboutContainer>
         <FadeUpAnimation>
-          <SectionTitle>About Us</SectionTitle>
+          <div style={{ margin: "3rem 0" }}>
+            <AboutTitleImage
+              src="/resources/About_Title.png"
+              alt="Think BOLD, create Beyond"
+              width={1200}
+              height={240}
+              priority
+            />
+          </div>
         </FadeUpAnimation>
-        <AboutGrid>
-          <FadeUpAnimation delay={0.2}>
-            <AboutCard>
-              <AboutCardTitle>Our Mission</AboutCardTitle>
-              <AboutCardContent>
-                우리는 혁신적인 디자인과 기술로 고객의 비즈니스를 성장시키는
-                것을 목표로 합니다.
-              </AboutCardContent>
-            </AboutCard>
+        <div>
+          <FadeUpAnimation delay={0.1}>
+            <div>
+              <SectionTitle>모든 도전은 기회가 되며,</SectionTitle>
+              <SectionTitle>
+                '대담함'이야말로 변화를 일으키는 원동력입니다.
+              </SectionTitle>
+              <SectionTitle>
+                <br />
+              </SectionTitle>
+            </div>
           </FadeUpAnimation>
-          <FadeUpAnimation delay={0.4}>
-            <AboutCard>
-              <AboutCardTitle>Our Vision</AboutCardTitle>
-              <AboutCardContent>
-                디지털 세상에서 모든 기업이 성공할 수 있도록 돕는 글로벌 리더가
-                되는 것입니다.
-              </AboutCardContent>
-            </AboutCard>
+          <FadeUpAnimation delay={0.1}>
+            <div>
+              <SectionSubtitle>
+                <strong>BOLD</strong>는 ‘대담함’을 핵심 가치로 삼아, 혁신적인
+                시각과 접근법으로 새로운 가능성을 열어갑니다.
+              </SectionSubtitle>
+              <SectionSubtitle>
+                기존의 틀을 넘어서는 창의적인 솔루션을 제시하며,
+              </SectionSubtitle>
+              <SectionSubtitle>
+                고객이 한층 더 미래 지향적인 방향으로 나아갈 수 있도록
+                함께합니다.
+              </SectionSubtitle>
+            </div>
           </FadeUpAnimation>
-          <FadeUpAnimation delay={0.6}>
-            <AboutCard>
-              <AboutCardTitle>Our Values</AboutCardTitle>
-              <AboutCardContent>
-                혁신, 협력, 고객 중심, 지속 가능성을 우리의 핵심 가치로 삼고
-                있습니다.
-              </AboutCardContent>
-            </AboutCard>
+        </div>
+        <div style={{ margin: "3rem 0" }}>
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <AboutSubtitleImage
+              src="/resources/About_Subtitle.png"
+              alt="Portfolio example"
+              width={1200}
+              height={460}
+              priority
+            />
+          </motion.div>
+        </div>
+        <div>
+          <FadeUpAnimation>
+            <div>
+              <SectionTitle>대담한 목표와 비전을 갖추면,</SectionTitle>
+              <SectionTitle>한계를 넘어 무한한 가능성이 열립니다.</SectionTitle>
+              <SectionTitle>
+                <br />
+              </SectionTitle>
+            </div>
           </FadeUpAnimation>
-        </AboutGrid>
+          <FadeUpAnimation>
+            <div>
+              <SectionSubtitle>
+                BOLD의 전략적 브랜드 솔루션은 고객이 시장에서 차별화된 입지를
+                구축하고
+              </SectionSubtitle>
+              <SectionSubtitle>
+                지속 가능한 성장을 위한 탄탄한 기반을 마련할 수 있도록
+                지원합니다.
+              </SectionSubtitle>
+              <SectionSubtitle>
+                이를 통해 고객사는 브랜드 가치를 극대화하고, 장기적인 성장
+                동력을 확보할 수 있습니다.
+              </SectionSubtitle>
+            </div>
+          </FadeUpAnimation>
+        </div>
+        <ImageCarousel images={GalleryImages} autoPlayInterval={5000} />
       </AboutContainer>
     </AboutSection>
   );
