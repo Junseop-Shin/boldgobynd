@@ -4,13 +4,13 @@ import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
 
 // 타입 정의
-interface ImageType {
+interface ImageCarouselType {
   src: string;
   alt: string;
 }
 
 interface ImageCarouselProps {
-  images: ImageType[];
+  images: ImageCarouselType[];
   autoPlayInterval?: number;
 }
 

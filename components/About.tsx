@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ImageCarousel from "./ImageCarousel";
 
-const GalleryImages = [
+const carouselImages = [
   {
     src: "/resources/gallery/ad1.jpg",
     alt: "AD 1",
@@ -198,7 +198,7 @@ export default function About() {
             </div>
           </FadeUpAnimation>
         </div>
-        <ImageCarousel images={GalleryImages} autoPlayInterval={5000} />
+        <ImageCarousel images={carouselImages} autoPlayInterval={5000} />
       </AboutContainer>
     </AboutSection>
   );

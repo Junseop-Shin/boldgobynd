@@ -1,12 +1,97 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import FadeUpAnimation from "./FadeUpAnimation";
-import {
-  FaDesktop,
-  FaMobileAlt,
-  FaShoppingCart,
-  FaChartLine,
-} from "react-icons/fa";
+import ImageGallery from "./ImageGallery";
+import { worksMenuOptions } from "./Header";
+
+const galleryImages = [
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "홈&라이프스타일 큐레이션 플랫폼 DIBAMBI",
+    description:
+      "홈&라이프스타일 큐레이션 플랫폼 DIBAMBI 브랜드리뉴얼 및 제품디자인",
+    link: "/works/dibambi",
+    tags: ["BRANDING", "PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "영상전문프로덕션 PRODUCTION 4:2",
+    description: "로고 및 브랜드가이드 제작",
+    link: "/works/production42",
+    tags: ["BRANDING"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "홈&프리미엄 비건 두유 그릭요거트 브랜드 VEGREEK",
+    description: "그릭요거트 제품 리브랜딩",
+    link: "/works/vegreek",
+    tags: ["BRANDING", "PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "프리미엄 OPTICAL PPF 브랜드 ONYXHIELD",
+    description: "온·오프라인 ASSET 제작",
+    link: "/works/onyxhield",
+    tags: ["BRANDING", "AD·EDITORIAL"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "더현대 프레젠트(THE HYUNDAI PRESENT) with JACKPOD NEWYORK",
+    description: "스마트워치 스트랩 패키지 제작",
+    link: "/works/jackpod",
+    tags: ["PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "블랜딩찻집 CAFE CHAWAN",
+    description: "차완마음강화티_POSTEACARD 패키지 제작",
+    link: "/works/chawan",
+    tags: ["PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "CAFE385",
+    description: "부산 바다 소금 카라멜 BUSAN CARAMEL 패키지 제작",
+    link: "/works/cafe385",
+    tags: ["PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "자연주의 스킨케어 브랜드 B:DERMATIC",
+    description: "로고 리뉴얼 및 비건 라인 패키지 제작",
+    link: "/works/bdermatic",
+    tags: ["PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "프리미엄 반려동물 라이프 스타일 브랜드 PEALTH",
+    description: "펫용 제품 패키지 제작",
+    link: "/works/pealth",
+    tags: ["PACKAGE"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "토탈 윈도우 필름 전문기업 RAYNO",
+    description: "윈도우 필름 심볼 개발 및 온·오프라인 ASSET 제작",
+    link: "/works/rayno",
+    tags: ["AD·EDITORIAL"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "프리미엄 카워시 서비스 브랜드 AUTONOVA",
+    description: "온·오프라인 ASSET 제작",
+    link: "/works/autonova",
+    tags: ["AD·EDITORIAL"],
+  },
+  {
+    src: "/resources/gallery/ad1.jpg",
+    title: "수제 츄러스 전문점 시나몬하우스 CINNAMONHAUS",
+    description: "창업박람회 압축브로셔 제작",
+    link: "/works/cinnamonhaus",
+    tags: ["AD·EDITORIAL"],
+  },
+];
 
 const WorksSection = styled.section`
   padding: 5rem 2rem;
@@ -18,103 +103,40 @@ const WorksContainer = styled.div`
   margin: 0 auto;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
+const WorksTitle = styled(Image)`
+  flex: 1;
+  transition: opacity 0.3s ease;
+  margin-top: 4rem;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background-color: #0070f3;
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
   }
 `;
 
-const WorksGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-`;
-
-const WorkCard = styled.div`
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const WorkIcon = styled.div`
-  font-size: 2.5rem;
-  color: #0070f3;
-  margin-bottom: 1.5rem;
-`;
-
-const WorkTitle = styled.h3`
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
-
-const WorkDescription = styled.p`
-  font-size: 1rem;
-  color: #666;
+const WorksSubtitle = styled.p`
+  font-size: 1.1rem;
+  color: rgb(11, 11, 11);
+  padding-bottom: 2rem;
+  border-bottom: 4px solid black;
 `;
 
 export default function Works() {
-  const works = [
-    {
-      icon: <FaDesktop />,
-      title: "웹 디자인 & 개발",
-      description:
-        "모던하고 반응형 웹사이트를 디자인하고 개발합니다. 사용자 경험을 최우선으로 고려합니다.",
-    },
-    {
-      icon: <FaMobileAlt />,
-      title: "모바일 앱 개발",
-      description:
-        "iOS와 Android 플랫폼을 위한 네이티브 및 하이브리드 모바일 애플리케이션을 개발합니다.",
-    },
-    {
-      icon: <FaShoppingCart />,
-      title: "이커머스 솔루션",
-      description:
-        "온라인 쇼핑몰 구축부터 결제 시스템 연동, 재고 관리까지 완벽한 이커머스 솔루션을 제공합니다.",
-    },
-    {
-      icon: <FaChartLine />,
-      title: "디지털 마케팅",
-      description:
-        "SEO, 소셜 미디어 마케팅, 콘텐츠 마케팅 등 효과적인 디지털 마케팅 전략을 수립하고 실행합니다.",
-    },
-  ];
-
   return (
     <WorksSection id="works">
       <WorksContainer>
         <FadeUpAnimation>
-          <SectionTitle>Our Works</SectionTitle>
+          <WorksTitle
+            src="/resources/Works_Title.png"
+            alt="Lead with BOLD"
+            width={500}
+            height={100}
+            priority
+          />
+          <WorksSubtitle>
+            <strong>BOLD</strong>의 다양한 분야의 포트폴리오를 소개합니다.
+          </WorksSubtitle>
         </FadeUpAnimation>
-        <WorksGrid>
-          {works.map((work, index) => (
-            <FadeUpAnimation key={index} delay={0.2 * index}>
-              <WorkCard>
-                <WorkIcon>{work.icon}</WorkIcon>
-                <WorkTitle>{work.title}</WorkTitle>
-                <WorkDescription>{work.description}</WorkDescription>
-              </WorkCard>
-            </FadeUpAnimation>
-          ))}
-        </WorksGrid>
+        <ImageGallery tags={worksMenuOptions} images={galleryImages} />
       </WorksContainer>
     </WorksSection>
   );
