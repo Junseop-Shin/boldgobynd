@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FaSearchMinus, FaSearchPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -12,6 +13,7 @@ interface ImageCarouselType {
 interface ImageCarouselProps {
   images: ImageCarouselType[];
   autoPlayInterval?: number;
+  isLinked?: boolean;
 }
 
 interface TransformState {
@@ -230,6 +232,7 @@ const CloseButton = styled(IoClose)`
 const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   autoPlayInterval = 5000,
+  isLinked = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -440,9 +443,17 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         <CarouselTrack translateX={translateX}>
           {images.map((image, index) => (
             <ImageSlide key={index} width={slideWidth}>
-              <SquareImageContainer onClick={() => openFullscreen(index)}>
-                <SquareImage src={image.src} alt={image.alt} />
-              </SquareImageContainer>
+              {isLinked ? (
+                <Link href="/" passHref>
+                  <SquareImageContainer>
+                    <SquareImage src={image.src} alt={image.alt} />
+                  </SquareImageContainer>
+                </Link>
+              ) : (
+                <SquareImageContainer onClick={() => openFullscreen(index)}>
+                  <SquareImage src={image.src} alt={image.alt} />
+                </SquareImageContainer>
+              )}
             </ImageSlide>
           ))}
         </CarouselTrack>
