@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
+import FullWidthImage from "./common/FullWidthImage";
 
 export interface GalleryImage {
   title: string;
@@ -51,6 +52,7 @@ const ThumbnailGrid = styled.div`
 const ThumbnailImageContainer = styled(Link)`
   position: relative;
   transition: transform 0.3s ease;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -59,9 +61,8 @@ const ThumbnailImageContainer = styled(Link)`
 
 const Thumbnail = styled.img`
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
-  cursor: pointer;
 `;
 
 const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`

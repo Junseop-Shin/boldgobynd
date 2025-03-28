@@ -4,6 +4,7 @@ import Image from "next/image";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { GalleryImage } from "./ImageGallery";
 import { Work } from "../assets/Works";
+import FullWidthImage from "./common/FullWidthImage";
 
 type TABLEPOSITION = "TOP" | "FIXED" | "BOTTOM";
 
@@ -68,18 +69,6 @@ const WorksMainImageContainer = styled.div`
   justify-self: flex-end;
 `;
 
-const WorksMainImage = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
 export default function WorksDetail({ work }: { work: Work }) {
   const [tablePosition, setTablePosition] = useState<TABLEPOSITION>("TOP");
   const [tableTop, setTableTop] = useState(0);
@@ -139,13 +128,13 @@ export default function WorksDetail({ work }: { work: Work }) {
           </FadeUpAnimation>
           <WorksMainImageContainer>
             {work.allImages.map((image, index) => (
-              <WorksMainImage
+              <FullWidthImage
+                width={1920}
+                height={1227}
                 key={image}
                 src={image}
                 alt={`Project Example ${index + 1}`}
-                width={500}
-                height={100}
-                priority
+                cover
               />
             ))}
           </WorksMainImageContainer>

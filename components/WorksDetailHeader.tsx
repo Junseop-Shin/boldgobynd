@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { Work } from "../assets/Works";
-import { WORKS_TITLE } from "../assets/Image";
+import FullWidthImage from "./common/FullWidthImage";
 
 const WorksDetailHeaderSection = styled.section`
   padding: 5rem 2rem;
@@ -11,7 +10,7 @@ const WorksDetailHeaderSection = styled.section`
 `;
 
 const WorksDetailHeaderContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1200px;xx
   margin: 0 auto;
 `;
 
@@ -19,17 +18,8 @@ const WorksDetailHeaderGrid = styled.div`
   margin: 0 200px;
 `;
 
-const WorksMainImage = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-  margin: 4rem 0;
-  width: 100%;
-  min-height: 300px;
-  object-fit: contain;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
+const WorksMainImage = styled(FullWidthImage)`
+  margin: 5rem 0;
 `;
 
 const WorksTitle = styled.p`
@@ -57,16 +47,14 @@ const WorksDescriptionDetail = styled.p`
 `;
 
 export default function WorksDetailHeader({ work }: { work: Work }) {
-  console.log(work);
   return (
     <WorksDetailHeaderSection>
       <WorksDetailHeaderContainer>
         <WorksMainImage
+          width={1919}
+          height={933}
           src={work.mainImage}
           alt="Lead with BOLD"
-          width={500}
-          height={0}
-          priority
         />
         <WorksDetailHeaderGrid>
           <FadeUpAnimation>

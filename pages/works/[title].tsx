@@ -19,7 +19,7 @@ export default function WorkDetailPages({ work }: { work: Work }) {
   }
 
   return (
-    <Layout>
+    <Layout headerBgColor>
       <WorksDetailHeader work={work} />
       <WorksDetail work={work} />
       <WorksDetailFooter />

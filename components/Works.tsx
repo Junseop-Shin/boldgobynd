@@ -6,6 +6,7 @@ import ImageGallery from "./ImageGallery";
 import { worksMenuOptions } from "./Header";
 import { galleryImages } from "../assets/Works";
 import { WORKS_TITLE } from "../assets/Image";
+import FullWidthImage from "./common/FullWidthImage";
 
 const WorksSection = styled.section`
   padding: 5rem 2rem;
@@ -39,11 +40,11 @@ export default function Works() {
     <WorksSection id="works">
       <WorksContainer>
         <FadeUpAnimation>
-          <WorksTitle
+          <FullWidthImage
             src={WORKS_TITLE}
             alt="Lead with BOLD"
-            width={500}
-            height={100}
+            width={2051}
+            height={410}
             priority
           />
           <WorksSubtitle>

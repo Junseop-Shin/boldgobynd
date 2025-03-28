@@ -1,8 +1,14 @@
 import React from "react";
-import Image from "next/image";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { MAIN_SUBTITLE, MAIN_TITLE } from "../assets/Image";
+import {
+  MAIN_SUBTITLE,
+  MAIN_SUBTITLE_MOBILE,
+  MAIN_TITLE,
+  MAIN_TITLE_MOBILE,
+} from "../assets/Image";
+import FadeUpAnimation from "./FadeUpAnimation";
+import ResponsiveImage from "./common/ResponsiveImage";
 
 const HeroSection = styled.section`
   height: 100vh;
@@ -26,50 +32,36 @@ const HeroContent = styled.div`
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
   margin-top: 3rem;
   padding: 0 2rem;
-`;
-
-const HeroTitle = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
-const HeroSubtitle = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
 `;
 
 export default function Hero() {
   return (
     <HeroSection>
       <HeroContent>
-        <HeroTitle
-          src={MAIN_TITLE}
-          alt="Lead with BOLD"
-          width={1200}
-          height={240}
-          priority
-        />
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <HeroSubtitle
-            src={MAIN_SUBTITLE}
-            alt="Portfolio example"
-            width={1200}
-            height={460}
+        <FadeUpAnimation delay={0.5}>
+          <ResponsiveImage
+            width={5334}
+            height={645}
+            src={MAIN_TITLE}
+            mobileSrc={MAIN_TITLE_MOBILE}
+            alt="Lead with BOLD"
             priority
           />
-        </motion.div>
+        </FadeUpAnimation>
+        <FadeUpAnimation delay={1}>
+          <ResponsiveImage
+            width={5334}
+            height={1687}
+            src={MAIN_SUBTITLE}
+            mobileSrc={MAIN_SUBTITLE_MOBILE}
+            hoverScale
+            alt="Portfolio example"
+          />
+        </FadeUpAnimation>
       </HeroContent>
     </HeroSection>
   );
