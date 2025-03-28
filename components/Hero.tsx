@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { MAIN_SUBTITLE, MAIN_TITLE } from "../assets/Image";
 
 const HeroSection = styled.section`
   height: 100vh;
@@ -54,7 +55,7 @@ export default function Hero() {
     <HeroSection>
       <HeroContent>
         <HeroTitle
-          src="/resources/Main_Title.png"
+          src={MAIN_TITLE}
           alt="Lead with BOLD"
           width={1200}
           height={240}
@@ -62,7 +63,7 @@ export default function Hero() {
         />
         <motion.div whileHover={{ scale: 1.1 }}>
           <HeroSubtitle
-            src="/resources/Main_Subtitle.png"
+            src={MAIN_SUBTITLE}
             alt="Portfolio example"
             width={1200}
             height={460}

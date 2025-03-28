@@ -128,11 +128,11 @@ const CloseButton = styled.button`
   margin-bottom: 2rem;
 `;
 
-const WorksMenuOptions: DropdownMenuOptionProps[] = [
+export const worksMenuOptions: DropdownMenuOptionProps[] = [
   { title: "ALL", subtitle: "전체", address: "" },
-  { title: "BRANDING", subtitle: "브랜딩·로고", address: "/#branding" },
-  { title: "PACKAGE", subtitle: "패키지", address: "/#package" },
-  { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/#ad" },
+  { title: "BRANDING", subtitle: "브랜딩·로고", address: "/branding" },
+  { title: "PACKAGE", subtitle: "패키지", address: "/package" },
+  { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/ad" },
 ];
 
 export default function Header({ headerColor = true }) {
@@ -215,7 +215,7 @@ export default function Header({ headerColor = true }) {
           isOpened={worksMenuOpen}
           setIsOpened={setWorksMenuOpen}
           targetRef={targetRef}
-          options={WorksMenuOptions}
+          options={worksMenuOptions}
         />
       )}
       {mobileMenuOpen && (
@@ -226,17 +226,17 @@ export default function Header({ headerColor = true }) {
           transition={{ type: "spring", damping: 20 }}
         >
           <CloseButton onClick={() => setMobileMenuOpen(false)}>✕</CloseButton>
-          <MobileNavLink href="#about" onClick={() => setMobileMenuOpen(false)}>
+          <MobileNavLink href="/about" onClick={() => setMobileMenuOpen(false)}>
             About
           </MobileNavLink>
           <MobileNavLink
-            href="#services"
+            href="/services"
             onClick={() => setMobileMenuOpen(false)}
           >
             Services
           </MobileNavLink>
           <MobileNavLink
-            href="#contact"
+            href="/contact"
             onClick={() => setMobileMenuOpen(false)}
           >
             Contact

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { footerList } from "./Footer";
 import FadeUpAnimation from "./FadeUpAnimation";
+import { businessInfo } from "../assets/Business";
+import { MAIN_TITLE } from "../assets/Image";
 
 interface FooterContactProps {
   bg?: string;
@@ -88,7 +89,7 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
       <FooterContactContainer>
         <FadeUpAnimation>
           <FooterContactTitle
-            src="/resources/Main_Title.png"
+            src={MAIN_TITLE}
             alt="Lead with BOLD"
             width={1200}
             height={240}
@@ -119,7 +120,9 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
               <FooterContactSubtitle>
                 <strong>TEL</strong>
               </FooterContactSubtitle>
-              <FooterContactSubtitle>{footerList.phone}</FooterContactSubtitle>
+              <FooterContactSubtitle>
+                {businessInfo.phone}
+              </FooterContactSubtitle>
             </FadeUpAnimation>
           </FooterContactSubtitleSection>
           <FooterContactSubtitleSection>
@@ -127,7 +130,9 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
               <FooterContactSubtitle>
                 <strong>E-MAIL</strong>
               </FooterContactSubtitle>
-              <FooterContactSubtitle>{footerList.email}</FooterContactSubtitle>
+              <FooterContactSubtitle>
+                {businessInfo.email}
+              </FooterContactSubtitle>
             </FadeUpAnimation>
           </FooterContactSubtitleSection>
         </FooterContactBodyRow>

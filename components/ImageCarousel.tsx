@@ -1,17 +1,20 @@
+import Link from "next/link";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FaSearchMinus, FaSearchPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
 
 // 타입 정의
-interface ImageType {
-  src: string;
-  alt: string;
+interface ImageCarouselType {
+  title?: string;
+  titleDesc: string;
+  thumbnailImage: string;
 }
 
 interface ImageCarouselProps {
-  images: ImageType[];
+  images: ImageCarouselType[];
   autoPlayInterval?: number;
+  isLinked?: boolean;
 }
 
 interface TransformState {
@@ -230,6 +233,7 @@ const CloseButton = styled(IoClose)`
 const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   autoPlayInterval = 5000,
+  isLinked = false,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -440,9 +444,26 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         <CarouselTrack translateX={translateX}>
           {images.map((image, index) => (
             <ImageSlide key={index} width={slideWidth}>
-              <SquareImageContainer onClick={() => openFullscreen(index)}>
-                <SquareImage src={image.src} alt={image.alt} />
-              </SquareImageContainer>
+              {isLinked ? (
+                <Link
+                  href={image.title ? `/works/${image.title}` : "/"}
+                  passHref
+                >
+                  <SquareImageContainer>
+                    <SquareImage
+                      src={image.thumbnailImage}
+                      alt={image.titleDesc}
+                    />
+                  </SquareImageContainer>
+                </Link>
+              ) : (
+                <SquareImageContainer onClick={() => openFullscreen(index)}>
+                  <SquareImage
+                    src={image.thumbnailImage}
+                    alt={image.titleDesc}
+                  />
+                </SquareImageContainer>
+              )}
             </ImageSlide>
           ))}
         </CarouselTrack>
@@ -473,8 +494,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
           >
             <FullscreenImage
               ref={fullscreenRef}
-              src={images[fullscreenImageIndex].src}
-              alt={images[fullscreenImageIndex].alt}
+              src={images[fullscreenImageIndex].thumbnailImage}
+              alt={images[fullscreenImageIndex].titleDesc}
               transform={transform}
             />
           </FullscreenImageContainer>

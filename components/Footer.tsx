@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { businessInfo } from "../assets/Business";
 
 const FooterSection = styled.footer`
   display: flex;
@@ -35,16 +36,6 @@ const Copyright = styled.p`
   font-weight: bold;
 `;
 
-export const footerList = {
-  company: "BOLD (볼드)",
-  ceo: "신혜승",
-  businessRegistrationNumber: "201-18-99848",
-  phone: "070. 8080. 3150",
-  email: "bold@studiobold.co.kr",
-  operatingTime: "월-금 09:00 - 17:00 ㅣ 토,일,공휴일 휴무",
-  address: "서울특별시 양천구 신정중앙로 77 경동빌딩 4층",
-};
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -52,16 +43,16 @@ export default function Footer() {
     <FooterSection>
       <FooterContainer>
         <FooterDescription>
-          {`${footerList.company}  |  대표 ${footerList.ceo}`}
+          {`${businessInfo.company}  |  대표 ${businessInfo.ceo}`}
         </FooterDescription>
         <FooterDescription>
-          사업자등록번호 {footerList.businessRegistrationNumber}
+          사업자등록번호 {businessInfo.businessRegistrationNumber}
         </FooterDescription>
         <FooterDescription>
-          {`${footerList.phone}  |  ${footerList.email}`}
+          {`${businessInfo.phone}  |  ${businessInfo.email}`}
         </FooterDescription>
-        <FooterDescription>{footerList.operatingTime}</FooterDescription>
-        <FooterDescription>{footerList.address}</FooterDescription>
+        <FooterDescription>{businessInfo.operatingTime}</FooterDescription>
+        <FooterDescription>{businessInfo.address}</FooterDescription>
         <FooterBottom>
           <Copyright>
             COPYRIGHT ⓒ {currentYear} STUDIOBOLD ALL RIGHTS RESERVED.
