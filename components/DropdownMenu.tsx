@@ -154,7 +154,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     menuRef.current.style.top = `${top}px`;
     menuRef.current.style.left = `${left}px`;
     menuRef.current.style.height = `${height}px`;
-  }, [isOpened]);
+  }, [isOpened, targetRef]);
 
   const renderedOptions = options.map((option) => {
     return (

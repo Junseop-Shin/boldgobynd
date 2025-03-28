@@ -100,7 +100,7 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
           <FooterContactSubtitleContainer>
             <FadeUpAnimation>
               <FooterContactSubtitle>
-                <strong>'대담함으로 앞장서다'</strong>
+                <strong>&apos;대담함으로 앞장서다&apos;</strong>
               </FooterContactSubtitle>
               <FooterContactSubtitle>
                 볼드의 비전과 함께 새로운 가능성을 만들어가요!

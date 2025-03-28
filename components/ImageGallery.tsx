@@ -13,7 +13,7 @@ export interface GalleryImage {
 
 interface ImageGalleryProps {
   images: GalleryImage[];
-  tags: DropdownMenuOptionProps[];
+  categories: DropdownMenuOptionProps[];
 }
 
 const GalleryContainer = styled.div`
@@ -95,8 +95,10 @@ const ThumbnailDescription = styled.p`
   line-height: 1.8;
 `;
 
-const ImageGallery = ({ images, tags }: ImageGalleryProps) => {
-  const [activeTag, setActiveTag] = useState<DropdownMenuOptionProps>(tags[0]);
+const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
+  const [activeTag, setActiveTag] = useState<DropdownMenuOptionProps>(
+    categories[0]
+  );
   const [hoveredTag, setHoveredTag] = useState<DropdownMenuOptionProps | null>(
     null
   );
@@ -106,31 +108,30 @@ const ImageGallery = ({ images, tags }: ImageGalleryProps) => {
     () =>
       images.filter(
         (image) =>
-          image.categories.filter((tag) => tag === activeTag.title) ||
+          image.categories.filter((category) => category === activeTag.title) ||
           activeTag.title === "ALL"
       ),
     [images, activeTag]
   );
 
-  const onTagClick = useCallback(
-    (tag: DropdownMenuOptionProps) => {
-      setActiveTag(tag);
-    },
-    [tags]
-  );
+  const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
+    setActiveTag(category);
+  }, []);
 
   return (
     <GalleryContainer>
       <GalleryTagTabs>
-        {tags.map((tag) => (
+        {categories.map((category) => (
           <GalleryTag
-            active={tag === activeTag}
-            onClick={() => onTagClick(tag)}
-            onMouseEnter={() => setHoveredTag(tag)}
+            active={category === activeTag}
+            onClick={() => onTagClick(category)}
+            onMouseEnter={() => setHoveredTag(category)}
             onMouseLeave={() => setHoveredTag(null)}
-            key={tag.title}
+            key={category.title}
           >
-            {hoveredTag === tag && activeTag !== tag ? tag.subtitle : tag.title}
+            {hoveredTag === category && activeTag !== category
+              ? category.subtitle
+              : category.title}
           </GalleryTag>
         ))}
       </GalleryTagTabs>

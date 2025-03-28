@@ -50,7 +50,7 @@ export default function Works() {
             <strong>BOLD</strong>의 다양한 분야의 포트폴리오를 소개합니다.
           </WorksSubtitle>
         </FadeUpAnimation>
-        <ImageGallery tags={worksMenuOptions} images={galleryImages} />
+        <ImageGallery categories={worksMenuOptions} images={galleryImages} />
       </WorksContainer>
     </WorksSection>
   );
