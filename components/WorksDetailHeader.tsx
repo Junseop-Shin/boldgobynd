@@ -62,7 +62,7 @@ export default function WorksDetailHeader({ work }: { work: Work }) {
     <WorksDetailHeaderSection>
       <WorksDetailHeaderContainer>
         <WorksMainImage
-          src={WORKS_TITLE}
+          src={work.mainImage}
           alt="Lead with BOLD"
           width={500}
           height={0}
