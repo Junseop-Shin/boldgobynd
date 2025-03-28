@@ -4,6 +4,7 @@ import Link from "next/link";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { businessInfo } from "../assets/Business";
 import { MAIN_TITLE } from "../assets/Image";
+import Email from "./common/Email";
 
 interface FooterContactProps {
   bg?: string;
@@ -131,7 +132,7 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
                 <strong>E-MAIL</strong>
               </FooterContactSubtitle>
               <FooterContactSubtitle>
-                {businessInfo.email}
+                <Email email={businessInfo.email} />
               </FooterContactSubtitle>
             </FadeUpAnimation>
           </FooterContactSubtitleSection>

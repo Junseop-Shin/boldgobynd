@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { businessInfo } from "../assets/Business";
+import Email from "./common/Email";
 
 const FooterSection = styled.footer`
   display: flex;
@@ -49,7 +50,8 @@ export default function Footer() {
           사업자등록번호 {businessInfo.businessRegistrationNumber}
         </FooterDescription>
         <FooterDescription>
-          {`${businessInfo.phone}  |  ${businessInfo.email}`}
+          {`${businessInfo.phone}  |  `}
+          <Email email={businessInfo.email} />
         </FooterDescription>
         <FooterDescription>{businessInfo.operatingTime}</FooterDescription>
         <FooterDescription>{businessInfo.address}</FooterDescription>

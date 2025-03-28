@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 import { businessInfo } from "../assets/Business";
+import Email from "./common/Email";
 
 const ContactSection = styled.section`
   padding: 5rem 2rem;
@@ -262,7 +263,9 @@ export default function Contact() {
                   </ContactIcon>
                   <ContactDetails>
                     <ContactTitle>Email Address</ContactTitle>
-                    <ContactText>{businessInfo.email}</ContactText>
+                    <ContactText>
+                      <Email email={businessInfo.email} />
+                    </ContactText>
                   </ContactDetails>
                 </ContactInfoItem>
               </ContactInfo>
