@@ -76,7 +76,7 @@ export default function About() {
             <div>
               <SectionTitle>모든 도전은 기회가 되며,</SectionTitle>
               <SectionTitle>
-                '대담함'이야말로 변화를 일으키는 원동력입니다.
+                &apos;대담함&apos;이야말로 변화를 일으키는 원동력입니다.
               </SectionTitle>
               <SectionTitle>
                 <br />
