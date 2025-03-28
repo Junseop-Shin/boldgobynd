@@ -6,16 +6,18 @@ interface LayoutProps {
   children: ReactNode;
   showFooter?: boolean;
   headerColor?: boolean;
+  headerBgColor?: boolean;
 }
 
 export default function Layout({
   children,
   showFooter = true,
   headerColor = true,
+  headerBgColor = false,
 }: LayoutProps) {
   return (
     <>
-      <Header headerColor={headerColor} />
+      <Header headerColor={headerColor} headerBgColor={headerBgColor} />
       <main>{children}</main>
       {showFooter && <Footer />}
     </>

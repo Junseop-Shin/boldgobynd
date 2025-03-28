@@ -5,15 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import DropdownMenu, { DropdownMenuOptionProps } from "./DropdownMenu";
+import FadeUpAnimation from "./FadeUpAnimation";
 
-const NavContainer = styled.nav<{ scrolled: boolean }>`
+const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   padding: 1rem 2rem;
-  background-color: ${(props) => (props.scrolled ? "white" : "transparent")};
+  background-color: ${(props) =>
+    props.scrolled || props.headerBgColor ? "white" : "transparent"};
   box-shadow: ${(props) =>
     props.scrolled ? "0 2px 10px rgba(0, 0, 0, 0.1)" : "none"};
   transition: all 0.3s ease;
@@ -49,7 +51,7 @@ const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     display: none;
   }
 `;
@@ -94,7 +96,7 @@ const MobileMenuButton = styled.button<{
     props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     display: block;
   }
 `;
@@ -135,7 +137,7 @@ export const worksMenuOptions: DropdownMenuOptionProps[] = [
   { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/ad" },
 ];
 
-export default function Header({ headerColor = true }) {
+export default function Header({ headerColor = true, headerBgColor = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [worksMenuOpen, setWorksMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -160,55 +162,57 @@ export default function Header({ headerColor = true }) {
 
   return (
     <>
-      <NavContainer scrolled={scrolled}>
-        <NavContent>
-          <Logo href="/">
-            <LogoImage
-              src="/favicon.ico"
-              alt="BOLD GO BEYOND"
+      <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
+        <FadeUpAnimation>
+          <NavContent>
+            <Logo href="/">
+              <LogoImage
+                src="/favicon.ico"
+                alt="BOLD GO BEYOND"
+                scrolled={scrolled}
+                headerColor={headerColor}
+                width={150}
+                height={40}
+                priority
+              />
+            </Logo>
+            <NavLinks>
+              <NavLink
+                href="/about"
+                scrolled={scrolled}
+                headerColor={headerColor}
+                active={router.pathname === "/about"}
+              >
+                ABOUT
+              </NavLink>
+              <NavLink
+                href="/works"
+                scrolled={scrolled}
+                headerColor={headerColor}
+                active={router.pathname === "/works"}
+                ref={targetRef}
+                onMouseEnter={() => setWorksMenuOpen(true)}
+              >
+                WORKS
+              </NavLink>
+              <NavLink
+                href="/contact"
+                headerColor={headerColor}
+                scrolled={scrolled}
+                active={router.pathname === "/contact"}
+              >
+                CONTACT
+              </NavLink>
+            </NavLinks>
+            <MobileMenuButton
               scrolled={scrolled}
               headerColor={headerColor}
-              width={150}
-              height={40}
-              priority
-            />
-          </Logo>
-          <NavLinks>
-            <NavLink
-              href="/about"
-              scrolled={scrolled}
-              headerColor={headerColor}
-              active={router.pathname === "/about"}
+              onClick={() => setMobileMenuOpen(true)}
             >
-              ABOUT
-            </NavLink>
-            <NavLink
-              href="/works"
-              scrolled={scrolled}
-              headerColor={headerColor}
-              active={router.pathname === "/works"}
-              ref={targetRef}
-              onMouseEnter={() => setWorksMenuOpen(true)}
-            >
-              WORKS
-            </NavLink>
-            <NavLink
-              href="/contact"
-              headerColor={headerColor}
-              scrolled={scrolled}
-              active={router.pathname === "/contact"}
-            >
-              CONTACT
-            </NavLink>
-          </NavLinks>
-          <MobileMenuButton
-            scrolled={scrolled}
-            headerColor={headerColor}
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            ☰
-          </MobileMenuButton>
-        </NavContent>
+              ☰
+            </MobileMenuButton>
+          </NavContent>
+        </FadeUpAnimation>
       </NavContainer>
       {worksMenuOpen && (
         <DropdownMenu

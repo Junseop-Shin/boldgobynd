@@ -4,6 +4,8 @@ import Link from "next/link";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { businessInfo } from "../assets/Business";
 import { MAIN_TITLE } from "../assets/Image";
+import Email from "./common/Email";
+import FullWidthImage from "./common/FullWidthImage";
 
 interface FooterContactProps {
   bg?: string;
@@ -88,12 +90,11 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
     <FooterContactSection bg={bg}>
       <FooterContactContainer>
         <FadeUpAnimation>
-          <FooterContactTitle
+          <FullWidthImage
+            width={5334}
+            height={645}
             src={MAIN_TITLE}
             alt="Lead with BOLD"
-            width={1200}
-            height={240}
-            priority
           />
         </FadeUpAnimation>
         <FooterContactBodyRow>
@@ -131,7 +132,7 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
                 <strong>E-MAIL</strong>
               </FooterContactSubtitle>
               <FooterContactSubtitle>
-                {businessInfo.email}
+                <Email email={businessInfo.email} />
               </FooterContactSubtitle>
             </FadeUpAnimation>
           </FooterContactSubtitleSection>

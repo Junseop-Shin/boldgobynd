@@ -5,7 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ImageCarousel from "./ImageCarousel";
 import { carouselImages } from "../assets/Works";
-import { ABOUT_SUBTITLE, ABOUT_TITLE } from "../assets/Image";
+import {
+  ABOUT_SUBTITLE,
+  ABOUT_SUBTITLE_MOBILE,
+  ABOUT_TITLE,
+  ABOUT_TITLE_MOBILE,
+} from "../assets/Image";
+import ResponsiveImage from "./common/ResponsiveImage";
 
 const AboutSection = styled.section`
   padding: 5rem 2rem;
@@ -62,11 +68,12 @@ export default function About() {
       <AboutContainer>
         <FadeUpAnimation>
           <div style={{ margin: "3rem 0" }}>
-            <AboutTitleImage
+            <ResponsiveImage
               src={ABOUT_TITLE}
+              mobileSrc={ABOUT_TITLE_MOBILE}
               alt="Think BOLD, create Beyond"
-              width={1200}
-              height={240}
+              width={2500}
+              height={795}
               priority
             />
           </div>
@@ -100,15 +107,14 @@ export default function About() {
           </FadeUpAnimation>
         </div>
         <div style={{ margin: "3rem 0" }}>
-          <motion.div whileHover={{ scale: 1.1 }}>
-            <AboutSubtitleImage
-              src={ABOUT_SUBTITLE}
-              alt="Portfolio example"
-              width={1200}
-              height={460}
-              priority
-            />
-          </motion.div>
+          <ResponsiveImage
+            src={ABOUT_SUBTITLE}
+            mobileSrc={ABOUT_SUBTITLE_MOBILE}
+            alt="Portfolio example"
+            width={5334}
+            height={1702}
+            hoverScale
+          />
         </div>
         <div>
           <FadeUpAnimation>

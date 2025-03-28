@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
+import FullWidthImage from "./common/FullWidthImage";
 
 export interface GalleryImage {
   title: string;
@@ -51,6 +52,9 @@ const ThumbnailGrid = styled.div`
 const ThumbnailImageContainer = styled(Link)`
   position: relative;
   transition: transform 0.3s ease;
+  width: 100%;
+  padding-top: 100%;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -59,9 +63,8 @@ const ThumbnailImageContainer = styled(Link)`
 
 const Thumbnail = styled.img`
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
-  cursor: pointer;
 `;
 
 const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
@@ -117,7 +120,6 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
     setActiveTag(category);
   }, []);
-
   return (
     <GalleryContainer>
       <GalleryTagTabs>
@@ -142,9 +144,11 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             key={image.titleDesc}
             passHref
           >
-            <Thumbnail
+            <FullWidthImage
               src={image.thumbnailImage}
               alt={image.titleDesc}
+              responsive={false}
+              cover
               onMouseEnter={() => setHoveredImage(image)}
             />
             <ThumbnailOverlay
