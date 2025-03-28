@@ -5,7 +5,7 @@ import Contact from "../components/Contact";
 
 export default function ContactPage() {
   return (
-    <Layout>
+    <Layout headerBgColor>
       <Contact />
     </Layout>
   );
