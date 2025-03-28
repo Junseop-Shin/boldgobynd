@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { FaSearchMinus, FaSearchPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
+import FullWidthImage from "./common/FullWidthImage";
 
 // 타입 정의
 interface ImageCarouselType {
@@ -454,13 +455,21 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
                       src={image.thumbnailImage}
                       alt={image.titleDesc}
                     />
+                    <FullWidthImage
+                      src={image.thumbnailImage}
+                      alt={image.titleDesc}
+                      responsive={false}
+                      cover
+                    />
                   </SquareImageContainer>
                 </Link>
               ) : (
                 <SquareImageContainer onClick={() => openFullscreen(index)}>
-                  <SquareImage
+                  <FullWidthImage
                     src={image.thumbnailImage}
                     alt={image.titleDesc}
+                    responsive={false}
+                    cover
                   />
                 </SquareImageContainer>
               )}
@@ -469,9 +478,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         </CarouselTrack>
 
         <PrevButton onClick={prevSlide}>&#10094;</PrevButton>
-
         <NextButton onClick={nextSlide}>&#10095;</NextButton>
-
         <ControlsContainer>
           {pageIndicators.map((pageIndex) => (
             <IndicatorDot
@@ -500,8 +507,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
             />
           </FullscreenImageContainer>
           <ButtonContainer>
-            <MinusButton onClick={zoomIn} />
-            <PlusButton onClick={zoomOut} />
+            <MinusButton onClick={zoomOut} />
+            <PlusButton onClick={zoomIn} />
             <CloseButton onClick={closeFullscreen} />
           </ButtonContainer>
           <PrevButton

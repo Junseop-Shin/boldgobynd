@@ -52,6 +52,8 @@ const ThumbnailGrid = styled.div`
 const ThumbnailImageContainer = styled(Link)`
   position: relative;
   transition: transform 0.3s ease;
+  width: 100%;
+  padding-top: 100%;
   cursor: pointer;
 
   &:hover {
@@ -118,7 +120,6 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
     setActiveTag(category);
   }, []);
-
   return (
     <GalleryContainer>
       <GalleryTagTabs>
@@ -143,9 +144,11 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             key={image.titleDesc}
             passHref
           >
-            <Thumbnail
+            <FullWidthImage
               src={image.thumbnailImage}
               alt={image.titleDesc}
+              responsive={false}
+              cover
               onMouseEnter={() => setHoveredImage(image)}
             />
             <ThumbnailOverlay
