@@ -5,12 +5,11 @@ import FadeUpAnimation from "./FadeUpAnimation";
 import ImageGallery from "./ImageGallery";
 import { worksMenuOptions } from "./Header";
 
-const galleryImages = [
+export const galleryImages = [
   {
     src: "/resources/gallery/ad1.jpg",
     title: "홈&라이프스타일 큐레이션 플랫폼 DIBAMBI",
-    description:
-      "홈&라이프스타일 큐레이션 플랫폼 DIBAMBI 브랜드리뉴얼 및 제품디자인",
+    description: "브랜드리뉴얼 및 제품디자인",
     link: "/works/dibambi",
     tags: ["BRANDING", "PACKAGE"],
   },

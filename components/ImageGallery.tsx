@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
 
-interface GalleryImage {
+export interface GalleryImage {
   src: string;
   title: string;
   description: string;
