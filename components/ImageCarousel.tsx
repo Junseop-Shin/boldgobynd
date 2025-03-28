@@ -6,8 +6,9 @@ import styled from "styled-components";
 
 // 타입 정의
 interface ImageCarouselType {
-  src: string;
-  alt: string;
+  title?: string;
+  titleDesc: string;
+  thumbnailImage: string;
 }
 
 interface ImageCarouselProps {
@@ -444,14 +445,23 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
           {images.map((image, index) => (
             <ImageSlide key={index} width={slideWidth}>
               {isLinked ? (
-                <Link href="/" passHref>
+                <Link
+                  href={image.title ? `/works/${image.title}` : "/"}
+                  passHref
+                >
                   <SquareImageContainer>
-                    <SquareImage src={image.src} alt={image.alt} />
+                    <SquareImage
+                      src={image.thumbnailImage}
+                      alt={image.titleDesc}
+                    />
                   </SquareImageContainer>
                 </Link>
               ) : (
                 <SquareImageContainer onClick={() => openFullscreen(index)}>
-                  <SquareImage src={image.src} alt={image.alt} />
+                  <SquareImage
+                    src={image.thumbnailImage}
+                    alt={image.titleDesc}
+                  />
                 </SquareImageContainer>
               )}
             </ImageSlide>
@@ -484,8 +494,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
           >
             <FullscreenImage
               ref={fullscreenRef}
-              src={images[fullscreenImageIndex].src}
-              alt={images[fullscreenImageIndex].alt}
+              src={images[fullscreenImageIndex].thumbnailImage}
+              alt={images[fullscreenImageIndex].titleDesc}
               transform={transform}
             />
           </FullscreenImageContainer>

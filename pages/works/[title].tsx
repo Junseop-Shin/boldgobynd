@@ -1,12 +1,16 @@
 // pages/works/[id].js
 import { useRouter } from "next/router";
-import { galleryImages } from "../../components/Works";
 import Layout from "../../components/Layout";
 import WorksDetail from "../../components/WorksDetail";
 import WorksDetailHeader from "../../components/WorksDetailHeader";
 import WorksDetailFooter from "../../components/WorksDetailFooter";
+import { works, Work } from "../../assets/Works";
 
-export default function WorkDetailPages({ work }) {
+interface Params {
+  title: string;
+}
+
+export default function WorkDetailPages({ work }: { work: Work }) {
   const router = useRouter();
 
   // fallback이 true인 경우 로딩 상태 처리
@@ -26,10 +30,8 @@ export default function WorkDetailPages({ work }) {
 // 가능한 모든 작품 ID를 정의
 export async function getStaticPaths() {
   // 작품 데이터를 가져오는 함수
-  const works = galleryImages;
-
   const paths = works.map((work) => ({
-    params: { title: work.link },
+    params: { title: work.title },
   }));
 
   return {
@@ -38,10 +40,15 @@ export async function getStaticPaths() {
   };
 }
 
-// 각 페이지에 필요한 데이터 가져오기
-export async function getStaticProps({ params }) {
-  // params.id를 사용하여 특정 작품 데이터 가져오기
-  const work = params.title;
+export async function getStaticProps({ params }: { params: Params }) {
+  const filteredWorks = works.filter((work) => work.title === params.title);
+  const work = filteredWorks.length > 0 ? filteredWorks[0] : null;
+
+  if (!work) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

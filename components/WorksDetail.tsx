@@ -3,12 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { GalleryImage } from "./ImageGallery";
-
-type WorksDetailProps = GalleryImage & {
-  images: string[];
-  client: string;
-  year: string;
-};
+import { Work } from "../assets/Works";
 
 type TABLEPOSITION = "TOP" | "FIXED" | "BOTTOM";
 
@@ -85,7 +80,7 @@ const WorksMainImage = styled(Image)`
   }
 `;
 
-export default function WorksDetail(workDetail: WorksDetailProps) {
+export default function WorksDetail({ work }: { work: Work }) {
   const [tablePosition, setTablePosition] = useState<TABLEPOSITION>("TOP");
   const [tableTop, setTableTop] = useState(0);
   const tableRef = useRef<HTMLDivElement | null>(null);
@@ -131,19 +126,19 @@ export default function WorksDetail(workDetail: WorksDetailProps) {
               top={tableTop}
             >
               <WorksTitle>CLIENT</WorksTitle>
-              <WorksTitle>{workDetail.client}</WorksTitle>
+              <WorksTitle>{work.client}</WorksTitle>
               <WorksTitle>CATEGORY</WorksTitle>
               <WorksTags>
-                {workDetail.tags.map((tag) => (
+                {work.categories.map((tag) => (
                   <WorksTag key={tag}>{tag}</WorksTag>
                 ))}
               </WorksTags>
               <WorksTitle>YEAR</WorksTitle>
-              <WorksTitle>{workDetail.year}</WorksTitle>
+              <WorksTitle>{work.year}</WorksTitle>
             </WorksDetailTable>
           </FadeUpAnimation>
           <WorksMainImageContainer>
-            {workDetail.images.map((image, index) => (
+            {work.allImages.map((image, index) => (
               <WorksMainImage
                 key={image}
                 src={image}

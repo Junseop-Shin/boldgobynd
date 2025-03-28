@@ -2,14 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
 import ImageCarousel from "./ImageCarousel";
-import { galleryImages } from "./Works";
-
-const workDetailFooterImages = galleryImages.map((image) => {
-  return {
-    src: image.src,
-    alt: image.title,
-  };
-});
+import { workDetailFooterImages } from "../assets/Works";
 
 const WorksDetailFooterSection = styled.section`
   padding: 5rem 2rem;

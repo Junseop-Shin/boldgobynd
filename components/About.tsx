@@ -4,69 +4,8 @@ import FadeUpAnimation from "./FadeUpAnimation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ImageCarousel from "./ImageCarousel";
-
-const carouselImages = [
-  {
-    src: "/resources/gallery/ad1.jpg",
-    alt: "AD 1",
-  },
-  {
-    src: "/resources/gallery/ad2.jpg",
-    alt: "AD 2",
-  },
-  {
-    src: "/resources/gallery/ad3.jpg",
-    alt: "AD 3",
-  },
-  {
-    src: "/resources/gallery/package1.jpg",
-    alt: "PACKAGE 1",
-  },
-  {
-    src: "/resources/gallery/package2.jpg",
-    alt: "PACKAGE 2",
-  },
-  {
-    src: "/resources/gallery/package3.jpg",
-    alt: "PACKAGE 3",
-  },
-  {
-    src: "/resources/gallery/package4.jpg",
-    alt: "PACKAGE 4",
-  },
-  {
-    src: "/resources/gallery/package5.jpg",
-    alt: "PACKAGE 5",
-  },
-  {
-    src: "/resources/gallery/package6.jpg",
-    alt: "PACKAGE 6",
-  },
-  {
-    src: "/resources/gallery/package7.jpg",
-    alt: "PACKAGE 7",
-  },
-  {
-    src: "/resources/gallery/package8.jpg",
-    alt: "PACKAGE 8",
-  },
-  {
-    src: "/resources/gallery/package9.jpg",
-    alt: "PACKAGE 9",
-  },
-  {
-    src: "/resources/gallery/package10.jpg",
-    alt: "PACKAGE 10",
-  },
-  {
-    src: "/resources/gallery/package11.jpg",
-    alt: "PACKAGE 11",
-  },
-  {
-    src: "/resources/gallery/package12.jpg",
-    alt: "PACKAGE 12",
-  },
-];
+import { carouselImages } from "../assets/Works";
+import { ABOUT_SUBTITLE, ABOUT_TITLE } from "../assets/Image";
 
 const AboutSection = styled.section`
   padding: 5rem 2rem;
@@ -124,7 +63,7 @@ export default function About() {
         <FadeUpAnimation>
           <div style={{ margin: "3rem 0" }}>
             <AboutTitleImage
-              src="/resources/About_Title.png"
+              src={ABOUT_TITLE}
               alt="Think BOLD, create Beyond"
               width={1200}
               height={240}
@@ -163,7 +102,7 @@ export default function About() {
         <div style={{ margin: "3rem 0" }}>
           <motion.div whileHover={{ scale: 1.1 }}>
             <AboutSubtitleImage
-              src="/resources/About_Subtitle.png"
+              src={ABOUT_SUBTITLE}
               alt="Portfolio example"
               width={1200}
               height={460}

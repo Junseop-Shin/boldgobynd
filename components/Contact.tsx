@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
-import { footerList } from "./Footer";
+import { businessInfo } from "../assets/Business";
 
 const ContactSection = styled.section`
   padding: 5rem 2rem;
@@ -242,7 +242,7 @@ export default function Contact() {
                   </ContactIcon>
                   <ContactDetails>
                     <ContactTitle>Our Location</ContactTitle>
-                    <ContactText>{footerList.address}</ContactText>
+                    <ContactText>{businessInfo.address}</ContactText>
                   </ContactDetails>
                 </ContactInfoItem>
 
@@ -252,7 +252,7 @@ export default function Contact() {
                   </ContactIcon>
                   <ContactDetails>
                     <ContactTitle>Phone Number</ContactTitle>
-                    <ContactText>{footerList.phone}</ContactText>
+                    <ContactText>{businessInfo.phone}</ContactText>
                   </ContactDetails>
                 </ContactInfoItem>
 
@@ -262,7 +262,7 @@ export default function Contact() {
                   </ContactIcon>
                   <ContactDetails>
                     <ContactTitle>Email Address</ContactTitle>
-                    <ContactText>{footerList.email}</ContactText>
+                    <ContactText>{businessInfo.email}</ContactText>
                   </ContactDetails>
                 </ContactInfoItem>
               </ContactInfo>

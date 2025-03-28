@@ -2,12 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import FadeUpAnimation from "./FadeUpAnimation";
-import { GalleryImage } from "./ImageGallery";
-
-export type WorksDetailHeaderProps = GalleryImage & {
-  mainImage: string;
-  descriptionDetail: string;
-};
+import { Work } from "../assets/Works";
+import { WORKS_TITLE } from "../assets/Image";
 
 const WorksDetailHeaderSection = styled.section`
   padding: 5rem 2rem;
@@ -60,14 +56,13 @@ const WorksDescriptionDetail = styled.p`
   line-height: 2;
 `;
 
-export default function WorksDetailHeader(
-  workDetailHeader: WorksDetailHeaderProps
-) {
+export default function WorksDetailHeader({ work }: { work: Work }) {
+  console.log(work);
   return (
     <WorksDetailHeaderSection>
       <WorksDetailHeaderContainer>
         <WorksMainImage
-          src="/resources/Works_Title.png"
+          src={WORKS_TITLE}
           alt="Lead with BOLD"
           width={500}
           height={0}
@@ -75,22 +70,20 @@ export default function WorksDetailHeader(
         />
         <WorksDetailHeaderGrid>
           <FadeUpAnimation>
-            <WorksTitle>{workDetailHeader.title}</WorksTitle>
+            <WorksTitle>{work.titleDesc}</WorksTitle>
             <WorksTitle>
-              <strong>{workDetailHeader.description}</strong>
+              <strong>{work.categoryDesc}</strong>
             </WorksTitle>
           </FadeUpAnimation>
           <FadeUpAnimation>
             <WorksTags>
-              {workDetailHeader.tags.map((tag) => (
+              {work.categories?.map((tag) => (
                 <WorksTag key={tag}>{tag}</WorksTag>
               ))}
             </WorksTags>
           </FadeUpAnimation>
           <FadeUpAnimation>
-            <WorksDescriptionDetail>
-              {workDetailHeader.descriptionDetail}
-            </WorksDescriptionDetail>
+            <WorksDescriptionDetail>{work.workDetail}</WorksDescriptionDetail>
           </FadeUpAnimation>
         </WorksDetailHeaderGrid>
       </WorksDetailHeaderContainer>

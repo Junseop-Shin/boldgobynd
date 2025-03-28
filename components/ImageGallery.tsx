@@ -4,11 +4,11 @@ import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
 
 export interface GalleryImage {
-  src: string;
   title: string;
-  description: string;
-  link: string;
-  tags: string[];
+  titleDesc: string;
+  categories: string[];
+  categoryDesc: string;
+  thumbnailImage: string;
 }
 
 interface ImageGalleryProps {
@@ -106,7 +106,7 @@ const ImageGallery = ({ images, tags }: ImageGalleryProps) => {
     () =>
       images.filter(
         (image) =>
-          image.tags.filter((tag) => tag === activeTag.title) ||
+          image.categories.filter((tag) => tag === activeTag.title) ||
           activeTag.title === "ALL"
       ),
     [images, activeTag]
@@ -136,18 +136,22 @@ const ImageGallery = ({ images, tags }: ImageGalleryProps) => {
       </GalleryTagTabs>
       <ThumbnailGrid>
         {filteredImages.map((image) => (
-          <ThumbnailImageContainer href={image.link} key={image.title} passHref>
+          <ThumbnailImageContainer
+            href={`/works/${image.title}`}
+            key={image.titleDesc}
+            passHref
+          >
             <Thumbnail
-              src={image.src}
-              alt={image.title}
+              src={image.thumbnailImage}
+              alt={image.titleDesc}
               onMouseEnter={() => setHoveredImage(image)}
             />
             <ThumbnailOverlay
               isHovered={hoveredImage === image}
               onMouseLeave={() => setHoveredImage(null)}
             >
-              <ThumbnailTitle>{image.title}</ThumbnailTitle>
-              <ThumbnailDescription>{image.description}</ThumbnailDescription>
+              <ThumbnailTitle>{image.titleDesc}</ThumbnailTitle>
+              <ThumbnailDescription>{image.categoryDesc}</ThumbnailDescription>
             </ThumbnailOverlay>
           </ThumbnailImageContainer>
         ))}
