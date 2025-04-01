@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Image from "next/image";
 import Link from "next/link";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { businessInfo } from "../assets/Business";
 import { MAIN_TITLE } from "../assets/Image";
 import Email from "./common/Email";
+import MobileResponsiveImage from "./common/MobileResponsiveImage";
 import FullWidthImage from "./common/FullWidthImage";
 
 interface FooterContactProps {
@@ -21,18 +21,6 @@ const FooterContactContainer = styled.div`
   flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FooterContactTitle = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-  margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
 `;
 
 const FooterContactBodyRow = styled.div`
@@ -91,11 +79,17 @@ export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
       <FooterContactContainer>
         <FadeUpAnimation>
           <FullWidthImage
-            width={5334}
-            height={645}
+            width={1250}
+            height={150}
             src={MAIN_TITLE}
             alt="Lead with BOLD"
           />
+          {/* 이미지 파일 교체 후 변경 필요 <MobileResponsiveImage
+            width={1250}
+            height={150}
+            src={MAIN_TITLE}
+            alt="Lead with BOLD"
+          /> */}
         </FadeUpAnimation>
         <FooterContactBodyRow>
           <FooterContactSubtitleContainer>

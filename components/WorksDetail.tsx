@@ -3,9 +3,6 @@ import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
-import { motion } from "framer-motion";
-
-type TABLEPOSITION = "TOP" | "FIXED" | "BOTTOM";
 
 const WorksDetailSection = styled.section`
   padding: 5rem 2rem;

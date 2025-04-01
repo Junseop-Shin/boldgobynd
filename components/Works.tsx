@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ImageGallery from "./common/ImageGallery";
 import { worksMenuOptions } from "./Header";
 import { galleryImages } from "../assets/Works";
 import { WORKS_TITLE } from "../assets/Image";
-import FullWidthImage from "./common/FullWidthImage";
+import MobileResponsiveImage from "./common/MobileResponsiveImage";
 
 const WorksSection = styled.section`
   padding: 5rem 2rem;
@@ -30,11 +29,11 @@ export default function Works() {
     <WorksSection id="works">
       <WorksContainer>
         <FadeUpAnimation>
-          <FullWidthImage
+          <MobileResponsiveImage
             src={WORKS_TITLE}
-            alt="Lead with BOLD"
-            width={2051}
-            height={410}
+            alt="Explore BOLD"
+            width={559}
+            height={107}
             priority
           />
           <WorksSubtitle>

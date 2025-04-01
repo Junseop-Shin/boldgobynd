@@ -11,19 +11,7 @@ import FadeUpAnimation from "./common/FadeUpAnimation";
 import ResponsiveImage from "./common/ResponsiveImage";
 
 const HeroSection = styled.section`
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
+  padding: 5rem 2rem;
 `;
 
 const HeroContent = styled.div`
@@ -32,10 +20,8 @@ const HeroContent = styled.div`
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
-  margin-top: 3rem;
-  padding: 0 2rem;
 `;
 
 export default function Hero() {
