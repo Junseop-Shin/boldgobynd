@@ -32,7 +32,8 @@ const GalleryTagTabs = styled.div`
 `;
 
 const GalleryTag = styled.button<{ active: boolean }>`
-  width: 120px;
+  min-width: 120px;
+  width: auto;
   border: ${({ active }) => (active ? "1px solid black" : "none")};
   padding: 8px 16px;
   background-color: transparent;
@@ -59,12 +60,6 @@ const ThumbnailImageContainer = styled(Link)`
   &:hover {
     transform: scale(1.05);
   }
-`;
-
-const Thumbnail = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 `;
 
 const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
@@ -111,7 +106,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
     () =>
       images.filter(
         (image) =>
-          image.categories.filter((category) => category === activeTag.title) ||
+          image.categories.includes(activeTag.title) ||
           activeTag.title === "ALL"
       ),
     [images, activeTag]
@@ -120,6 +115,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
     setActiveTag(category);
   }, []);
+
   return (
     <GalleryContainer>
       <GalleryTagTabs>
