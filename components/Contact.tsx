@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 import { businessInfo } from "../assets/Business";
 import Email from "./common/Email";

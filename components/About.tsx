@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ImageCarousel from "./common/ImageCarousel";

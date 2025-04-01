@@ -7,7 +7,7 @@ import {
   MAIN_TITLE,
   MAIN_TITLE_MOBILE,
 } from "../assets/Image";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import ResponsiveImage from "./common/ResponsiveImage";
 
 const HeroSection = styled.section`

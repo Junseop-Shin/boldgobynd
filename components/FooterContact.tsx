@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import { businessInfo } from "../assets/Business";
 import { MAIN_TITLE } from "../assets/Image";
 import Email from "./common/Email";

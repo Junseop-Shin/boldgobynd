@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
-import FullWidthImage from "./common/FullWidthImage";
+import FullWidthImage from "./FullWidthImage";
+import { useRouter } from "next/router";
 
 export interface GalleryImage {
   title: string;
@@ -94,8 +95,11 @@ const ThumbnailDescription = styled.p`
 `;
 
 const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
+  const router = useRouter();
+  const { tag } = router.query;
+
   const [activeTag, setActiveTag] = useState<DropdownMenuOptionProps>(
-    categories[0]
+    categories.find((category) => category.title === tag) || categories[0]
   );
   const [hoveredTag, setHoveredTag] = useState<DropdownMenuOptionProps | null>(
     null
@@ -115,6 +119,18 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
     setActiveTag(category);
   }, []);
+
+  useEffect(() => {
+    if (tag && typeof tag === "string") {
+      const matchedCategory = categories.find(
+        (category) => category.title === tag
+      );
+
+      if (matchedCategory) {
+        setActiveTag(matchedCategory);
+      }
+    }
+  }, [tag]);
 
   return (
     <GalleryContainer>

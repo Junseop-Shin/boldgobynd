@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import FadeUpAnimation from "./FadeUpAnimation";
-import ImageGallery from "./ImageGallery";
+import FadeUpAnimation from "./common/FadeUpAnimation";
+import ImageGallery from "./common/ImageGallery";
 import { worksMenuOptions } from "./Header";
 import { galleryImages } from "../assets/Works";
 import { WORKS_TITLE } from "../assets/Image";

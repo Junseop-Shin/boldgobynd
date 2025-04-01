@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import { motion } from "framer-motion";
 
 const PortfolioSection = styled.section`

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import FadeUpAnimation from "./FadeUpAnimation";
-import { GalleryImage } from "./ImageGallery";
+import FadeUpAnimation from "./common/FadeUpAnimation";
+import { GalleryImage } from "./common/ImageGallery";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
 

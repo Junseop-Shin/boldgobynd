@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
 
