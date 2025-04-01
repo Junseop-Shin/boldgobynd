@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import FadeUpAnimation from "./common/FadeUpAnimation";
-import { GalleryImage } from "./common/ImageGallery";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
+import { motion } from "framer-motion";
 
 type TABLEPOSITION = "TOP" | "FIXED" | "BOTTOM";
 
@@ -24,22 +23,20 @@ const WorkDetailGrid = styled.div`
   position: relative;
 `;
 
-const WorksDetailTable = styled.div<{
-  tablePosition: TABLEPOSITION;
-  top: number;
-}>`
+const WorksDetailTable = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   border-top: 4px solid black;
   border-bottom: 4px solid black;
   box-sizing: border-box;
-  position: ${(props) =>
-    props.tablePosition === "FIXED" ? "fixed" : "relative"};
-  top: ${(props) => props.top}px;
+  position: sticky;
+  top: 180px;
+  width: 100%;
 
   & > * {
     padding: 15px 0;
     border-bottom: 1px solid black;
+    display: flex;
   }
 
   & > *:nth-last-child(-n + 2) {
@@ -59,7 +56,7 @@ const WorksTags = styled.div`
 const WorksTag = styled.p`
   background-color: rgb(234, 234, 234);
   font-size: 18px;
-  padding: 0 15px;
+  padding: 2px 10px;
 `;
 
 const WorksMainImageContainer = styled.div`
@@ -70,50 +67,12 @@ const WorksMainImageContainer = styled.div`
 `;
 
 export default function WorksDetail({ work }: { work: Work }) {
-  const [tablePosition, setTablePosition] = useState<TABLEPOSITION>("TOP");
-  const [tableTop, setTableTop] = useState(0);
-  const tableRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (tableRef?.current && containerRef?.current) {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const tableRect = tableRef.current.getBoundingClientRect();
-        const containerTop = containerRect.top;
-        const containerBottom = containerRect.bottom - tableRect.height;
-        const tableFixedTop = 180;
-
-        if (containerTop >= tableFixedTop) {
-          setTablePosition("TOP");
-          setTableTop(0);
-        } else if (
-          containerTop <= tableFixedTop &&
-          containerBottom > tableFixedTop
-        ) {
-          setTablePosition("FIXED");
-          setTableTop(tableFixedTop);
-        } else if (containerBottom <= tableFixedTop) {
-          setTablePosition("BOTTOM");
-          setTableTop(containerRect.height - tableRect.height);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <WorksDetailSection>
-      <WorksDetailContainer ref={containerRef}>
+      <WorksDetailContainer>
         <WorkDetailGrid>
-          <FadeUpAnimation>
-            <WorksDetailTable
-              ref={tableRef}
-              tablePosition={tablePosition}
-              top={tableTop}
-            >
+          <FadeUpAnimation reAnimate={false}>
+            <WorksDetailTable>
               <WorksTitle>CLIENT</WorksTitle>
               <WorksTitle>{work.client}</WorksTitle>
               <WorksTitle>CATEGORY</WorksTitle>

@@ -37,7 +37,7 @@ const WorksTags = styled.div`
 const WorksTag = styled.p`
   background-color: rgb(234, 234, 234);
   font-size: 18px;
-  padding: 0 15px;
+  padding: 2px 10px;
 `;
 
 const WorksDescriptionDetail = styled.p`
