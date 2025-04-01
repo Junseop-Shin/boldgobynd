@@ -12,7 +12,7 @@ const SquareImage = styled(Image)<{
   cover?: boolean;
   responsive?: boolean;
 }>`
-    position: ${(props) => !props.responsive && "absolute"}
+  position: ${(props) => !props.responsive && "absolute"};
   transition: transform 0.3s ease;
   object-fit: ${(props) => (props.cover ? "cover" : "contain")};
 

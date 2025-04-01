@@ -1,27 +1,34 @@
 import Link from "next/link";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import MountUnmountAnimation from "./MountUnmoundAnimation";
 
 const DropdownMenuContainer = styled.div`
-  position: absolute;
   display: flex;
-  width: 200px;
   flex-direction: column;
   justify-content: center;
+  position: fixed;
+  width: 150px;
   align-items: center;
   box-sizing: border-box;
-  padding: 0 0.5rem;
-  border-radius: 0.5rem;
-  tab-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 0 4px 2px;
+  padding: 2px 0;
+  border-radius: 8px;
+  outline: transparent;
   background-color: white;
+  z-index: 1000;
 `;
 
 const DropdownMenuItem = styled(Link)<{ selected: boolean }>`
-  display: inline;
-  width: 100%;
-  padding: 0.5rem;
+  display: flex;
+  height: 28px;
   box-sizing: border-box;
-  border: 1px solid rgb(33, 33, 33);
+  margin: 2px 4px;
+  padding: 0 15px;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   background-color: ${(props) =>
     props.selected ? "rgba(33, 33, 33, 0.3)" : "white"};
 
@@ -42,7 +49,6 @@ const DROPDOWN_MARGIN = 10;
 export interface DropdownMenuOptionProps {
   title: string;
   subtitle: string;
-  address: string;
 }
 
 interface DropdownMenuProps {
@@ -76,11 +82,17 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       width: targetWidth,
       height: targetHeight,
     } = targetRef.current.getBoundingClientRect();
-    const { width: menuWidth, height: menuHeight } =
-      menuRef.current.getBoundingClientRect();
+    const {
+      left: menuLeft,
+      bottom: menuBottom,
+      top: menuTop,
+      right: menuRight,
+      width: menuWidth,
+      height: menuHeight,
+    } = menuRef.current.getBoundingClientRect();
 
     // let position = menuPosition;
-    let position = "BOTTOM_RIGHT";
+    let position = "APPBAR_USERLIST";
 
     // if (depthLevel > 0) {
     //   position = 'TOP_RIGHT';
@@ -100,7 +112,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       top = targetBottom;
       left = targetRight;
     } else if (position === "APPBAR_USERLIST") {
-      top = targetBottom + 6;
+      top = targetBottom + 27;
       left = targetLeft - 2;
     } else {
       top = targetBottom;
@@ -154,15 +166,50 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     menuRef.current.style.top = `${top}px`;
     menuRef.current.style.left = `${left}px`;
     menuRef.current.style.height = `${height}px`;
-  }, [isOpened, targetRef]);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const isOverTarget =
+        e.clientX >= targetLeft &&
+        e.clientX <= targetRight &&
+        e.clientY >= targetTop &&
+        e.clientY <= targetBottom;
+
+      const isOverMenu =
+        e.clientX >= menuLeft &&
+        e.clientX <= menuRight &&
+        e.clientY >= menuTop &&
+        e.clientY <= menuBottom;
+
+      /**
+       * APPBAR_USERLIST인 경우만 가정
+       */
+      const isOverBetween =
+        e.clientX >= menuLeft &&
+        e.clientX <= targetRight &&
+        e.clientY >= targetBottom &&
+        e.clientY <= menuTop;
+
+      if (!isOverTarget && !isOverMenu && !isOverBetween) {
+        setIsOpened(false);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [targetRef, menuRef, isOpened]);
 
   const renderedOptions = options.map((option) => {
     return (
       <DropdownMenuItem
         key={option.title}
-        href={`/works${option.address}`}
+        href={`/works?tag=${option.title}`}
         selected={selected === option}
-        onClick={() => setSelected(option)}
+        onClick={() => {
+          setSelected(option);
+          setIsOpened(false);
+        }}
       >
         {option.title}
       </DropdownMenuItem>
@@ -170,12 +217,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   });
 
   return (
-    <DropdownMenuContainer
-      ref={menuRef}
-      onMouseLeave={() => setIsOpened(false)}
-    >
-      {renderedOptions}
-    </DropdownMenuContainer>
+    <MountUnmountAnimation isVisible={isOpened}>
+      <DropdownMenuContainer
+        ref={menuRef}
+        onMouseEnter={() => setIsOpened(true)}
+      >
+        {renderedOptions}
+      </DropdownMenuContainer>
+    </MountUnmountAnimation>
   );
 };
 

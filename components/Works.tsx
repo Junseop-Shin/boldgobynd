@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
-import FadeUpAnimation from "./FadeUpAnimation";
-import ImageGallery from "./ImageGallery";
+import FadeUpAnimation from "./common/FadeUpAnimation";
+import ImageGallery from "./common/ImageGallery";
 import { worksMenuOptions } from "./Header";
 import { galleryImages } from "../assets/Works";
 import { WORKS_TITLE } from "../assets/Image";
-import FullWidthImage from "./common/FullWidthImage";
+import MobileResponsiveImage from "./common/MobileResponsiveImage";
 
 const WorksSection = styled.section`
   padding: 5rem 2rem;
@@ -16,16 +15,6 @@ const WorksSection = styled.section`
 const WorksContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-`;
-
-const WorksTitle = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-  margin-top: 4rem;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
 `;
 
 const WorksSubtitle = styled.p`
@@ -40,11 +29,11 @@ export default function Works() {
     <WorksSection id="works">
       <WorksContainer>
         <FadeUpAnimation>
-          <FullWidthImage
+          <MobileResponsiveImage
             src={WORKS_TITLE}
-            alt="Lead with BOLD"
-            width={2051}
-            height={410}
+            alt="Explore BOLD"
+            width={559}
+            height={107}
             priority
           />
           <WorksSubtitle>

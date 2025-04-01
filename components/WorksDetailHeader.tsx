@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./FadeUpAnimation";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
 
@@ -10,7 +10,7 @@ const WorksDetailHeaderSection = styled.section`
 `;
 
 const WorksDetailHeaderContainer = styled.div`
-  max-width: 1200px;xx
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
@@ -37,7 +37,7 @@ const WorksTags = styled.div`
 const WorksTag = styled.p`
   background-color: rgb(234, 234, 234);
   font-size: 18px;
-  padding: 0 15px;
+  padding: 2px 10px;
 `;
 
 const WorksDescriptionDetail = styled.p`

@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import DropdownMenu, { DropdownMenuOptionProps } from "./DropdownMenu";
-import FadeUpAnimation from "./FadeUpAnimation";
+import DropdownMenu, { DropdownMenuOptionProps } from "./common/DropdownMenu";
+import FadeUpAnimation from "./common/FadeUpAnimation";
 
 const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   position: fixed;
@@ -131,10 +131,10 @@ const CloseButton = styled.button`
 `;
 
 export const worksMenuOptions: DropdownMenuOptionProps[] = [
-  { title: "ALL", subtitle: "전체", address: "" },
-  { title: "BRANDING", subtitle: "브랜딩·로고", address: "/branding" },
-  { title: "PACKAGE", subtitle: "패키지", address: "/package" },
-  { title: "AD·EDITORIAL", subtitle: "광고·편집", address: "/ad" },
+  { title: "ALL", subtitle: "전체" },
+  { title: "BRANDING", subtitle: "브랜딩·로고" },
+  { title: "PACKAGE", subtitle: "패키지" },
+  { title: "AD·EDITORIAL", subtitle: "광고·편집" },
 ];
 
 export default function Header({ headerColor = true, headerBgColor = false }) {
@@ -163,7 +163,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
   return (
     <>
       <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
-        <FadeUpAnimation>
+        <FadeUpAnimation reAnimate={false}>
           <NavContent>
             <Logo href="/">
               <LogoImage
@@ -214,14 +214,12 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
           </NavContent>
         </FadeUpAnimation>
       </NavContainer>
-      {worksMenuOpen && (
-        <DropdownMenu
-          isOpened={worksMenuOpen}
-          setIsOpened={setWorksMenuOpen}
-          targetRef={targetRef}
-          options={worksMenuOptions}
-        />
-      )}
+      <DropdownMenu
+        isOpened={worksMenuOpen}
+        setIsOpened={setWorksMenuOpen}
+        targetRef={targetRef}
+        options={worksMenuOptions}
+      />
       {mobileMenuOpen && (
         <MobileMenu
           initial={{ x: 300 }}

@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
-import FullWidthImage from "./common/FullWidthImage";
+import FullWidthImage from "./FullWidthImage";
+import { useRouter } from "next/router";
 
 export interface GalleryImage {
   title: string;
@@ -32,7 +33,8 @@ const GalleryTagTabs = styled.div`
 `;
 
 const GalleryTag = styled.button<{ active: boolean }>`
-  width: 120px;
+  width: 160px;
+  position: relative;
   border: ${({ active }) => (active ? "1px solid black" : "none")};
   padding: 8px 16px;
   background-color: transparent;
@@ -41,6 +43,18 @@ const GalleryTag = styled.button<{ active: boolean }>`
   transition: all 0.3s ease;
   font-size: 1rem;
   letter-spacing: 1px;
+
+  &::before {
+    content: attr(data-content);
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 8px 16px;
+  }
 `;
 
 const ThumbnailGrid = styled.div`
@@ -59,12 +73,6 @@ const ThumbnailImageContainer = styled(Link)`
   &:hover {
     transform: scale(1.05);
   }
-`;
-
-const Thumbnail = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 `;
 
 const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
@@ -99,8 +107,11 @@ const ThumbnailDescription = styled.p`
 `;
 
 const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
+  const router = useRouter();
+  const { tag } = router.query;
+
   const [activeTag, setActiveTag] = useState<DropdownMenuOptionProps>(
-    categories[0]
+    categories.find((category) => category.title === tag) || categories[0]
   );
   const [hoveredTag, setHoveredTag] = useState<DropdownMenuOptionProps | null>(
     null
@@ -111,7 +122,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
     () =>
       images.filter(
         (image) =>
-          image.categories.filter((category) => category === activeTag.title) ||
+          image.categories.includes(activeTag.title) ||
           activeTag.title === "ALL"
       ),
     [images, activeTag]
@@ -120,6 +131,19 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const onTagClick = useCallback((category: DropdownMenuOptionProps) => {
     setActiveTag(category);
   }, []);
+
+  useEffect(() => {
+    if (tag && typeof tag === "string") {
+      const matchedCategory = categories.find(
+        (category) => category.title === tag
+      );
+
+      if (matchedCategory) {
+        setActiveTag(matchedCategory);
+      }
+    }
+  }, [tag]);
+
   return (
     <GalleryContainer>
       <GalleryTagTabs>
@@ -130,6 +154,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             onMouseEnter={() => setHoveredTag(category)}
             onMouseLeave={() => setHoveredTag(null)}
             key={category.title}
+            data-content={category.subtitle || category.title}
           >
             {hoveredTag === category && activeTag !== category
               ? category.subtitle
