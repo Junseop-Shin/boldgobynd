@@ -33,8 +33,8 @@ const GalleryTagTabs = styled.div`
 `;
 
 const GalleryTag = styled.button<{ active: boolean }>`
-  min-width: 120px;
-  width: auto;
+  width: 160px;
+  position: relative;
   border: ${({ active }) => (active ? "1px solid black" : "none")};
   padding: 8px 16px;
   background-color: transparent;
@@ -43,6 +43,18 @@ const GalleryTag = styled.button<{ active: boolean }>`
   transition: all 0.3s ease;
   font-size: 1rem;
   letter-spacing: 1px;
+
+  &::before {
+    content: attr(data-content);
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 8px 16px;
+  }
 `;
 
 const ThumbnailGrid = styled.div`
@@ -142,6 +154,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             onMouseEnter={() => setHoveredTag(category)}
             onMouseLeave={() => setHoveredTag(null)}
             key={category.title}
+            data-content={category.subtitle || category.title}
           >
             {hoveredTag === category && activeTag !== category
               ? category.subtitle

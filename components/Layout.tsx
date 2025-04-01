@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import PageAnimation from "./common/PageAnimation";
 
 interface LayoutProps {
   children: ReactNode;
@@ -16,10 +17,10 @@ export default function Layout({
   headerBgColor = false,
 }: LayoutProps) {
   return (
-    <>
+    <PageAnimation>
       <Header headerColor={headerColor} headerBgColor={headerBgColor} />
       <main>{children}</main>
       {showFooter && <Footer />}
-    </>
+    </PageAnimation>
   );
 }

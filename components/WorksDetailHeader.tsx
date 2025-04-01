@@ -10,7 +10,7 @@ const WorksDetailHeaderSection = styled.section`
 `;
 
 const WorksDetailHeaderContainer = styled.div`
-  max-width: 1200px;xx
+  max-width: 1200px;
   margin: 0 auto;
 `;
 

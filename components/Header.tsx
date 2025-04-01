@@ -163,7 +163,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
   return (
     <>
       <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
-        <FadeUpAnimation>
+        <FadeUpAnimation reAnimate={false}>
           <NavContent>
             <Logo href="/">
               <LogoImage
