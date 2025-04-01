@@ -82,8 +82,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       width: targetWidth,
       height: targetHeight,
     } = targetRef.current.getBoundingClientRect();
-    const { width: menuWidth, height: menuHeight } =
-      menuRef.current.getBoundingClientRect();
+    const {
+      left: menuLeft,
+      bottom: menuBottom,
+      top: menuTop,
+      right: menuRight,
+      width: menuWidth,
+      height: menuHeight,
+    } = menuRef.current.getBoundingClientRect();
 
     // let position = menuPosition;
     let position = "APPBAR_USERLIST";
@@ -160,7 +166,39 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     menuRef.current.style.top = `${top}px`;
     menuRef.current.style.left = `${left}px`;
     menuRef.current.style.height = `${height}px`;
-  }, [targetRef, isOpened]);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const isOverTarget =
+        e.clientX >= targetLeft &&
+        e.clientX <= targetRight &&
+        e.clientY >= targetTop &&
+        e.clientY <= targetBottom;
+
+      const isOverMenu =
+        e.clientX >= menuLeft &&
+        e.clientX <= menuRight &&
+        e.clientY >= menuTop &&
+        e.clientY <= menuBottom;
+
+      /**
+       * APPBAR_USERLIST인 경우만 가정
+       */
+      const isOverBetween =
+        e.clientX >= menuLeft &&
+        e.clientX <= targetRight &&
+        e.clientY >= targetBottom &&
+        e.clientY <= menuTop;
+
+      if (!isOverTarget && !isOverMenu && !isOverBetween) {
+        setIsOpened(false);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [targetRef, menuRef, isOpened]);
 
   const renderedOptions = options.map((option) => {
     return (
@@ -168,7 +206,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
         key={option.title}
         href={`/works?tag=${option.title}`}
         selected={selected === option}
-        onClick={() => setSelected(option)}
+        onClick={() => {
+          setSelected(option);
+          setIsOpened(false);
+        }}
       >
         {option.title}
       </DropdownMenuItem>
@@ -179,7 +220,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     <MountUnmountAnimation isVisible={isOpened}>
       <DropdownMenuContainer
         ref={menuRef}
-        onMouseLeave={() => setIsOpened(false)}
+        onMouseEnter={() => setIsOpened(true)}
       >
         {renderedOptions}
       </DropdownMenuContainer>
