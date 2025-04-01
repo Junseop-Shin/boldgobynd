@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import ImageCarousel from "./ImageCarousel";
+import ImageCarousel from "./common/ImageCarousel";
 import { carouselImages } from "../assets/Works";
 import {
   ABOUT_SUBTITLE,
@@ -42,24 +42,6 @@ const SectionSubtitle = styled.p`
   text-align: left;
   font-weight: 350;
   line-height: 1.8;
-`;
-
-const AboutTitleImage = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
-const AboutSubtitleImage = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
 `;
 
 export default function About() {

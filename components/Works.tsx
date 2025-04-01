@@ -18,16 +18,6 @@ const WorksContainer = styled.div`
   margin: 0 auto;
 `;
 
-const WorksTitle = styled(Image)`
-  flex: 1;
-  transition: opacity 0.3s ease;
-  margin-top: 4rem;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
 const WorksSubtitle = styled.p`
   font-size: 1.1rem;
   color: rgb(11, 11, 11);

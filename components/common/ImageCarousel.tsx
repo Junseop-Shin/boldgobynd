@@ -1,27 +1,21 @@
 import Link from "next/link";
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { FaSearchMinus, FaSearchPlus } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
 import styled from "styled-components";
-import FullWidthImage from "./common/FullWidthImage";
+import FullWidthImage from "./FullWidthImage";
+import useFullScreenImage from "../../utils/useFullScreenImage";
+import FullscreenImage from "./FullScreenImage";
 
 // 타입 정의
-interface ImageCarouselType {
+export interface CarouselImage {
   title?: string;
   titleDesc: string;
   thumbnailImage: string;
 }
 
 interface ImageCarouselProps {
-  images: ImageCarouselType[];
+  images: CarouselImage[];
   autoPlayInterval?: number;
   isLinked?: boolean;
-}
-
-interface TransformState {
-  scale: number;
-  translateX: number;
-  translateY: number;
 }
 
 // 스타일드 컴포넌트
@@ -143,94 +137,6 @@ const IndicatorDot = styled.button<{ active: boolean }>`
   }
 `;
 
-const FullscreenOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
-const FullscreenImageContainer = styled.div<{ isDragging: boolean }>`
-  position: relative;
-  width: min(80vh, 80vw);
-  height: min(80vh, 80vw);
-  overflow: hidden;
-  cursor: ${(props) => (props.isDragging ? "grabbing" : "grab")};
-`;
-
-const FullscreenImage = styled.img<{ transform: TransformState }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(${(props) => props.transform.scale})
-    translate(
-      ${(props) => props.transform.translateX}px,
-      ${(props) => props.transform.translateY}px
-    );
-  transition: transform 0.3s ease;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  position: absolute;
-  background: transparent;
-  top: 20px;
-  right: 20px;
-  gap: 20px;
-`;
-
-const PlusButton = styled(FaSearchPlus)`
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  font-weight: 400;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const MinusButton = styled(FaSearchMinus)`
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  font-weight: 400;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const CloseButton = styled(IoClose)`
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  font-weight: 700;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
 const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   autoPlayInterval = 5000,
@@ -239,20 +145,18 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [fullscreenImageIndex, setFullscreenImageIndex] = useState<number>(0);
   const [slidesToShow, setSlidesToShow] = useState<number>(4);
   const [slideWidth, setSlideWidth] = useState<number>(0);
   const [translateX, setTranslateX] = useState<number>(0);
-  const [transform, setTransform] = useState<TransformState>({
-    scale: 1,
-    translateX: 0,
-    translateY: 0,
-  });
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [dragStartTranslate, setDragStartTranslate] = useState({ x: 0, y: 0 });
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const fullscreenRef = useRef<HTMLImageElement>(null);
+
+  const {
+    fullscreenImageIndex,
+    setFullscreenImageIndex,
+    transform,
+    setTransform,
+  } = useFullScreenImage();
 
   // 반응형으로 보여줄 슬라이드 수 계산
   const calculateSlidesToShow = useCallback(() => {
@@ -339,87 +243,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     });
   };
 
-  const nextFullscreenImage = () => {
-    setFullscreenImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    setTransform({
-      scale: 1,
-      translateX: 0,
-      translateY: 0,
-    });
-  };
-
-  const prevFullscreenImage = () => {
-    setFullscreenImageIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
-    setTransform({
-      scale: 1,
-      translateX: 0,
-      translateY: 0,
-    });
-  };
-
-  // 확대 기능
-  const zoomIn = () => {
-    setTransform((prev) => ({
-      ...prev,
-      scale: Math.min(prev.scale + 0.5, 4), // 최대 4배까지 확대
-    }));
-  };
-
-  // 축소 기능
-  const zoomOut = () => {
-    setTransform((prev) => ({
-      ...prev,
-      scale: Math.max(prev.scale - 0.5, 1), // 최소 1배 (원본 크기)
-    }));
-  };
-
-  // 원본 크기로 리셋
-  const resetZoom = () => {
-    setTransform({
-      scale: 1,
-      translateX: 0,
-      translateY: 0,
-    });
-  };
-
-  // 드래그 시작 핸들러
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (transform.scale > 1) {
-      setIsDragging(true);
-      setDragStart({ x: e.clientX, y: e.clientY });
-      setDragStartTranslate({
-        x: transform.translateX,
-        y: transform.translateY,
-      });
-    }
-  };
-
-  // 드래그 중 핸들러
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging && transform.scale > 1) {
-      const deltaX = e.clientX - dragStart.x;
-      const deltaY = e.clientY - dragStart.y;
-
-      setTransform((prev) => ({
-        ...prev,
-        translateX: dragStartTranslate.x + deltaX / prev.scale,
-        translateY: dragStartTranslate.y + deltaY / prev.scale,
-      }));
-    }
-  };
-
-  // 드래그 종료 핸들러
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  // 마우스가 영역을 벗어났을 때 드래그 종료
-  const handleMouseLeave = () => {
-    setIsDragging(false);
-  };
-
   // 자동 재생
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -489,43 +312,15 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
           ))}
         </ControlsContainer>
       </CarouselWrapper>
-
       {isFullscreen && (
-        <FullscreenOverlay>
-          <FullscreenImageContainer
-            isDragging={isDragging}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-          >
-            <FullscreenImage
-              ref={fullscreenRef}
-              src={images[fullscreenImageIndex].thumbnailImage}
-              alt={images[fullscreenImageIndex].titleDesc}
-              transform={transform}
-            />
-          </FullscreenImageContainer>
-          <ButtonContainer>
-            <MinusButton onClick={zoomOut} />
-            <PlusButton onClick={zoomIn} />
-            <CloseButton onClick={closeFullscreen} />
-          </ButtonContainer>
-          <PrevButton
-            onClick={prevFullscreenImage}
-            style={{ left: "30px" }}
-            isfullscreen
-          >
-            &#10094;
-          </PrevButton>
-          <NextButton
-            onClick={nextFullscreenImage}
-            style={{ right: "30px" }}
-            isfullscreen
-          >
-            &#10095;
-          </NextButton>
-        </FullscreenOverlay>
+        <FullscreenImage
+          image={images[fullscreenImageIndex]}
+          length={images.length}
+          closeFullscreen={closeFullscreen}
+          setFullscreenImageIndex={setFullscreenImageIndex}
+          transform={transform}
+          setTransform={setTransform}
+        />
       )}
     </GalleryContainer>
   );

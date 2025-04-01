@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./FadeUpAnimation";
-import ImageCarousel from "./ImageCarousel";
+import ImageCarousel from "./common/ImageCarousel";
 import { workDetailFooterImages } from "../assets/Works";
 
 const WorksDetailFooterSection = styled.section`
