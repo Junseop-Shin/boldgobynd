@@ -14,6 +14,7 @@ const ContactGrid = styled.div`
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
     grid-template-columns: 1fr;
+    width: 94%;
   }
 `;
 
