@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
   MAIN_SUBTITLE,
   MAIN_SUBTITLE_MOBILE,

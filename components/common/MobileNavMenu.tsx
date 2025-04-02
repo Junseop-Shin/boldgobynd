@@ -5,7 +5,7 @@ import FullScreenOverlay from "./FullScreenOverlay";
 import { IoIosArrowDown } from "react-icons/io";
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { MOBILE_BREAKPOINT, worksMenuOptions } from "../../assets/common";
+import { worksMenuOptions } from "../../assets/common";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
 
 interface MobileNavMenuProps {
@@ -24,7 +24,10 @@ const MobileMenu = styled(motion.div)`
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+
+  & > *:nth-last-child(-n + 1) {
+    height: 100%;
+  }
 `;
 
 const WorkContainer = styled.div`
@@ -34,10 +37,17 @@ const WorkContainer = styled.div`
 `;
 
 const MobileNavLink = styled(Link)`
+  width: 100%;
   color: #333;
   font-weight: 500;
   font-size: 1.2rem;
   background-color: white;
+  padding: 0.5rem 1rem;
+  z-index: 1003;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -49,17 +59,30 @@ const CloseButton = styled.button`
   font-size: 1.5rem;
   color: white;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const ArrowButton = styled(IoIosArrowDown)<{ isOpened: boolean }>`
+  width: auto;
+  height: 100%;
   transition: transform 0.3s ease;
   transform: ${(props) => (props.isOpened ? "rotate(180deg)" : "none")};
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const MobileSubmenu = styled(motion.div)`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
 `;
 
 const MobileSubNavLink = styled(Link)<{ selected: boolean }>`
@@ -69,6 +92,11 @@ const MobileSubNavLink = styled(Link)<{ selected: boolean }>`
   font-weight: 500;
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  z-index: 1002;
+
+  &:hover {
+    background-color: #999;
+  }
 `;
 
 const MobileNavMenu = ({ isOpened, setIsOpened }: MobileNavMenuProps) => {

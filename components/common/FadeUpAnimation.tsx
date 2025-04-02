@@ -1,4 +1,4 @@
-import React, { useRef, ReactNode, useState, useEffect } from "react";
+import React, { useRef, ReactNode } from "react";
 import { motion, useInView } from "framer-motion";
 
 interface FadeUpAnimationProps {
@@ -16,7 +16,6 @@ export default function FadeUpAnimation({
 }: FadeUpAnimationProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: !reAnimate, margin: "-100px 0px" });
-  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   const variants = {
     hidden: { opacity: 0, y: 50 },
@@ -25,12 +24,6 @@ export default function FadeUpAnimation({
       y: 0,
     },
   };
-
-  useEffect(() => {
-    if (reAnimate && isInView) {
-      setShouldAnimate(true);
-    }
-  }, [isInView, reAnimate]);
 
   return (
     <motion.div

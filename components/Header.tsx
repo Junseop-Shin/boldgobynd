@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import DropdownMenu from "./common/DropdownMenu";
-import FadeUpAnimation from "./common/FadeUpAnimation";
 import { MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
 import { IoIosSearch } from "react-icons/io";
 import MobileNavMenu from "./common/MobileNavMenu";
@@ -47,7 +46,6 @@ const Logo = styled(Link)`
 
 const LogoImage = styled(Image)<{ scrolled: boolean; headerColor?: boolean }>`
   height: auto;
-  transition: all 0.3s ease;
   filter: ${(props) =>
     !props.scrolled && !props.headerColor
       ? "brightness(0) invert(1)" // 흰색으로 변환
@@ -105,8 +103,12 @@ const MobileMenuButton = styled.button<{
   border: none;
   font-size: 1.5rem;
   color: ${(props) =>
-    props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
+    !props.scrolled && !props.headerColor ? "white" : "#212121"};
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
     display: block;
@@ -120,10 +122,11 @@ const MobileSearchButton = styled(IoIosSearch)<{
   display: none;
   background: none;
   border: none;
-  font-size: 1.5rem;
-  color: ${(props) =>
-    props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
-  cursor: pointer;
+  filter: ${(props) =>
+    !props.scrolled && !props.headerColor
+      ? "brightness(0) invert(1)" // 흰색으로 변환
+      : "none"};
+  cursor: not-allowed;
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
     display: block;
@@ -147,7 +150,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
     };
 
     const handleResize = () => {
-      if (window.innerWidth >= 990) {
+      if (window.innerWidth >= MOBILE_BREAKPOINT) {
         setMobileMenuOpen(false);
       }
     };
@@ -164,57 +167,59 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
   return (
     <>
       <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
-        <FadeUpAnimation reAnimate={false}>
-          <NavContent>
-            <MobileMenuButton
+        <NavContent>
+          <MobileMenuButton
+            scrolled={scrolled}
+            headerColor={headerColor}
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            ☰
+          </MobileMenuButton>
+          <Logo href="/">
+            <LogoImage
+              src="/favicon.ico"
+              alt="BOLD GO BEYOND"
               scrolled={scrolled}
               headerColor={headerColor}
-              onClick={() => setMobileMenuOpen(true)}
+              width={150}
+              height={40}
+              priority
+            />
+          </Logo>
+          <NavLinks>
+            <NavLink
+              href="/about"
+              scrolled={scrolled}
+              headerColor={headerColor}
+              active={router.pathname === "/about"}
             >
-              ☰
-            </MobileMenuButton>
-            <Logo href="/">
-              <LogoImage
-                src="/favicon.ico"
-                alt="BOLD GO BEYOND"
-                scrolled={scrolled}
-                headerColor={headerColor}
-                width={150}
-                height={40}
-                priority
-              />
-            </Logo>
-            <NavLinks>
-              <NavLink
-                href="/about"
-                scrolled={scrolled}
-                headerColor={headerColor}
-                active={router.pathname === "/about"}
-              >
-                ABOUT
-              </NavLink>
-              <NavLink
-                href="/works"
-                scrolled={scrolled}
-                headerColor={headerColor}
-                active={router.pathname === "/works"}
-                ref={targetRef}
-                onMouseEnter={() => setWorksMenuOpen(true)}
-              >
-                WORKS
-              </NavLink>
-              <NavLink
-                href="/contact"
-                headerColor={headerColor}
-                scrolled={scrolled}
-                active={router.pathname === "/contact"}
-              >
-                CONTACT
-              </NavLink>
-            </NavLinks>
-            <MobileSearchButton headerColor={headerColor} scrolled={scrolled} />
-          </NavContent>
-        </FadeUpAnimation>
+              ABOUT
+            </NavLink>
+            <NavLink
+              href="/works"
+              scrolled={scrolled}
+              headerColor={headerColor}
+              active={router.pathname === "/works"}
+              ref={targetRef}
+              onMouseEnter={() => setWorksMenuOpen(true)}
+            >
+              WORKS
+            </NavLink>
+            <NavLink
+              href="/contact"
+              headerColor={headerColor}
+              scrolled={scrolled}
+              active={router.pathname === "/contact"}
+            >
+              CONTACT
+            </NavLink>
+          </NavLinks>
+          <MobileSearchButton
+            headerColor={headerColor}
+            scrolled={scrolled}
+            aria-disabled
+          />
+        </NavContent>
       </NavContainer>
       <DropdownMenu
         isOpened={worksMenuOpen}
