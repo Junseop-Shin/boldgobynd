@@ -1,27 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
 import { MOBILE_BREAKPOINT } from "../assets/common";
 
-const WorksDetailSection = styled.section`
-  padding: 0 2rem;
-  background-color: white;
-`;
-
-const WorksDetailContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
 const WorkDetailGrid = styled.div`
+  padding: 5rem 0;
   display: grid;
   grid-template-columns: 1fr 2fr;
   position: relative;
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
     grid-template-columns: 1fr;
+    width: 100%;
   }
 `;
 
@@ -79,37 +71,33 @@ const WorksMainImageContainer = styled.div`
 
 export default function WorksDetail({ work }: { work: Work }) {
   return (
-    <WorksDetailSection>
-      <WorksDetailContainer>
-        <WorkDetailGrid>
-          <FadeUpAnimation reAnimate={false}>
-            <WorksDetailTable>
-              <WorksTitle>CLIENT</WorksTitle>
-              <WorksTitle>{work.client}</WorksTitle>
-              <WorksTitle>CATEGORY</WorksTitle>
-              <WorksTags>
-                {work.categories.map((tag) => (
-                  <WorksTag key={tag}>{tag}</WorksTag>
-                ))}
-              </WorksTags>
-              <WorksTitle>YEAR</WorksTitle>
-              <WorksTitle>{work.year}</WorksTitle>
-            </WorksDetailTable>
-          </FadeUpAnimation>
-          <WorksMainImageContainer>
-            {work.allImages.map((image, index) => (
-              <FullWidthImage
-                width={1920}
-                height={1227}
-                key={image}
-                src={image}
-                alt={`Project Example ${index + 1}`}
-                cover
-              />
+    <WorkDetailGrid>
+      <FadeUpAnimation reAnimate={false}>
+        <WorksDetailTable>
+          <WorksTitle>CLIENT</WorksTitle>
+          <WorksTitle>{work.client}</WorksTitle>
+          <WorksTitle>CATEGORY</WorksTitle>
+          <WorksTags>
+            {work.categories.map((tag) => (
+              <WorksTag key={tag}>{tag}</WorksTag>
             ))}
-          </WorksMainImageContainer>
-        </WorkDetailGrid>
-      </WorksDetailContainer>
-    </WorksDetailSection>
+          </WorksTags>
+          <WorksTitle>YEAR</WorksTitle>
+          <WorksTitle>{work.year}</WorksTitle>
+        </WorksDetailTable>
+      </FadeUpAnimation>
+      <WorksMainImageContainer>
+        {work.allImages.map((image, index) => (
+          <FullWidthImage
+            width={1920}
+            height={1227}
+            key={image}
+            src={image}
+            alt={`Project Example ${index + 1}`}
+            cover
+          />
+        ))}
+      </WorksMainImageContainer>
+    </WorkDetailGrid>
   );
 }

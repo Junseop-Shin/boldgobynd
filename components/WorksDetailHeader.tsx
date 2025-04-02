@@ -5,16 +5,6 @@ import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
 import { MOBILE_BREAKPOINT } from "../assets/common";
 
-const WorksDetailHeaderSection = styled.section`
-  padding: 5rem 2rem;
-  background-color: white;
-`;
-
-const WorksDetailHeaderContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
 const WorksDetailHeaderBody = styled.div`
   padding: 3rem 2rem 0;
 `;
@@ -54,33 +44,31 @@ const WorksDescriptionDetail = styled.label`
 
 export default function WorksDetailHeader({ work }: { work: Work }) {
   return (
-    <WorksDetailHeaderSection>
-      <WorksDetailHeaderContainer>
-        <FullWidthImage
-          width={1919}
-          height={933}
-          src={work.mainImage}
-          alt="Lead with BOLD"
-        />
-        <WorksDetailHeaderBody>
-          <FadeUpAnimation>
-            <WorksTitle>{work.titleDesc}</WorksTitle>
-            <WorksTitle>
-              <strong>{work.categoryDesc}</strong>
-            </WorksTitle>
-          </FadeUpAnimation>
-          <FadeUpAnimation>
-            <WorksTags>
-              {work.categories?.map((tag) => (
-                <WorksTag key={tag}>{tag}</WorksTag>
-              ))}
-            </WorksTags>
-          </FadeUpAnimation>
-          <FadeUpAnimation>
-            <WorksDescriptionDetail>{work.workDetail}</WorksDescriptionDetail>
-          </FadeUpAnimation>
-        </WorksDetailHeaderBody>
-      </WorksDetailHeaderContainer>
-    </WorksDetailHeaderSection>
+    <>
+      <FullWidthImage
+        width={1919}
+        height={933}
+        src={work.mainImage}
+        alt="Lead with BOLD"
+      />
+      <WorksDetailHeaderBody>
+        <FadeUpAnimation>
+          <WorksTitle>{work.titleDesc}</WorksTitle>
+          <WorksTitle>
+            <strong>{work.categoryDesc}</strong>
+          </WorksTitle>
+        </FadeUpAnimation>
+        <FadeUpAnimation>
+          <WorksTags>
+            {work.categories?.map((tag) => (
+              <WorksTag key={tag}>{tag}</WorksTag>
+            ))}
+          </WorksTags>
+        </FadeUpAnimation>
+        <FadeUpAnimation>
+          <WorksDescriptionDetail>{work.workDetail}</WorksDescriptionDetail>
+        </FadeUpAnimation>
+      </WorksDetailHeaderBody>
+    </>
   );
 }

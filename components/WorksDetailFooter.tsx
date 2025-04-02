@@ -3,15 +3,14 @@ import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ImageCarousel from "./common/ImageCarousel";
 import { workDetailFooterImages } from "../assets/Works";
-
-const WorksDetailFooterSection = styled.section`
-  padding: 5rem 2rem;
-  background-color: white;
-`;
+import { MOBILE_BREAKPOINT } from "../assets/common";
 
 const WorksDetailFooterContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 96%;
+  }
 `;
 
 const WorksFooterTitle = styled.p`
@@ -24,13 +23,11 @@ const WorksFooterTitle = styled.p`
 
 export default function WorksDetailFooter() {
   return (
-    <WorksDetailFooterSection>
-      <WorksDetailFooterContainer>
-        <FadeUpAnimation>
-          <WorksFooterTitle>OTHER PROJECTS</WorksFooterTitle>
-        </FadeUpAnimation>
-        <ImageCarousel images={workDetailFooterImages} isLinked />
-      </WorksDetailFooterContainer>
-    </WorksDetailFooterSection>
+    <WorksDetailFooterContainer>
+      <FadeUpAnimation>
+        <WorksFooterTitle>OTHER PROJECTS</WorksFooterTitle>
+      </FadeUpAnimation>
+      <ImageCarousel images={workDetailFooterImages} isLinked />
+    </WorksDetailFooterContainer>
   );
 }

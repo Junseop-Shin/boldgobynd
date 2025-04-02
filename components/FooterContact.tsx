@@ -8,21 +8,14 @@ import Email from "./common/Email";
 import FullWidthImage from "./common/FullWidthImage";
 import { MOBILE_BREAKPOINT } from "../assets/common";
 
-interface FooterContactProps {
-  bg?: string;
-}
-
-const FooterContactSection = styled.section<{ bg?: string }>`
-  padding: 5rem 2rem;
-  background-color: ${(props) => props.bg ?? "#d9ffe0"};
-`;
-
 const FooterContactContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
-  margin: 0 auto;
   gap: 3rem;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding: 0 2rem;
+  }
 `;
 
 const FooterContactBodyRow = styled.div`
@@ -115,75 +108,74 @@ const FooterContactSubtitleSection = styled.div`
   box-sizing: border-box;
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding: 1.5rem 0.5rem;
     & > * {
       display: flex;
       flex-direction: row;
       & > * {
         min-width: 25%;
+        font-size: 20px;
+        line-height: 1.8;
       }
     }
   }
 `;
 
-export default function FooterContact({ bg = "#d9ffe0" }: FooterContactProps) {
+export default function FooterContact() {
   return (
-    <FooterContactSection bg={bg}>
-      <FooterContactContainer>
-        <FadeUpAnimation>
-          <FullWidthImage
-            width={1250}
-            height={150}
-            src={MAIN_TITLE}
-            alt="Lead with BOLD"
-          />
-          {/* 이미지 파일 교체 후 변경 필요 <MobileResponsiveImage
+    <FooterContactContainer>
+      <FadeUpAnimation>
+        <FullWidthImage
+          width={1250}
+          height={150}
+          src={MAIN_TITLE}
+          alt="Lead with BOLD"
+        />
+        {/* 이미지 파일 교체 후 변경 필요 <MobileResponsiveImage
             width={1250}
             height={150}
             src={MAIN_TITLE}
             alt="Lead with BOLD"
           /> */}
-        </FadeUpAnimation>
-        <FooterContactBodyRow>
-          <FooterContactSubtitleContainer>
-            <FadeUpAnimation>
-              <FooterContactSubtitle>
-                <strong>&apos;대담함으로 앞장서다&apos;</strong>
-              </FooterContactSubtitle>
-              <FooterContactSubtitle>
-                볼드의 비전과 함께 새로운 가능성을 만들어가요!
-              </FooterContactSubtitle>
-              <FooterContactSubtitle>
-                다양한 프로젝트와 협업 문의를 언제든 환영합니다🔥
-              </FooterContactSubtitle>
-            </FadeUpAnimation>
-          </FooterContactSubtitleContainer>
-          <Link href="/contact" passHref>
-            <FooterContactButton>문의하기</FooterContactButton>
-          </Link>
-        </FooterContactBodyRow>
-        <FooterContactBodyGrid>
-          <FooterContactSubtitleSection>
-            <FadeUpAnimation>
-              <FooterContactSubtitle>
-                <strong>TEL</strong>
-              </FooterContactSubtitle>
-              <FooterContactSubtitle>
-                {businessInfo.phone}
-              </FooterContactSubtitle>
-            </FadeUpAnimation>
-          </FooterContactSubtitleSection>
-          <FooterContactSubtitleSection>
-            <FadeUpAnimation>
-              <FooterContactSubtitle>
-                <strong>E-MAIL</strong>
-              </FooterContactSubtitle>
-              <FooterContactSubtitle>
-                <Email email={businessInfo.email} />
-              </FooterContactSubtitle>
-            </FadeUpAnimation>
-          </FooterContactSubtitleSection>
-        </FooterContactBodyGrid>
-      </FooterContactContainer>
-    </FooterContactSection>
+      </FadeUpAnimation>
+      <FooterContactBodyRow>
+        <FooterContactSubtitleContainer>
+          <FadeUpAnimation>
+            <FooterContactSubtitle>
+              <strong>&apos;대담함으로 앞장서다&apos;</strong>
+            </FooterContactSubtitle>
+            <FooterContactSubtitle>
+              볼드의 비전과 함께 새로운 가능성을 만들어가요!
+            </FooterContactSubtitle>
+            <FooterContactSubtitle>
+              다양한 프로젝트와 협업 문의를 언제든 환영합니다🔥
+            </FooterContactSubtitle>
+          </FadeUpAnimation>
+        </FooterContactSubtitleContainer>
+        <Link href="/contact" passHref>
+          <FooterContactButton>문의하기</FooterContactButton>
+        </Link>
+      </FooterContactBodyRow>
+      <FooterContactBodyGrid>
+        <FooterContactSubtitleSection>
+          <FadeUpAnimation>
+            <FooterContactSubtitle>
+              <strong>TEL</strong>
+            </FooterContactSubtitle>
+            <FooterContactSubtitle>{businessInfo.phone}</FooterContactSubtitle>
+          </FadeUpAnimation>
+        </FooterContactSubtitleSection>
+        <FooterContactSubtitleSection>
+          <FadeUpAnimation>
+            <FooterContactSubtitle>
+              <strong>E-MAIL</strong>
+            </FooterContactSubtitle>
+            <FooterContactSubtitle>
+              <Email email={businessInfo.email} />
+            </FooterContactSubtitle>
+          </FadeUpAnimation>
+        </FooterContactSubtitleSection>
+      </FooterContactBodyGrid>
+    </FooterContactContainer>
   );
 }

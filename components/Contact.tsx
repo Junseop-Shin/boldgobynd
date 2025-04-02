@@ -6,16 +6,6 @@ import { businessInfo } from "../assets/Business";
 import Email from "./common/Email";
 import { MOBILE_BREAKPOINT } from "../assets/common";
 
-const ContactSection = styled.section`
-  padding: 5rem 2rem;
-  background-color: #d9ffe0;
-`;
-
-const ContactContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
 const ContactGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -212,148 +202,144 @@ export default function Contact() {
   };
 
   return (
-    <ContactSection id="contact">
-      <ContactContainer>
-        <ContactGrid>
-          <div>
-            <FadeUpAnimation>
-              <SectionTitle>문의하기</SectionTitle>
-            </FadeUpAnimation>
-            <FadeUpAnimation delay={0.1}>
-              <SectionSubtitle>
-                <br />
-              </SectionSubtitle>
-              <SectionSubtitle>아이디어를 남겨주세요.</SectionSubtitle>
-              <SectionSubtitle>BOLD가 실현을 돕겠습니다.</SectionSubtitle>
-              <SectionSubtitle>
-                <br />
-              </SectionSubtitle>
-              <SectionBody>
-                원하는 서비스의 내용, 예산, 일정을 알려주시면,
-              </SectionBody>
-              <SectionBody>
-                빠른 시간 내에 구체적인 견적 및 제작 일정을 안내해 드립니다.
-              </SectionBody>
-              <SectionBody>함께 새로운 가능성을 만들어가요!🚀</SectionBody>
-            </FadeUpAnimation>
-            <FadeUpAnimation delay={0.2}>
-              <ContactInfo>
-                <ContactInfoItem>
-                  <ContactIcon>
-                    <FaMapMarkerAlt />
-                  </ContactIcon>
-                  <ContactDetails>
-                    <ContactTitle>Our Location</ContactTitle>
-                    <ContactText>{businessInfo.address}</ContactText>
-                  </ContactDetails>
-                </ContactInfoItem>
+    <ContactGrid>
+      <div>
+        <FadeUpAnimation>
+          <SectionTitle>문의하기</SectionTitle>
+        </FadeUpAnimation>
+        <FadeUpAnimation delay={0.1}>
+          <SectionSubtitle>
+            <br />
+          </SectionSubtitle>
+          <SectionSubtitle>아이디어를 남겨주세요.</SectionSubtitle>
+          <SectionSubtitle>BOLD가 실현을 돕겠습니다.</SectionSubtitle>
+          <SectionSubtitle>
+            <br />
+          </SectionSubtitle>
+          <SectionBody>
+            원하는 서비스의 내용, 예산, 일정을 알려주시면,
+          </SectionBody>
+          <SectionBody>
+            빠른 시간 내에 구체적인 견적 및 제작 일정을 안내해 드립니다.
+          </SectionBody>
+          <SectionBody>함께 새로운 가능성을 만들어가요!🚀</SectionBody>
+        </FadeUpAnimation>
+        <FadeUpAnimation delay={0.2}>
+          <ContactInfo>
+            <ContactInfoItem>
+              <ContactIcon>
+                <FaMapMarkerAlt />
+              </ContactIcon>
+              <ContactDetails>
+                <ContactTitle>Our Location</ContactTitle>
+                <ContactText>{businessInfo.address}</ContactText>
+              </ContactDetails>
+            </ContactInfoItem>
 
-                <ContactInfoItem>
-                  <ContactIcon>
-                    <FaPhone />
-                  </ContactIcon>
-                  <ContactDetails>
-                    <ContactTitle>Phone Number</ContactTitle>
-                    <ContactText>{businessInfo.phone}</ContactText>
-                  </ContactDetails>
-                </ContactInfoItem>
+            <ContactInfoItem>
+              <ContactIcon>
+                <FaPhone />
+              </ContactIcon>
+              <ContactDetails>
+                <ContactTitle>Phone Number</ContactTitle>
+                <ContactText>{businessInfo.phone}</ContactText>
+              </ContactDetails>
+            </ContactInfoItem>
 
-                <ContactInfoItem>
-                  <ContactIcon>
-                    <FaEnvelope />
-                  </ContactIcon>
-                  <ContactDetails>
-                    <ContactTitle>Email Address</ContactTitle>
-                    <ContactText>
-                      <Email email={businessInfo.email} />
-                    </ContactText>
-                  </ContactDetails>
-                </ContactInfoItem>
-              </ContactInfo>
-            </FadeUpAnimation>
-          </div>
+            <ContactInfoItem>
+              <ContactIcon>
+                <FaEnvelope />
+              </ContactIcon>
+              <ContactDetails>
+                <ContactTitle>Email Address</ContactTitle>
+                <ContactText>
+                  <Email email={businessInfo.email} />
+                </ContactText>
+              </ContactDetails>
+            </ContactInfoItem>
+          </ContactInfo>
+        </FadeUpAnimation>
+      </div>
 
-          <FadeUpAnimation delay={0.4}>
-            <ContactForm onSubmit={handleSubmit}>
-              <FormGroupGrid>
-                <FormGroup>
-                  <FormLabel htmlFor="name" required>
-                    NAME OF COMPANY
-                  </FormLabel>
-                  <FormInput
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
+      <FadeUpAnimation delay={0.4}>
+        <ContactForm onSubmit={handleSubmit}>
+          <FormGroupGrid>
+            <FormGroup>
+              <FormLabel htmlFor="name" required>
+                NAME OF COMPANY
+              </FormLabel>
+              <FormInput
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
 
-                <FormGroup>
-                  <FormLabel htmlFor="phone" required>
-                    PHONE
-                  </FormLabel>
-                  <FormInput
-                    type="phone"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
-              </FormGroupGrid>
-              <FormGroup>
-                <FormLabel htmlFor="email" required>
-                  EMAIL
-                </FormLabel>
-                <FormInput
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
+            <FormGroup>
+              <FormLabel htmlFor="phone" required>
+                PHONE
+              </FormLabel>
+              <FormInput
+                type="phone"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+          </FormGroupGrid>
+          <FormGroup>
+            <FormLabel htmlFor="email" required>
+              EMAIL
+            </FormLabel>
+            <FormInput
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
 
-              <FormGroup>
-                <FormLabel htmlFor="project" required>
-                  ABOUT PROJECT
-                </FormLabel>
-                <FormTextarea
-                  id="project"
-                  name="project"
-                  value={formData.project}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
+          <FormGroup>
+            <FormLabel htmlFor="project" required>
+              ABOUT PROJECT
+            </FormLabel>
+            <FormTextarea
+              id="project"
+              name="project"
+              value={formData.project}
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
 
-              <FormGroup>
-                <FormLabel htmlFor="message">UPLOAD</FormLabel>
-                <FormInput
-                  type="file"
-                  id="file"
-                  name="file"
-                  value={formData.file}
-                  onChange={handleChange}
-                />
-              </FormGroup>
+          <FormGroup>
+            <FormLabel htmlFor="message">UPLOAD</FormLabel>
+            <FormInput
+              type="file"
+              id="file"
+              name="file"
+              value={formData.file}
+              onChange={handleChange}
+            />
+          </FormGroup>
 
-              <SubmitButton type="submit">제출하기</SubmitButton>
+          <SubmitButton type="submit">제출하기</SubmitButton>
 
-              {isSubmitted && (
-                <SuccessMessage>
-                  메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 답변
-                  드리겠습니다.
-                </SuccessMessage>
-              )}
-            </ContactForm>
-          </FadeUpAnimation>
-        </ContactGrid>
-      </ContactContainer>
-    </ContactSection>
+          {isSubmitted && (
+            <SuccessMessage>
+              메시지가 성공적으로 전송되었습니다. 빠른 시일 내에 답변
+              드리겠습니다.
+            </SuccessMessage>
+          )}
+        </ContactForm>
+      </FadeUpAnimation>
+    </ContactGrid>
   );
 }

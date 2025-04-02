@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import DropdownMenu, { DropdownMenuOptionProps } from "./common/DropdownMenu";
+import DropdownMenu from "./common/DropdownMenu";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
 import { IoIosSearch } from "react-icons/io";

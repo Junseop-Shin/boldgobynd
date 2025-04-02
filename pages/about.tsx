@@ -6,9 +6,8 @@ import FooterContact from "../components/FooterContact";
 
 export default function AboutPage() {
   return (
-    <Layout headerColor={false}>
+    <Layout headerColor={false} sectionBgColor="#1e1e20" showFooterContact>
       <About />
-      <FooterContact />
     </Layout>
   );
 }
