@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { CarouselImage } from "./ImageCarousel";
 import { TransformState } from "../../utils/useFullScreenImage";
 import { MOBILE_BREAKPOINT } from "../../assets/common";
+import FullScreenOverlay from "./FullScreenOverlay";
 
 interface FullscreenImageProps {
   image: CarouselImage;
@@ -14,19 +15,6 @@ interface FullscreenImageProps {
   transform: TransformState;
   setTransform: Dispatch<SetStateAction<TransformState>>;
 }
-
-const FullscreenOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
 
 const FullscreenImageContainer = styled.div<{ isDragging: boolean }>`
   position: relative;
@@ -46,7 +34,7 @@ const FullImage = styled.img<{ transform: TransformState }>`
       ${(props) => props.transform.translateX}px,
       ${(props) => props.transform.translateY}px
     );
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 `;
 
 const ButtonContainer = styled.div`
@@ -288,7 +276,7 @@ const FullscreenImage = ({
   ]);
 
   return (
-    <FullscreenOverlay ref={containerRef}>
+    <FullScreenOverlay ref={containerRef}>
       <FullscreenImageContainer
         isDragging={isDragging}
         onMouseDown={handleMouseDown}
@@ -318,7 +306,7 @@ const FullscreenImage = ({
       >
         &#10095;
       </NextButton>
-    </FullscreenOverlay>
+    </FullScreenOverlay>
   );
 };
 

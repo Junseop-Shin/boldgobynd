@@ -65,7 +65,7 @@ const ThumbnailGrid = styled.div`
 
 const ThumbnailImageContainer = styled(Link)`
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   width: 100%;
   padding-top: 100%;
   cursor: pointer;
@@ -85,7 +85,7 @@ const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   justify-content: flex-end;
   gap: 10px;
 `;

@@ -6,7 +6,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import DropdownMenu, { DropdownMenuOptionProps } from "./common/DropdownMenu";
 import FadeUpAnimation from "./common/FadeUpAnimation";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
+import { IoIosSearch } from "react-icons/io";
+import MobileNavMenu from "./common/MobileNavMenu";
 
 const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   position: fixed;
@@ -20,6 +22,11 @@ const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   box-shadow: ${(props) =>
     props.scrolled ? "0 2px 10px rgba(0, 0, 0, 0.1)" : "none"};
   transition: all 0.3s ease;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding: 0.3rem 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const NavContent = styled.div`
@@ -46,6 +53,11 @@ const LogoImage = styled(Image)<{ scrolled: boolean; headerColor?: boolean }>`
     !props.scrolled && !props.headerColor
       ? "brightness(0) invert(1)" // 흰색으로 변환
       : "none"};
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    height: 30px;
+    width: auto;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -102,41 +114,22 @@ const MobileMenuButton = styled.button<{
   }
 `;
 
-const MobileMenu = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100vh;
-  background-color: white;
-  padding: 2rem;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`;
-
-const MobileNavLink = styled.a`
-  color: #333;
-  font-weight: 500;
-  font-size: 1.2rem;
-`;
-
-const CloseButton = styled.button`
-  align-self: flex-end;
+const MobileSearchButton = styled(IoIosSearch)<{
+  scrolled: boolean;
+  headerColor?: boolean;
+}>`
+  display: none;
   background: none;
   border: none;
   font-size: 1.5rem;
+  color: ${(props) =>
+    props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
   cursor: pointer;
-  margin-bottom: 2rem;
-`;
 
-export const worksMenuOptions: DropdownMenuOptionProps[] = [
-  { title: "ALL", subtitle: "전체" },
-  { title: "BRANDING", subtitle: "브랜딩·로고" },
-  { title: "PACKAGE", subtitle: "패키지" },
-  { title: "AD·EDITORIAL", subtitle: "광고·편집" },
-];
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    display: block;
+  }
+`;
 
 export default function Header({ headerColor = true, headerBgColor = false }) {
   const [scrolled, setScrolled] = useState(false);
@@ -154,10 +147,18 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
       }
     };
 
+    const handleResize = () => {
+      if (window.innerWidth >= 990) {
+        setMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -166,6 +167,13 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
       <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
         <FadeUpAnimation reAnimate={false}>
           <NavContent>
+            <MobileMenuButton
+              scrolled={scrolled}
+              headerColor={headerColor}
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              ☰
+            </MobileMenuButton>
             <Logo href="/">
               <LogoImage
                 src="/favicon.ico"
@@ -205,13 +213,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
                 CONTACT
               </NavLink>
             </NavLinks>
-            <MobileMenuButton
-              scrolled={scrolled}
-              headerColor={headerColor}
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              ☰
-            </MobileMenuButton>
+            <MobileSearchButton headerColor={headerColor} scrolled={scrolled} />
           </NavContent>
         </FadeUpAnimation>
       </NavContainer>
@@ -221,31 +223,10 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
         targetRef={targetRef}
         options={worksMenuOptions}
       />
-      {mobileMenuOpen && (
-        <MobileMenu
-          initial={{ x: 300 }}
-          animate={{ x: 0 }}
-          exit={{ x: 300 }}
-          transition={{ type: "spring", damping: 20 }}
-        >
-          <CloseButton onClick={() => setMobileMenuOpen(false)}>✕</CloseButton>
-          <MobileNavLink href="/about" onClick={() => setMobileMenuOpen(false)}>
-            About
-          </MobileNavLink>
-          <MobileNavLink
-            href="/services"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Services
-          </MobileNavLink>
-          <MobileNavLink
-            href="/contact"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Contact
-          </MobileNavLink>
-        </MobileMenu>
-      )}
+      <MobileNavMenu
+        isOpened={mobileMenuOpen}
+        setIsOpened={setMobileMenuOpen}
+      />
     </>
   );
 }

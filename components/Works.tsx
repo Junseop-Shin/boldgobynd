@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ImageGallery from "./common/ImageGallery";
-import { worksMenuOptions } from "./Header";
 import { galleryImages } from "../assets/Works";
 import { WORKS_TITLE } from "../assets/Image";
 import MobileResponsiveImage from "./common/MobileResponsiveImage";
+import { worksMenuOptions } from "../assets/common";
 
 const WorksSection = styled.section`
   padding: 5rem 2rem;
