@@ -4,7 +4,7 @@ import FadeUpAnimation from "./common/FadeUpAnimation";
 import { businessInfo } from "../assets/Business";
 import { MAIN_TITLE } from "../assets/Image";
 import Email from "./common/Email";
-import MobileResponsiveImage from "./common/MobileResponsiveImage";
+// import MobileResponsiveImage from "./common/MobileResponsiveImage";
 import FullWidthImage from "./common/FullWidthImage";
 import { MOBILE_BREAKPOINT } from "../assets/common";
 
@@ -22,7 +22,7 @@ const FooterContactContainer = styled.div`
   flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 1rem;
+  gap: 3rem;
 `;
 
 const FooterContactBodyRow = styled.div`
@@ -115,7 +115,13 @@ const FooterContactSubtitleSection = styled.div`
   box-sizing: border-box;
 
   @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    flex-direction: row;
+    & > * {
+      display: flex;
+      flex-direction: row;
+      & > * {
+        min-width: 25%;
+      }
+    }
   }
 `;
 

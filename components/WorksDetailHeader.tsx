@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
+import { MOBILE_BREAKPOINT } from "../assets/common";
 
 const WorksDetailHeaderSection = styled.section`
   padding: 5rem 2rem;
@@ -14,18 +15,18 @@ const WorksDetailHeaderContainer = styled.div`
   margin: 0 auto;
 `;
 
-const WorksDetailHeaderGrid = styled.div`
-  margin: 0 200px;
-`;
-
-const WorksMainImage = styled(FullWidthImage)`
-  margin: 5rem 0;
+const WorksDetailHeaderBody = styled.div`
+  padding: 3rem 2rem 0;
 `;
 
 const WorksTitle = styled.p`
   font-size: 30px;
   color: rgb(11, 11, 11);
   line-height: 1.5;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    font-size: 24px;
+  }
 `;
 
 const WorksTags = styled.div`
@@ -44,19 +45,24 @@ const WorksDescriptionDetail = styled.label`
   font-size: 18px;
   color: rgb(11, 11, 11);
   line-height: 2;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    font-size: 15px;
+    line-height: 1.8;
+  }
 `;
 
 export default function WorksDetailHeader({ work }: { work: Work }) {
   return (
     <WorksDetailHeaderSection>
       <WorksDetailHeaderContainer>
-        <WorksMainImage
+        <FullWidthImage
           width={1919}
           height={933}
           src={work.mainImage}
           alt="Lead with BOLD"
         />
-        <WorksDetailHeaderGrid>
+        <WorksDetailHeaderBody>
           <FadeUpAnimation>
             <WorksTitle>{work.titleDesc}</WorksTitle>
             <WorksTitle>
@@ -73,7 +79,7 @@ export default function WorksDetailHeader({ work }: { work: Work }) {
           <FadeUpAnimation>
             <WorksDescriptionDetail>{work.workDetail}</WorksDescriptionDetail>
           </FadeUpAnimation>
-        </WorksDetailHeaderGrid>
+        </WorksDetailHeaderBody>
       </WorksDetailHeaderContainer>
     </WorksDetailHeaderSection>
   );

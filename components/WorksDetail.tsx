@@ -3,9 +3,10 @@ import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/Works";
 import FullWidthImage from "./common/FullWidthImage";
+import { MOBILE_BREAKPOINT } from "../assets/common";
 
 const WorksDetailSection = styled.section`
-  padding: 5rem 2rem;
+  padding: 0 2rem;
   background-color: white;
 `;
 
@@ -18,6 +19,10 @@ const WorkDetailGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   position: relative;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const WorksDetailTable = styled.div`
@@ -38,6 +43,10 @@ const WorksDetailTable = styled.div`
 
   & > *:nth-last-child(-n + 2) {
     border-bottom: none;
+  }
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    display: none;
   }
 `;
 
@@ -61,6 +70,11 @@ const WorksMainImageContainer = styled.div`
   flex-direction: column;
   width: 92%;
   justify-self: flex-end;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100%;
+    justify-self: center;
+  }
 `;
 
 export default function WorksDetail({ work }: { work: Work }) {
