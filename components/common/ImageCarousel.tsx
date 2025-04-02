@@ -43,11 +43,11 @@ const CarouselTrack = styled.div<{ translateX: number }>`
 const ImageSlide = styled.div<{ width: number }>`
   flex: 0 0 ${(props) => props.width}px;
   width: ${(props) => props.width}px;
+  height: ${(props) => props.width}px;
   padding-top: ${(props) => props.width}px; /* 정사각형 비율 유지 */
   position: relative;
   box-sizing: border-box;
   padding: 5px;
-  min-height: 300px;
 `;
 
 const SquareImageContainer = styled.div`
@@ -161,12 +161,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // 반응형으로 보여줄 슬라이드 수 계산
   const calculateSlidesToShow = useCallback(() => {
-    if (window.innerWidth < 576) {
-      return 1;
-    } else if (window.innerWidth < 768) {
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
       return 2;
-    } else if (window.innerWidth < 992) {
-      return 3;
     } else {
       return 4;
     }
@@ -178,10 +174,12 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
       const containerWidth = containerRef.current.clientWidth;
       const slides = calculateSlidesToShow();
       const width = containerWidth / slides;
+      const newIndex = (currentIndex * slidesToShow) % slides;
 
       setSlideWidth(width);
       setSlidesToShow(slides);
-      setTranslateX(-currentIndex * width);
+      setCurrentIndex(newIndex);
+      setTranslateX(-newIndex * width);
     }
   }, [calculateSlidesToShow, currentIndex]);
 
