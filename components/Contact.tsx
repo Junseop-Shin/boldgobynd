@@ -4,6 +4,7 @@ import FadeUpAnimation from "./common/FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 import { businessInfo } from "../assets/Business";
 import Email from "./common/Email";
+import { MOBILE_BREAKPOINT } from "../assets/common";
 
 const ContactSection = styled.section`
   padding: 5rem 2rem;
@@ -21,7 +22,7 @@ const ContactGrid = styled.div`
   gap: 3rem;
   margin-top: 3rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -91,7 +92,7 @@ const FormGroupGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     grid-template-columns: 1fr;
   }
 `;

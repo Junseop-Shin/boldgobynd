@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import DropdownMenu, { DropdownMenuOptionProps } from "./common/DropdownMenu";
 import FadeUpAnimation from "./common/FadeUpAnimation";
+import { MOBILE_BREAKPOINT } from "../assets/common";
 
 const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   position: fixed;
@@ -51,7 +52,7 @@ const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
 
-  @media (max-width: 990px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     display: none;
   }
 `;
@@ -96,7 +97,7 @@ const MobileMenuButton = styled.button<{
     props.headerColor ? "#212121" : props.scrolled ? "white" : "#212121"};
   cursor: pointer;
 
-  @media (max-width: 990px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     display: block;
   }
 `;
@@ -104,7 +105,7 @@ const MobileMenuButton = styled.button<{
 const MobileMenu = styled(motion.div)`
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 250px;
   height: 100vh;
   background-color: white;

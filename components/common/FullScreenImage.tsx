@@ -4,6 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { CarouselImage } from "./ImageCarousel";
 import { TransformState } from "../../utils/useFullScreenImage";
+import { MOBILE_BREAKPOINT } from "../../assets/common";
 
 interface FullscreenImageProps {
   image: CarouselImage;
@@ -125,7 +126,7 @@ const NavigationButton = styled.button<{ isfullscreen?: boolean }>`
     opacity: ${(props) => (props.isfullscreen ? 1 : 0.7)};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 30px;
     height: 30px;
     font-size: 14px;
