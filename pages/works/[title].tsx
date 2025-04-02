@@ -19,11 +19,13 @@ export default function WorkDetailPages({ work }: { work: Work }) {
   }
 
   return (
-    <Layout headerBgColor>
-      <WorksDetailHeader work={work} />
-      <WorksDetail work={work} />
-      <WorksDetailFooter />
-    </Layout>
+    <article>
+      <Layout headerBgColor>
+        <WorksDetailHeader work={work} />
+        <WorksDetail work={work} />
+        <WorksDetailFooter />
+      </Layout>
+    </article>
   );
 }
 

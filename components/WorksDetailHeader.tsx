@@ -34,13 +34,13 @@ const WorksTags = styled.div`
   margin: 2.5rem 0;
 `;
 
-const WorksTag = styled.p`
+const WorksTag = styled.label`
   background-color: rgb(234, 234, 234);
   font-size: 18px;
   padding: 2px 10px;
 `;
 
-const WorksDescriptionDetail = styled.p`
+const WorksDescriptionDetail = styled.label`
   font-size: 18px;
   color: rgb(11, 11, 11);
   line-height: 2;
