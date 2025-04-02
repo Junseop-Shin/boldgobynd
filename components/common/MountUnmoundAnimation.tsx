@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
 
-interface MountUnmountProps {
+interface MountUnmountProps extends HTMLMotionProps<"div"> {
   isVisible: boolean;
   children: ReactNode;
 }
@@ -9,6 +9,7 @@ interface MountUnmountProps {
 export default function MountUnmountAnimation({
   isVisible,
   children,
+  ...motionProps
 }: MountUnmountProps) {
   return (
     <AnimatePresence>
@@ -18,6 +19,7 @@ export default function MountUnmountAnimation({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          {...motionProps}
         >
           {children}
         </motion.div>

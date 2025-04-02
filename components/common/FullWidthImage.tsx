@@ -13,7 +13,7 @@ const SquareImage = styled(Image)<{
   responsive?: boolean;
 }>`
   position: ${(props) => !props.responsive && "absolute"};
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   object-fit: ${(props) => (props.cover ? "cover" : "contain")};
 
   &:hover {

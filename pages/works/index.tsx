@@ -6,9 +6,8 @@ import FooterContact from "../../components/FooterContact";
 
 export default function WorksPage() {
   return (
-    <Layout>
+    <Layout showFooterContact>
       <Works />
-      <FooterContact />
     </Layout>
   );
 }

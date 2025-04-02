@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
 import FullWidthImage from "./FullWidthImage";
+import { MOBILE_BREAKPOINT } from "../../assets/common";
 
 interface ResponsiveImageProps extends ImageProps {
   breakpoint?: number;
@@ -11,7 +12,7 @@ interface ResponsiveImageProps extends ImageProps {
  * @returns 모바일 화면에는 Responsible, 웹 화면에는 일반 이미지
  */
 const MobileResponsiveImage: React.FC<ResponsiveImageProps> = ({
-  breakpoint = 990,
+  breakpoint = MOBILE_BREAKPOINT,
   ...props
 }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);

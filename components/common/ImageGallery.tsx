@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
 import FullWidthImage from "./FullWidthImage";
 import { useRouter } from "next/router";
+import { MOBILE_BREAKPOINT } from "../../assets/common";
 
 export interface GalleryImage {
   title: string;
@@ -30,6 +31,11 @@ const GalleryTagTabs = styled.div`
   justify-content: center;
   gap: 8px;
   padding: 3rem 0;
+
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    gap: 2px;
+    padding: 1.5rem 0;
+  }
 `;
 
 const GalleryTag = styled.button<{ active: boolean }>`
@@ -44,16 +50,11 @@ const GalleryTag = styled.button<{ active: boolean }>`
   font-size: 1rem;
   letter-spacing: 1px;
 
-  &::before {
-    content: attr(data-content);
-    visibility: hidden;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 8px 16px;
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.7rem;
   }
 `;
 
@@ -65,7 +66,7 @@ const ThumbnailGrid = styled.div`
 
 const ThumbnailImageContainer = styled(Link)`
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   width: 100%;
   padding-top: 100%;
   cursor: pointer;
@@ -85,7 +86,7 @@ const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   justify-content: flex-end;
   gap: 10px;
 `;

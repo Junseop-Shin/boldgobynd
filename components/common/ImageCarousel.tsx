@@ -4,6 +4,7 @@ import styled from "styled-components";
 import FullWidthImage from "./FullWidthImage";
 import useFullScreenImage from "../../utils/useFullScreenImage";
 import FullscreenImage from "./FullScreenImage";
+import { MOBILE_BREAKPOINT } from "../../assets/common";
 
 // 타입 정의
 export interface CarouselImage {
@@ -42,11 +43,11 @@ const CarouselTrack = styled.div<{ translateX: number }>`
 const ImageSlide = styled.div<{ width: number }>`
   flex: 0 0 ${(props) => props.width}px;
   width: ${(props) => props.width}px;
+  height: ${(props) => props.width}px;
   padding-top: ${(props) => props.width}px; /* 정사각형 비율 유지 */
   position: relative;
   box-sizing: border-box;
   padding: 5px;
-  min-height: 300px;
 `;
 
 const SquareImageContainer = styled.div`
@@ -64,7 +65,7 @@ const SquareImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 
   &:hover {
     transform: scale(1.05);
@@ -94,7 +95,7 @@ const NavigationButton = styled.button<{ isfullscreen?: boolean }>`
     opacity: ${(props) => (props.isfullscreen ? 1 : 0.7)};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 30px;
     height: 30px;
     font-size: 14px;
@@ -160,12 +161,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // 반응형으로 보여줄 슬라이드 수 계산
   const calculateSlidesToShow = useCallback(() => {
-    if (window.innerWidth < 576) {
-      return 1;
-    } else if (window.innerWidth < 768) {
+    if (window.innerWidth < MOBILE_BREAKPOINT) {
       return 2;
-    } else if (window.innerWidth < 992) {
-      return 3;
     } else {
       return 4;
     }
@@ -177,10 +174,12 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
       const containerWidth = containerRef.current.clientWidth;
       const slides = calculateSlidesToShow();
       const width = containerWidth / slides;
+      const newIndex = (currentIndex * slidesToShow) % slides;
 
       setSlideWidth(width);
       setSlidesToShow(slides);
-      setTranslateX(-currentIndex * width);
+      setCurrentIndex(newIndex);
+      setTranslateX(-newIndex * width);
     }
   }, [calculateSlidesToShow, currentIndex]);
 

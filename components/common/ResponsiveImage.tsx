@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import FullWidthImage, { FullscreenImageProps } from "./FullWidthImage";
+import { MOBILE_BREAKPOINT } from "../../assets/common";
 
 interface ResponsiveImageProps extends FullscreenImageProps {
   mobileSrc: string;
@@ -9,7 +10,7 @@ interface ResponsiveImageProps extends FullscreenImageProps {
 const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
   mobileSrc,
-  breakpoint = 990,
+  breakpoint = MOBILE_BREAKPOINT,
   ...props
 }) => {
   const [currentSrc, setCurrentSrc] = useState(src);
