@@ -22,7 +22,6 @@ interface ImageCarouselProps {
 // 스타일드 컴포넌트
 const GalleryContainer = styled.div`
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 `;
