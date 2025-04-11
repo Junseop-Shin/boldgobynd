@@ -33,10 +33,14 @@ const CarouselWrapper = styled.div`
   margin: 5rem 0;
 `;
 
-const CarouselTrack = styled.div<{ translateX: number }>`
+const CarouselTrack = styled.div<{
+  translateX: number;
+  transitionEnabled: boolean;
+}>`
   display: flex;
-  transition: transform 0.5s ease-in-out;
   transform: translateX(${(props) => props.translateX}px);
+  transition: ${(props) =>
+    props.transitionEnabled ? "transform 0.5s ease-in-out" : "none"};
 `;
 
 const ImageSlide = styled.div<{ width: number }>`
@@ -109,47 +113,21 @@ const NextButton = styled(NavigationButton)`
   right: 16px;
 `;
 
-const ControlsContainer = styled.div`
-  position: absolute;
-  bottom: 16px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  z-index: 10;
-`;
-
-const IndicatorDot = styled.button<{ active: boolean }>`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: ${(props) =>
-    props.active ? "#0070f3" : "rgba(0, 0, 0, 0.3)"};
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${(props) =>
-      props.active ? "#0070f3" : "rgba(0, 0, 0, 0.5)"};
-  }
-`;
-
 const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   autoPlayInterval = 5000,
   isLinked = false,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [slidesToShow, setSlidesToShow] = useState<number>(4);
+  const [currentIndex, setCurrentIndex] = useState<number>(slidesToShow * 2);
   const [slideWidth, setSlideWidth] = useState<number>(0);
   const [translateX, setTranslateX] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const {
     fullscreenImageIndex,
@@ -158,43 +136,40 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     setTransform,
   } = useFullScreenImage();
 
-  // 반응형으로 보여줄 슬라이드 수 계산
-  const calculateSlidesToShow = useCallback(() => {
-    if (window.innerWidth < MOBILE_BREAKPOINT) {
-      return 2;
-    } else {
-      return 4;
-    }
-  }, []);
+  const duplicateCount = slidesToShow * 2;
+  const repeatedImages = [];
+  const originalImages = images.map((img, i) => ({ ...img, originalIndex: i }));
+
+  while (repeatedImages.length < duplicateCount) {
+    repeatedImages.push(...originalImages);
+  }
+
+  const extendedSlides = [
+    ...repeatedImages.slice(-duplicateCount),
+    ...originalImages,
+    ...repeatedImages.slice(0, duplicateCount),
+  ];
 
   // 슬라이드 너비 계산 및 translateX 설정
   const calculateDimensions = useCallback(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.clientWidth;
-      const slides = calculateSlidesToShow();
+      const slides = window.innerWidth < MOBILE_BREAKPOINT ? 2 : 4;
       const width = containerWidth / slides;
-      const newIndex = (currentIndex * slidesToShow) % slides;
+      // const newIndex = (currentIndex * slidesToShow) % slides;
 
       setSlideWidth(width);
       setSlidesToShow(slides);
-      setCurrentIndex(newIndex);
-      setTranslateX(-newIndex * width);
+      // setCurrentIndex(newIndex);
+      // setTranslateX(-newIndex * width);
+      setTranslateX(-currentIndex * width);
     }
-  }, [calculateSlidesToShow, currentIndex]);
+  }, [currentIndex]);
 
-  // 윈도우 리사이즈 이벤트 처리
   useEffect(() => {
-    const handleResize = () => {
-      calculateDimensions();
-    };
-
-    // 초기 계산
     calculateDimensions();
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
   }, [calculateDimensions]);
 
   // 인덱스 변경 시 translateX 업데이트
@@ -202,23 +177,18 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     setTranslateX(-currentIndex * slideWidth);
   }, [currentIndex, slideWidth]);
 
+  const slideTo = (index: number) => {
+    setCurrentIndex(index);
+    setTransitionEnabled(true);
+  };
+
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      // 마지막 이미지에 도달했을 때 첫 번째 이미지로 돌아가기
-      return prevIndex >= images.length - slidesToShow ? 0 : prevIndex + 1;
-    });
-  }, [images.length, slidesToShow]);
+    slideTo(currentIndex + slidesToShow);
+  }, [currentIndex, slidesToShow]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      // 첫 번째 이미지에서 이전으로 가면 마지막 슬라이드로 이동
-      return prevIndex <= 0 ? images.length - slidesToShow : prevIndex - 1;
-    });
-  }, [images.length, slidesToShow]);
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
+    slideTo(currentIndex - slidesToShow);
+  }, [currentIndex, slidesToShow]);
 
   const openFullscreen = (index: number) => {
     setFullscreenImageIndex(index);
@@ -256,15 +226,39 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     };
   }, [isPlaying, nextSlide, autoPlayInterval]);
 
-  // 페이지 인디케이터 계산
-  const totalSlides = images.length - slidesToShow + 1;
-  const pageIndicators = Array.from({ length: totalSlides }, (_, i) => i);
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      if (currentIndex >= images.length + duplicateCount) {
+        const offset = (currentIndex - duplicateCount) % images.length;
+        const correctedIndex = duplicateCount + offset;
+        setTransitionEnabled(false);
+        setCurrentIndex(correctedIndex);
+      } else if (currentIndex < duplicateCount) {
+        const offset =
+          (currentIndex - duplicateCount + images.length) % images.length;
+        const correctedIndex = duplicateCount + offset;
+        setTransitionEnabled(false);
+        setCurrentIndex(correctedIndex);
+      }
+    };
+
+    const track = trackRef.current;
+    if (track) {
+      track.addEventListener("transitionend", handleTransitionEnd);
+      return () =>
+        track.removeEventListener("transitionend", handleTransitionEnd);
+    }
+  }, [currentIndex]);
 
   return (
     <GalleryContainer ref={containerRef}>
       <CarouselWrapper>
-        <CarouselTrack translateX={translateX}>
-          {images.map((image, index) => (
+        <CarouselTrack
+          translateX={translateX}
+          transitionEnabled={transitionEnabled}
+          ref={trackRef}
+        >
+          {extendedSlides.map((image, index) => (
             <ImageSlide key={index} width={slideWidth}>
               {isLinked ? (
                 <Link
@@ -285,7 +279,9 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
                   </SquareImageContainer>
                 </Link>
               ) : (
-                <SquareImageContainer onClick={() => openFullscreen(index)}>
+                <SquareImageContainer
+                  onClick={() => openFullscreen(image.originalIndex)}
+                >
                   <FullWidthImage
                     src={image.thumbnailImage}
                     alt={image.titleDesc}
@@ -300,15 +296,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
         <PrevButton onClick={prevSlide}>&#10094;</PrevButton>
         <NextButton onClick={nextSlide}>&#10095;</NextButton>
-        <ControlsContainer>
-          {pageIndicators.map((pageIndex) => (
-            <IndicatorDot
-              key={pageIndex}
-              active={currentIndex === pageIndex}
-              onClick={() => goToSlide(pageIndex)}
-            />
-          ))}
-        </ControlsContainer>
       </CarouselWrapper>
       {isFullscreen && (
         <FullscreenImage

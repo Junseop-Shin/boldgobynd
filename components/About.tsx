@@ -117,16 +117,16 @@ export default function About() {
       </div>
       <div>
         <FadeUpAnimation>
-          <div>
+          <SectionTextContainer>
             <SectionTitle>대담한 목표와 비전을 갖추면,</SectionTitle>
             <SectionTitle>한계를 넘어 무한한 가능성이 열립니다.</SectionTitle>
             <SectionTitle>
               <br />
             </SectionTitle>
-          </div>
+          </SectionTextContainer>
         </FadeUpAnimation>
         <FadeUpAnimation>
-          <div>
+          <SectionTextContainer>
             <SectionSubtitle>
               BOLD의 전략적 브랜드 솔루션은 고객이 시장에서 차별화된 입지를
               구축하고
@@ -138,7 +138,7 @@ export default function About() {
               이를 통해 고객사는 브랜드 가치를 극대화하고, 장기적인 성장 동력을
               확보할 수 있습니다.
             </SectionSubtitle>
-          </div>
+          </SectionTextContainer>
         </FadeUpAnimation>
       </div>
       <ImageCarousel images={carouselImages} autoPlayInterval={5000} />
