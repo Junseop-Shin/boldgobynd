@@ -4,7 +4,7 @@ import styled from "styled-components";
 import FullWidthImage from "./FullWidthImage";
 import useFullScreenImage from "../../utils/useFullScreenImage";
 import FullscreenImage from "./FullScreenImage";
-import { MOBILE_BREAKPOINT } from "../../assets/common";
+import { MOBILE, MOBILE_BREAKPOINT } from "../../assets/common";
 
 // 타입 정의
 export interface CarouselImage {
@@ -94,7 +94,7 @@ const NavigationButton = styled.button<{ isfullscreen?: boolean }>`
     opacity: ${(props) => (props.isfullscreen ? 1 : 0.7)};
   }
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     width: 30px;
     height: 30px;
     font-size: 14px;

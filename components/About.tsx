@@ -2,21 +2,36 @@ import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ImageCarousel from "./common/ImageCarousel";
-import { carouselImages } from "../assets/Works";
+import { carouselImages } from "../assets/works";
 import {
   ABOUT_SUBTITLE,
   ABOUT_SUBTITLE_MOBILE,
   ABOUT_TITLE,
   ABOUT_TITLE_MOBILE,
-} from "../assets/Image";
+} from "../assets/image";
 import ResponsiveImage from "./common/ResponsiveImage";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE } from "../assets/common";
 
 const AboutContainer = styled.div`
   width: 100%;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: 94%;
+  @media ${MOBILE} {
+    width: 90vw;
+  }
+`;
+
+const ImageContainer = styled.div`
+  margin: 3rem 0;
+  width: 50vw;
+  @media ${MOBILE} {
+    width: 92vw;
+  }
+`;
+
+const SectionTextContainer = styled.div`
+  padding-left: 30vw;
+  @media ${MOBILE} {
+    padding-left: 0;
   }
 `;
 
@@ -26,22 +41,33 @@ const SectionTitle = styled.p`
   color: rgb(199, 202, 207);
   letter-spacing: -1px;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
+  word-break: keep-all;
+
+  @media ${MOBILE} {
+    font-size: 24px;
+  }
 `;
 
 const SectionSubtitle = styled.p`
-  color: rgb(141, 143, 147);
-  font-size: 20px;
   text-align: left;
+  font-size: 20px;
+  color: rgb(141, 143, 147);
+  letter-spacing: -1px;
   font-weight: 350;
   line-height: 1.8;
+  word-break: keep-all;
+
+  @media ${MOBILE} {
+    font-size: 16px;
+  }
 `;
 
 export default function About() {
   return (
     <AboutContainer>
       <FadeUpAnimation>
-        <div style={{ margin: "3rem 0" }}>
+        <ImageContainer>
           <ResponsiveImage
             src={ABOUT_TITLE}
             mobileSrc={ABOUT_TITLE_MOBILE}
@@ -50,33 +76,33 @@ export default function About() {
             height={795}
             priority
           />
-        </div>
+        </ImageContainer>
       </FadeUpAnimation>
       <div>
         <FadeUpAnimation delay={0.1}>
-          <div>
-            <SectionTitle>모든 도전은 기회가 되며,</SectionTitle>
+          <SectionTextContainer>
+            <SectionTitle>모든 도전은 새로운 기회의 시작이고,</SectionTitle>
             <SectionTitle>
               &apos;대담함&apos;이야말로 변화를 일으키는 원동력입니다.
             </SectionTitle>
             <SectionTitle>
               <br />
             </SectionTitle>
-          </div>
+          </SectionTextContainer>
         </FadeUpAnimation>
         <FadeUpAnimation delay={0.1}>
-          <div>
+          <SectionTextContainer>
             <SectionSubtitle>
               <strong>BOLD</strong>는 ‘대담함’을 핵심 가치로 삼아, 혁신적인
-              시각과 접근법으로 새로운 가능성을 열어갑니다.
+              시각과 접근법으로 새로운 기회를 발굴합니다.
             </SectionSubtitle>
             <SectionSubtitle>
-              기존의 틀을 넘어서는 창의적인 솔루션을 제시하며,
+              틀에 갇히지 않은 창의적인 솔루션을 제시하며,
             </SectionSubtitle>
             <SectionSubtitle>
-              고객이 한층 더 미래 지향적인 방향으로 나아갈 수 있도록 함께합니다.
+              단순한 브랜드 구축을 넘어 한 발 앞선 대담함으로 미래를 짓습니다.
             </SectionSubtitle>
-          </div>
+          </SectionTextContainer>
         </FadeUpAnimation>
       </div>
       <div style={{ margin: "3rem 0" }}>

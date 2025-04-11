@@ -133,7 +133,7 @@ import {
   VEGREEK_05,
   VEGREEK_MAIN,
   VEGREEK_THUMBNAIL,
-} from "./Image";
+} from "./image";
 
 export interface Work {
   title: string;

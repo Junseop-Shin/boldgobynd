@@ -4,7 +4,7 @@ import {
   MAIN_SUBTITLE_MOBILE,
   MAIN_TITLE,
   MAIN_TITLE_MOBILE,
-} from "../assets/Image";
+} from "../assets/image";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ResponsiveImage from "./common/ResponsiveImage";
 

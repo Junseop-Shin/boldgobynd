@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { DropdownMenuOptionProps } from "./DropdownMenu";
 import FullWidthImage from "./FullWidthImage";
 import { useRouter } from "next/router";
-import { MOBILE_BREAKPOINT } from "../../assets/common";
+import { MOBILE } from "../../assets/common";
 
 export interface GalleryImage {
   title: string;
@@ -28,12 +28,14 @@ const GalleryContainer = styled.div`
 const GalleryTagTabs = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 120px;
   gap: 8px;
   padding: 3rem 0;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     gap: 2px;
-    padding: 1.5rem 0;
+    padding: 2.5rem 0;
   }
 `;
 
@@ -49,7 +51,7 @@ const GalleryTag = styled.button<{ active: boolean }>`
   font-size: 1rem;
   letter-spacing: 1px;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     width: 100px;
     padding: 4px 8px;
     border-radius: 8px;
@@ -59,8 +61,12 @@ const GalleryTag = styled.button<{ active: boolean }>`
 
 const ThumbnailGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+
+  @media ${MOBILE} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const ThumbnailImageContainer = styled(Link)`

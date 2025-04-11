@@ -1,19 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-import FadeUpAnimation from "./common/FadeUpAnimation";
-import { Work } from "../assets/Works";
+import { Work } from "../assets/works";
 import FullWidthImage from "./common/FullWidthImage";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE } from "../assets/common";
 
 const WorkDetailGrid = styled.div`
+  display: flex;
   padding: 5rem 0;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
   position: relative;
+  gap: 3rem;
+`;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    grid-template-columns: 1fr;
-    width: 100%;
+const WorkDetailTableContainer = styled.div`
+  width: 430px;
+  position: relative;
+  flex-shrink: 0;
+
+  @media ${MOBILE} {
+    display: none;
   }
 `;
 
@@ -21,40 +25,32 @@ const WorksDetailTable = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   border-top: 4px solid black;
-  border-bottom: 4px solid black;
   box-sizing: border-box;
   position: sticky;
   top: 180px;
-  width: 100%;
 
   & > * {
     padding: 15px 0;
     border-bottom: 1px solid black;
     display: flex;
   }
-
-  & > *:nth-last-child(-n + 2) {
-    border-bottom: none;
-  }
-
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    display: none;
-  }
 `;
 
 const WorksTitle = styled.p`
-  font-size: 1.1rem;
+  font-size: 16px;
+  letter-spacing: -1;
 `;
 
 const WorksTags = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 10px;
 `;
 
 const WorksTag = styled.p`
   background-color: rgb(234, 234, 234);
-  font-size: 18px;
-  padding: 2px 10px;
+  font-size: 16px;
+  letter-spacing: -1;
+  padding: 0 10px;
 `;
 
 const WorksMainImageContainer = styled.div`
@@ -63,7 +59,7 @@ const WorksMainImageContainer = styled.div`
   width: 92%;
   justify-self: flex-end;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     width: 100%;
     justify-self: center;
   }
@@ -72,7 +68,7 @@ const WorksMainImageContainer = styled.div`
 export default function WorksDetail({ work }: { work: Work }) {
   return (
     <WorkDetailGrid>
-      <FadeUpAnimation reAnimate={false}>
+      <WorkDetailTableContainer>
         <WorksDetailTable>
           <WorksTitle>CLIENT</WorksTitle>
           <WorksTitle>{work.client}</WorksTitle>
@@ -85,7 +81,7 @@ export default function WorksDetail({ work }: { work: Work }) {
           <WorksTitle>YEAR</WorksTitle>
           <WorksTitle>{work.year}</WorksTitle>
         </WorksDetailTable>
-      </FadeUpAnimation>
+      </WorkDetailTableContainer>
       <WorksMainImageContainer>
         {work.allImages.map((image, index) => (
           <FullWidthImage
