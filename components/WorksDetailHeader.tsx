@@ -66,6 +66,7 @@ export default function WorksDetailHeader({ work }: { work: Work }) {
         width={1919}
         height={933}
         src={work.mainImage}
+        sizes={`${MOBILE} 1000px, 1500px`}
         alt="Lead with BOLD"
       />
       <WorksDetailHeaderBody>
