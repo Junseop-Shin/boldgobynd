@@ -89,6 +89,7 @@ export default function WorksDetail({ work }: { work: Work }) {
             height={1227}
             key={image}
             src={image}
+            sizes={`${MOBILE} 1000px, 1500px`}
             alt={`Project Example ${index + 1}`}
             cover
           />

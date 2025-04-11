@@ -273,6 +273,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
                     <FullWidthImage
                       src={image.thumbnailImage}
                       alt={image.titleDesc}
+                      sizes={`${MOBILE} 500px, 500px`}
                       responsive={false}
                       cover
                     />
@@ -285,6 +286,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
                   <FullWidthImage
                     src={image.thumbnailImage}
                     alt={image.titleDesc}
+                    sizes={`${MOBILE} 500px, 500px`}
                     responsive={false}
                     cover
                   />

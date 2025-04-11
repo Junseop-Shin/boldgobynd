@@ -178,6 +178,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             <FullWidthImage
               src={image.thumbnailImage}
               alt={image.titleDesc}
+              sizes={`${MOBILE} 500px, 500px`}
               responsive={false}
               cover
               onMouseEnter={() => setHoveredImage(image)}
