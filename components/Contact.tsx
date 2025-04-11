@@ -208,20 +208,25 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 여기에 폼 제출 로직을 구현할 수 있습니다 (API 호출 등)
-    console.log("Form submitted:", formData);
-    // 성공 메시지 표시
-    setIsSubmitted(true);
-    // 폼 초기화
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      project: "",
-      file: "",
+
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
+
+    if (response.ok) {
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        project: "",
+        file: "",
+      });
+    }
 
     // 3초 후 성공 메시지 숨기기
     setTimeout(() => {
