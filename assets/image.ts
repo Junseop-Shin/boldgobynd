@@ -11,6 +11,22 @@ export const ABOUT_TITLE_MOBILE =
 export const ABOUT_SUBTITLE_MOBILE =
   "/resources_webp/about/About_Subtitle_Mobile.webp";
 
+export const CAROUSEL_AD1 = "/resources_webp/gallery/ad1.webp";
+export const CAROUSEL_AD2 = "/resources_webp/gallery/ad2.webp";
+export const CAROUSEL_AD3 = "/resources_webp/gallery/ad3.webp";
+export const CAROUSEL_PACKAGE2 = "/resources_webp/gallery/package2.webp";
+export const CAROUSEL_PACKAGE1 = "/resources_webp/gallery/package1.webp";
+export const CAROUSEL_PACKAGE3 = "/resources_webp/gallery/package3.webp";
+export const CAROUSEL_PACKAGE4 = "/resources_webp/gallery/package4.webp";
+export const CAROUSEL_PACKAGE5 = "/resources_webp/gallery/package5.webp";
+export const CAROUSEL_PACKAGE6 = "/resources_webp/gallery/package6.webp";
+export const CAROUSEL_PACKAGE7 = "/resources_webp/gallery/package7.webp";
+export const CAROUSEL_PACKAGE8 = "/resources_webp/gallery/package8.webp";
+export const CAROUSEL_PACKAGE9 = "/resources_webp/gallery/package9.webp";
+export const CAROUSEL_PACKAGE10 = "/resources_webp/gallery/package10.webp";
+export const CAROUSEL_PACKAGE11 = "/resources_webp/gallery/package11.webp";
+export const CAROUSEL_PACKAGE12 = "/resources_webp/gallery/package12.webp";
+
 export const WORKS_TITLE = "/resources_webp/works/Works_Title.webp";
 
 export const DIBAMBI_MAIN = "/resources_webp/works/dibambi/main.webp";

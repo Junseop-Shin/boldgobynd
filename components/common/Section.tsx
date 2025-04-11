@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from "react";
 import styled from "styled-components";
-import { MOBILE_BREAKPOINT } from "../../assets/common";
+import { MOBILE } from "../../assets/common";
 
 interface SectionProps extends ComponentProps<"section"> {
   bgColor?: string;
@@ -11,7 +11,7 @@ const StyledSection = styled.section<{ bgColor: string }>`
   padding: 5rem 2rem;
   background-color: ${(props) => props.bgColor};
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     padding: 2.5rem 0;
   }
 `;

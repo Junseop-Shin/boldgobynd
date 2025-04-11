@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import DropdownMenu from "./common/DropdownMenu";
-import { MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
+import { MOBILE, MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
 import { IoIosSearch } from "react-icons/io";
 import MobileNavMenu from "./common/MobileNavMenu";
 
@@ -21,7 +21,7 @@ const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
     props.scrolled ? "0 2px 10px rgba(0, 0, 0, 0.1)" : "none"};
   transition: all 0.3s ease;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     padding: 0.3rem 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
@@ -50,7 +50,7 @@ const LogoImage = styled(Image)<{ scrolled: boolean; headerColor?: boolean }>`
       ? "brightness(0) invert(1)" // 흰색으로 변환
       : "none"};
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     height: 30px;
     width: auto;
   }
@@ -60,7 +60,7 @@ const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     display: none;
   }
 `;
@@ -109,7 +109,7 @@ const MobileMenuButton = styled.button<{
     opacity: 0.5;
   }
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     display: block;
   }
 `;
@@ -127,7 +127,7 @@ const MobileSearchButton = styled(IoIosSearch)<{
       : "none"};
   cursor: not-allowed;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     display: block;
   }
 `;

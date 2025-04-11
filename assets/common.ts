@@ -1,6 +1,7 @@
 import { DropdownMenuOptionProps } from "../components/common/DropdownMenu";
 
-export const MOBILE_BREAKPOINT = 990;
+export const MOBILE_BREAKPOINT = 992;
+export const MOBILE = `(max-width: ${MOBILE_BREAKPOINT}px)`;
 
 export const worksMenuOptions: DropdownMenuOptionProps[] = [
   { title: "ALL", subtitle: "전체" },

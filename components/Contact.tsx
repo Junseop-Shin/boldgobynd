@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
-import { businessInfo } from "../assets/Business";
+import { businessInfo } from "../assets/business";
 import Email from "./common/Email";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE } from "../assets/common";
 
 const ContactGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  margin-top: 3rem;
+  margin-top: 5rem;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     grid-template-columns: 1fr;
-    width: 94%;
+    width: 90%;
+    margin-top: 4rem;
   }
 `;
 
@@ -24,20 +25,36 @@ const SectionTitle = styled.h2`
   line-height: 1.5;
   color: rgb(84, 84, 87);
   font-weight: 700;
+
+  @media ${MOBILE} {
+    font-size: 16px;
+  }
 `;
 
 const SectionSubtitle = styled.p`
   font-size: 36px;
   text-align: left;
   font-weight: 700;
+  line-height: 1.2;
+
+  @media ${MOBILE} {
+    font-size: 24px;
+    line-height: 1.6;
+  }
 `;
 
 const SectionBody = styled.p`
   font-size: 18px;
-  line-height: 1.8;
+  line-height: 2;
   text-align: left;
   color: rgb(33, 33, 33);
   font-weight: 400;
+  letter-spacing: -1px;
+
+  @media ${MOBILE} {
+    font-size: 16px;
+    line-height: 1.3;
+  }
 `;
 
 const ContactInfo = styled.div`
@@ -45,6 +62,10 @@ const ContactInfo = styled.div`
   margin-top: 3rem;
   width: 100%;
   gap: 1.5rem;
+
+  @media ${MOBILE} {
+    display: none;
+  }
 `;
 
 const ContactInfoItem = styled.div`
@@ -76,6 +97,11 @@ const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media ${MOBILE} {
+    padding-top: 3rem;
+    border-top: 3px solid black;
+  }
 `;
 
 const FormGroupGrid = styled.div`
@@ -83,8 +109,9 @@ const FormGroupGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
@@ -209,14 +236,14 @@ export default function Contact() {
           <SectionTitle>문의하기</SectionTitle>
         </FadeUpAnimation>
         <FadeUpAnimation delay={0.1}>
-          <SectionSubtitle>
+          <SectionBody>
             <br />
-          </SectionSubtitle>
+          </SectionBody>
           <SectionSubtitle>아이디어를 남겨주세요.</SectionSubtitle>
           <SectionSubtitle>BOLD가 실현을 돕겠습니다.</SectionSubtitle>
-          <SectionSubtitle>
+          <SectionBody>
             <br />
-          </SectionSubtitle>
+          </SectionBody>
           <SectionBody>
             원하는 서비스의 내용, 예산, 일정을 알려주시면,
           </SectionBody>

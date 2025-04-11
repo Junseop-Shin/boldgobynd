@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { businessInfo } from "../assets/Business";
+import { businessInfo } from "../assets/business";
 import Email from "./common/Email";
 
 const FooterSection = styled.footer`

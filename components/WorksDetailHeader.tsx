@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
-import { Work } from "../assets/Works";
+import { Work } from "../assets/works";
 import FullWidthImage from "./common/FullWidthImage";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE } from "../assets/common";
 
 const WorksDetailHeaderBody = styled.div`
   padding: 3rem 2rem 0;
+  padding-left: 35vw;
+  @media ${MOBILE} {
+    padding-left: 0;
+    width: 92vw;
+  }
 `;
 
 const WorksTitle = styled.p`
@@ -14,8 +19,8 @@ const WorksTitle = styled.p`
   color: rgb(11, 11, 11);
   line-height: 1.5;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    font-size: 24px;
+  @media ${MOBILE} {
+    font-size: 18px;
   }
 `;
 
@@ -23,12 +28,23 @@ const WorksTags = styled.div`
   display: flex;
   gap: 15px;
   margin: 2.5rem 0;
+
+  @media ${MOBILE} {
+    gap: 5px;
+    margin: 1.5rem 0;
+  }
 `;
 
 const WorksTag = styled.label`
   background-color: rgb(234, 234, 234);
   font-size: 18px;
   padding: 2px 10px;
+
+  @media ${MOBILE} {
+    background-color: transparent;
+    font-size: 14px;
+    color: rgb(165, 165, 165);
+  }
 `;
 
 const WorksDescriptionDetail = styled.label`
@@ -36,9 +52,10 @@ const WorksDescriptionDetail = styled.label`
   color: rgb(11, 11, 11);
   line-height: 2;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
-    font-size: 15px;
-    line-height: 1.8;
+  @media ${MOBILE} {
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: -1;
   }
 `;
 

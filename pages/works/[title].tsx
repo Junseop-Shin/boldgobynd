@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 import WorksDetail from "../../components/WorksDetail";
 import WorksDetailHeader from "../../components/WorksDetailHeader";
 import WorksDetailFooter from "../../components/WorksDetailFooter";
-import { works, Work } from "../../assets/Works";
+import { works, Work } from "../../assets/works";
 
 interface Params {
   title: string;

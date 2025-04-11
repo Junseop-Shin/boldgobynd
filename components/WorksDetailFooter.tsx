@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import ImageCarousel from "./common/ImageCarousel";
-import { workDetailFooterImages } from "../assets/Works";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { workDetailFooterImages } from "../assets/works";
+import { MOBILE } from "../assets/common";
 
 const WorksDetailFooterContainer = styled.div`
   width: 100%;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     width: 96%;
   }
 `;

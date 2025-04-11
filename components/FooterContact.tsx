@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import Link from "next/link";
 import FadeUpAnimation from "./common/FadeUpAnimation";
-import { businessInfo } from "../assets/Business";
-import { MAIN_TITLE } from "../assets/Image";
+import { businessInfo } from "../assets/business";
+import { MAIN_TITLE } from "../assets/image";
 import Email from "./common/Email";
 // import MobileResponsiveImage from "./common/MobileResponsiveImage";
 import FullWidthImage from "./common/FullWidthImage";
-import { MOBILE_BREAKPOINT } from "../assets/common";
+import { MOBILE } from "../assets/common";
 
 const FooterContactContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     padding: 0 2rem;
   }
 `;
@@ -23,11 +23,21 @@ const FooterContactBodyRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  padding-left: 30vw;
+  @media ${MOBILE} {
+    padding-left: 0;
+  }
 `;
 
 const FooterContactSubtitleContainer = styled.div`
   display: flex;
   flex-direction: column;
+  word-break: keep-all;
+
+  @media ${MOBILE} {
+    width: 45vw;
+  }
 `;
 
 const FooterContactSubtitle = styled.p`
@@ -36,7 +46,7 @@ const FooterContactSubtitle = styled.p`
   line-height: 1.8;
   font-weight: 350;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     font-size: 16px;
     line-height: 1.2;
   }
@@ -55,14 +65,13 @@ const FooterContactButton = styled.button`
   font-weight: 600;
   align-items: center;
   text-align: center;
-  align-self: flex-end;
   margin-bottom: 1rem;
 
   &:hover {
     background-color: white;
   }
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     padding: 0;
     font-size: 13px;
     font-weight: 400;
@@ -77,15 +86,17 @@ const FooterContactBodyGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   box-sizing: border-box;
+  padding-left: 30vw;
 
   & > * {
     border-top: 4px solid black;
     border-bottom: 1px solid black;
   }
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     grid-template-columns: 1fr;
     gap: 0;
+    padding-left: 0;
 
     & > *:nth-last-child(1) {
       border-top: 4px solid black;
@@ -107,7 +118,7 @@ const FooterContactSubtitleSection = styled.div`
   width: 100%;
   box-sizing: border-box;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}px) {
+  @media ${MOBILE} {
     padding: 1.5rem 0.5rem;
     & > * {
       display: flex;
@@ -141,7 +152,7 @@ export default function FooterContact() {
       <FooterContactBodyRow>
         <FooterContactSubtitleContainer>
           <FadeUpAnimation>
-            <FooterContactSubtitle>
+            <FooterContactSubtitle style={{ lineHeight: 2 }}>
               <strong>&apos;대담함으로 앞장서다&apos;</strong>
             </FooterContactSubtitle>
             <FooterContactSubtitle>
@@ -152,7 +163,7 @@ export default function FooterContact() {
             </FooterContactSubtitle>
           </FadeUpAnimation>
         </FooterContactSubtitleContainer>
-        <Link href="/contact" passHref>
+        <Link href="/contact" passHref style={{ alignSelf: "flex-end" }}>
           <FooterContactButton>문의하기</FooterContactButton>
         </Link>
       </FooterContactBodyRow>
