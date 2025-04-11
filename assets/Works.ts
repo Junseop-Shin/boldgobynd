@@ -26,6 +26,21 @@ import {
   CAFE385_06,
   CAFE385_MAIN,
   CAFE385_THUMBNAIL,
+  CAROUSEL_AD1,
+  CAROUSEL_AD2,
+  CAROUSEL_AD3,
+  CAROUSEL_PACKAGE1,
+  CAROUSEL_PACKAGE10,
+  CAROUSEL_PACKAGE11,
+  CAROUSEL_PACKAGE12,
+  CAROUSEL_PACKAGE2,
+  CAROUSEL_PACKAGE3,
+  CAROUSEL_PACKAGE4,
+  CAROUSEL_PACKAGE5,
+  CAROUSEL_PACKAGE6,
+  CAROUSEL_PACKAGE7,
+  CAROUSEL_PACKAGE8,
+  CAROUSEL_PACKAGE9,
   CHAWAN_01,
   CHAWAN_02,
   CHAWAN_03,
@@ -417,63 +432,63 @@ export const workDetailFooterImages = works.map((work) => {
 
 export const carouselImages = [
   {
-    thumbnailImage: "/resources/gallery/ad1.jpg",
+    thumbnailImage: CAROUSEL_AD1,
     titleDesc: "AD 1",
   },
   {
-    thumbnailImage: "/resources/gallery/ad2.jpg",
+    thumbnailImage: CAROUSEL_AD2,
     titleDesc: "AD 2",
   },
   {
-    thumbnailImage: "/resources/gallery/ad3.jpg",
+    thumbnailImage: CAROUSEL_AD3,
     titleDesc: "AD 3",
   },
   {
-    thumbnailImage: "/resources/gallery/package1.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE1,
     titleDesc: "PACKAGE 1",
   },
   {
-    thumbnailImage: "/resources/gallery/package2.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE2,
     titleDesc: "PACKAGE 2",
   },
   {
-    thumbnailImage: "/resources/gallery/package3.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE3,
     titleDesc: "PACKAGE 3",
   },
   {
-    thumbnailImage: "/resources/gallery/package4.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE4,
     titleDesc: "PACKAGE 4",
   },
   {
-    thumbnailImage: "/resources/gallery/package5.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE5,
     titleDesc: "PACKAGE 5",
   },
   {
-    thumbnailImage: "/resources/gallery/package6.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE6,
     titleDesc: "PACKAGE 6",
   },
   {
-    thumbnailImage: "/resources/gallery/package7.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE7,
     titleDesc: "PACKAGE 7",
   },
   {
-    thumbnailImage: "/resources/gallery/package8.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE8,
     titleDesc: "PACKAGE 8",
   },
   {
-    thumbnailImage: "/resources/gallery/package9.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE9,
     titleDesc: "PACKAGE 9",
   },
   {
-    thumbnailImage: "/resources/gallery/package10.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE10,
     titleDesc: "PACKAGE 10",
   },
   {
-    thumbnailImage: "/resources/gallery/package11.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE11,
     titleDesc: "PACKAGE 11",
   },
   {
-    thumbnailImage: "/resources/gallery/package12.jpg",
+    thumbnailImage: CAROUSEL_PACKAGE12,
     titleDesc: "PACKAGE 12",
   },
 ];
