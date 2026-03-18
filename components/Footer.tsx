@@ -1,65 +1,25 @@
-import React from "react";
-import styled from "styled-components";
-import { businessInfo } from "../assets/business";
-import Email from "./common/Email";
-
-const FooterSection = styled.footer`
-  display: flex;
-  background-color: #222;
-  color: white;
-  padding: 2rem 2rem 0.5rem;
-  justify-content: center;
-`;
-
-const FooterContainer = styled.div`
-  margin: 0 auto;
-`;
-
-const FooterDescription = styled.p`
-  text-align: center;
-  font-size: 14px;
-  color: #aaa;
-  line-height: 1.5;
-  word-wrap: break-word;
-`;
-
-const FooterBottom = styled.div`
-  text-align: center;
-  padding-top: 2rem;
-`;
-
-const Copyright = styled.p`
-  font-size: 14px;
-  color: #9c9ea2;
-  font-family: "BebasNeue", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
-    "Nanum Gothic", "Noto Sans", "sans-serif";
-  font-weight: bold;
-`;
-
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <FooterSection>
-      <FooterContainer>
-        <FooterDescription>
-          {`${businessInfo.company}  |  대표 ${businessInfo.ceo}`}
-        </FooterDescription>
-        <FooterDescription>
-          사업자등록번호 {businessInfo.businessRegistrationNumber}
-        </FooterDescription>
-        <FooterDescription>
-          {`${businessInfo.phone}  |  `}
-          <Email email={businessInfo.email} />
-        </FooterDescription>
-        <FooterDescription>{businessInfo.operatingTime}</FooterDescription>
-        <FooterDescription>{businessInfo.address}</FooterDescription>
-        <FooterBottom>
-          <Copyright>
-            COPYRIGHT ⓒ {currentYear} STUDIOBOLD ALL RIGHTS RESERVED.
-          </Copyright>
-        </FooterBottom>
-      </FooterContainer>
-    </FooterSection>
+    <footer style={{ backgroundColor: "#1a1a1a" }} className="text-white">
+      <div className="max-w-[1400px] mx-auto px-8 md:px-16 py-14 md:py-20">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+          <div>
+            <p className="text-xl font-black tracking-[0.25em] uppercase mb-4">
+              StudioBOLD
+            </p>
+            <p className="text-sm text-neutral-400 leading-7">
+              bold@studiobold.co.kr
+              <br />
+              070. 8080. 3150
+            </p>
+          </div>
+        </div>
+        <div className="border-t border-neutral-800 mt-12 pt-6">
+          <p className="text-[11px] tracking-[0.1em] text-neutral-600 uppercase">
+            COPYRIGHT &copy; 2026 STUDIOBOLD ALL RIGHTS RESERVED.
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }
