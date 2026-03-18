@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import Image from "next/image";
 
 const services = [
   {
@@ -46,6 +47,28 @@ const services = [
   },
 ];
 
+// Product images for floating display (package works with good product shots)
+const FLOATING_IMAGES = [
+  {
+    src: "/resources/works/cafe385/thumbnail.webp",
+    alt: "CAFE385 패키지",
+    rotate: "-6deg",
+    position: "absolute top-0 left-0 w-44 h-56",
+  },
+  {
+    src: "/resources/works/chawan/thumbnail.webp",
+    alt: "CAFE CHAWAN 패키지",
+    rotate: "3deg",
+    position: "absolute top-8 left-20 w-36 h-48",
+  },
+  {
+    src: "/resources/works/pealth/thumbnail.webp",
+    alt: "PEALTH 패키지",
+    rotate: "8deg",
+    position: "absolute bottom-0 right-0 w-48 h-32",
+  },
+];
+
 function FadeInView({
   children,
   className,
@@ -73,17 +96,28 @@ function FadeInView({
 export default function PartnerSection() {
   return (
     <section className="bg-black text-white">
-      {/* Two-column sticky layout */}
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row">
           {/* LEFT column — scrolling content */}
           <div className="flex-1 order-2 md:order-1">
-            {/* Floating product placeholders */}
+            {/* Floating product images */}
             <div className="min-h-screen flex items-center justify-center px-8 md:px-16 py-24">
               <div className="relative w-full max-w-md h-80">
-                <div className="absolute top-0 left-0 w-44 h-56 bg-[#e8a0b8] rounded-sm rotate-[-6deg] shadow-2xl" />
-                <div className="absolute top-8 left-20 w-36 h-48 bg-[#6b9fd4] rounded-sm rotate-[3deg] shadow-2xl" />
-                <div className="absolute bottom-0 right-0 w-48 h-32 bg-[#f0e0c8] rounded-sm rotate-[8deg] shadow-xl" />
+                {FLOATING_IMAGES.map((img) => (
+                  <div
+                    key={img.src}
+                    className={`${img.position} shadow-2xl overflow-hidden`}
+                    style={{ transform: `rotate(${img.rotate})` }}
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="200px"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -110,9 +144,12 @@ export default function PartnerSection() {
               </FadeInView>
             </div>
 
-            {/* Services */}
+            {/* Our Process */}
             <div className="bg-black px-8 md:px-16 py-24 md:py-32">
               <FadeInView>
+                <p className="text-xs tracking-[0.2em] text-neutral-500 mb-8 flex items-center gap-2">
+                  <span>●</span> Our Process
+                </p>
                 <p className="text-base md:text-lg font-bold leading-8 text-white mb-3 max-w-lg">
                   시간이 지나도 흔들리지 않는{" "}
                   <strong>브랜드 경험</strong>을 만드는 데 초점을 맞춥니다.
@@ -154,6 +191,59 @@ export default function PartnerSection() {
                   </FadeInView>
                 ))}
               </div>
+            </div>
+
+            {/* Why BOLD */}
+            <div
+              className="px-8 md:px-16 py-24 md:py-32"
+              style={{ backgroundColor: "#f5f0e8" }}
+            >
+              <FadeInView>
+                <p className="text-xs tracking-[0.2em] text-neutral-500 mb-8 flex items-center gap-2">
+                  <span className="text-neutral-400">●</span> Why BOLD
+                </p>
+                <h2 className="text-3xl md:text-4xl font-black text-black leading-[1.3] mb-8">
+                  단순한 디자인이 아닌,
+                  <br />
+                  브랜드의 미래를 함께 씁니다
+                </h2>
+                <div className="grid md:grid-cols-2 gap-8 max-w-2xl">
+                  {[
+                    {
+                      num: "01",
+                      title: "전략 기반 디자인",
+                      desc: "감각만이 아닌, 데이터와 전략을 토대로 브랜드를 설계합니다.",
+                    },
+                    {
+                      num: "02",
+                      title: "일관된 브랜드 언어",
+                      desc: "로고부터 패키지, 광고까지 하나의 목소리로 말하는 브랜드를 만듭니다.",
+                    },
+                    {
+                      num: "03",
+                      title: "밀도 있는 협업",
+                      desc: "클라이언트의 비즈니스를 깊이 이해하고, 함께 브랜드를 만들어 갑니다.",
+                    },
+                    {
+                      num: "04",
+                      title: "지속 가능한 결과물",
+                      desc: "트렌드를 쫒지 않고, 오래가는 브랜드 자산을 설계합니다.",
+                    },
+                  ].map((item) => (
+                    <div key={item.num}>
+                      <span className="text-xs font-mono text-neutral-400 mb-2 block">
+                        {item.num}
+                      </span>
+                      <h3 className="text-base font-bold text-black mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-neutral-600 leading-7">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </FadeInView>
             </div>
           </div>
 

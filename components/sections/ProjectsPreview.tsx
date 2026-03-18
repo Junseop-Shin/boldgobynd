@@ -2,15 +2,23 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
+import { works } from "@/data/works";
 
-const previewProjects = [
-  { color: "#2a2a2a", label: "백앤장" },
-  { color: "#3a3030", label: "DIBAMBI" },
-  { color: "#2a3a30", label: "CARNABY" },
-  { color: "#303040", label: "RAYNO" },
-  { color: "#3a2a30", label: "ONYXHIELD" },
+// Latest works with images for the preview strip
+const PREVIEW_SLUGS = [
+  "baeknjang",
+  "DIBAMBI",
+  "carnabycheesecake",
+  "picknpeak",
+  "ONYXHIELD",
+  "CHAWAN",
 ];
+
+const previewWorks = PREVIEW_SLUGS.map((slug) =>
+  works.find((w) => w.slug === slug)
+).filter(Boolean) as (typeof works)[number][];
 
 export default function ProjectsPreview() {
   const ref = useRef<HTMLDivElement>(null);
@@ -31,25 +39,33 @@ export default function ProjectsPreview() {
           </p>
         </motion.div>
 
-        {/* Horizontal scroll container */}
+        {/* Horizontal scroll */}
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-8 px-8 md:-mx-16 md:px-16">
-          {previewProjects.map((proj, i) => (
+          {previewWorks.map((work, i) => (
             <motion.div
-              key={proj.label}
+              key={work.slug}
               initial={{ opacity: 0, x: 40 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="shrink-0 w-[260px] md:w-[300px]"
             >
-              <div
-                className="w-full aspect-[4/3] rounded-sm mb-3"
-                style={{ backgroundColor: proj.color }}
-              />
-              <p className="text-xs text-neutral-500 tracking-widest uppercase">
-                {proj.label}
-              </p>
+              <Link href={`/works/${work.slug}`} className="group block">
+                <div className="w-full aspect-[4/3] rounded-sm mb-3 overflow-hidden relative bg-neutral-900">
+                  <Image
+                    src={`/resources/works/${work.folderSlug}/${work.thumbnailFile}`}
+                    alt={work.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="300px"
+                  />
+                </div>
+                <p className="text-xs text-neutral-500 tracking-widest uppercase truncate">
+                  {work.subtitle}
+                </p>
+              </Link>
             </motion.div>
           ))}
+
           <div className="shrink-0 w-[260px] md:w-[300px] flex items-center justify-center">
             <Link
               href="/works"
