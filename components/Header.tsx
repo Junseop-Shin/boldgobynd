@@ -1,235 +1,159 @@
-import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import DropdownMenu from "./common/DropdownMenu";
-import { MOBILE, MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
-import { IoIosSearch } from "react-icons/io";
-import MobileNavMenu from "./common/MobileNavMenu";
+import { usePathname } from "next/navigation";
 
-const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1rem 2rem;
-  background-color: ${(props) =>
-    props.scrolled || props.headerBgColor ? "white" : "transparent"};
-  box-shadow: ${(props) =>
-    props.scrolled ? "0 2px 10px rgba(0, 0, 0, 0.1)" : "none"};
-  transition: all 0.3s ease;
-
-  @media ${MOBILE} {
-    padding: 0.3rem 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const NavContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 auto;
-`;
-
-const Logo = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-
-const LogoImage = styled(Image)<{ scrolled: boolean; headerColor?: boolean }>`
-  height: auto;
-  filter: ${(props) =>
-    !props.scrolled && !props.headerColor
-      ? "brightness(0) invert(1)" // 흰색으로 변환
-      : "none"};
-
-  @media ${MOBILE} {
-    height: 30px;
-    width: auto;
-  }
-`;
-
-const NavLinks = styled.div`
-  display: flex;
-  gap: 2rem;
-
-  @media ${MOBILE} {
-    display: none;
-  }
-`;
-
-const NavLink = styled(Link)<{
-  scrolled: boolean;
-  active: boolean;
-  headerColor?: boolean;
-}>`
-  position: relative;
-  color: ${(props) =>
-    props.headerColor ? "#212121" : props.scrolled ? "#212121" : "white"};
-  font-weight: bold;
-  transition: color 0.3s ease;
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: ${(props) => (props.active ? "100%" : "0")};
-    height: 2px;
-    background-color: ${(props) =>
-      props.headerColor ? "#212121" : props.scrolled ? "#212121" : "white"};
-    opacity: 0.5;
-    transition: width 0.3s ease;
-  }
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-
-const MobileMenuButton = styled.button<{
-  scrolled: boolean;
-  headerColor?: boolean;
-}>`
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: ${(props) =>
-    !props.scrolled && !props.headerColor ? "white" : "#212121"};
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.5;
-  }
-
-  @media ${MOBILE} {
-    display: block;
-  }
-`;
-
-const MobileSearchButton = styled(IoIosSearch)<{
-  scrolled: boolean;
-  headerColor?: boolean;
-}>`
-  display: none;
-  background: none;
-  border: none;
-  filter: ${(props) =>
-    !props.scrolled && !props.headerColor
-      ? "brightness(0) invert(1)" // 흰색으로 변환
-      : "none"};
-  cursor: not-allowed;
-
-  @media ${MOBILE} {
-    display: block;
-  }
-`;
-
-export default function Header({ headerColor = true, headerBgColor = false }) {
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [worksDropdown, setWorksDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [worksMenuOpen, setWorksMenuOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const targetRef = useRef<HTMLAnchorElement>(null);
-  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth >= MOBILE_BREAKPOINT) {
-        setMobileMenuOpen(false);
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const worksCategories = ["ALL", "BRANDING", "PACKAGE", "AD·EDITORIAL"];
+
   return (
-    <>
-      <NavContainer scrolled={scrolled} headerBgColor={headerBgColor}>
-        <NavContent>
-          <MobileMenuButton
-            scrolled={scrolled}
-            headerColor={headerColor}
-            onClick={() => setMobileMenuOpen(true)}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
+        scrolled ? "shadow-sm" : ""
+      }`}
+    >
+      {/* Desktop */}
+      <div className="hidden md:flex items-center justify-between px-10 py-5 max-w-[1400px] mx-auto">
+        <Link
+          href="/"
+          className="text-lg font-black tracking-[0.25em] uppercase"
+        >
+          BOLD
+        </Link>
+        <nav className="flex items-center gap-10">
+          <Link
+            href="/"
+            className={`text-xs tracking-[0.2em] font-semibold uppercase transition-opacity hover:opacity-50 ${
+              pathname === "/" ? "opacity-100" : "opacity-40"
+            }`}
           >
-            ☰
-          </MobileMenuButton>
-          <Logo href="/">
-            <LogoImage
-              src="/favicon.ico"
-              alt="BOLD GO BEYOND"
-              scrolled={scrolled}
-              headerColor={headerColor}
-              width={150}
-              height={40}
-              priority
-            />
-          </Logo>
-          <NavLinks>
-            <NavLink
-              href="/about"
-              scrolled={scrolled}
-              headerColor={headerColor}
-              active={router.pathname === "/about"}
-            >
-              ABOUT
-            </NavLink>
-            <NavLink
+            HOME
+          </Link>
+          <div
+            className="relative"
+            onMouseEnter={() => setWorksDropdown(true)}
+            onMouseLeave={() => setWorksDropdown(false)}
+          >
+            <Link
               href="/works"
-              scrolled={scrolled}
-              headerColor={headerColor}
-              active={router.pathname === "/works"}
-              ref={targetRef}
-              onMouseEnter={() => setWorksMenuOpen(true)}
+              className={`text-xs tracking-[0.2em] font-semibold uppercase transition-opacity hover:opacity-50 ${
+                pathname === "/works" ? "opacity-100" : "opacity-40"
+              }`}
             >
               WORKS
-            </NavLink>
-            <NavLink
-              href="/contact"
-              headerColor={headerColor}
-              scrolled={scrolled}
-              active={router.pathname === "/contact"}
-            >
-              CONTACT
-            </NavLink>
-          </NavLinks>
-          <MobileSearchButton
-            headerColor={headerColor}
-            scrolled={scrolled}
-            aria-disabled
+            </Link>
+            {worksDropdown && (
+              <div className="absolute top-full right-0 mt-3 bg-white border border-neutral-100 shadow-md py-2 min-w-[160px]">
+                {worksCategories.map((cat) => (
+                  <Link
+                    key={cat}
+                    href={`/works?category=${cat}`}
+                    className="block px-5 py-2.5 text-[11px] tracking-[0.15em] uppercase text-neutral-500 hover:text-black hover:bg-neutral-50 transition-colors"
+                  >
+                    {cat}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </nav>
+      </div>
+
+      {/* Mobile */}
+      <div className="flex md:hidden items-center justify-between px-5 py-4">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="flex flex-col gap-[5px] p-1 cursor-pointer"
+          aria-label="메뉴 열기"
+        >
+          <span
+            className={`block w-6 h-px bg-black transition-all duration-300 origin-center ${
+              menuOpen ? "rotate-45 translate-y-[6px]" : ""
+            }`}
           />
-        </NavContent>
-      </NavContainer>
-      <DropdownMenu
-        isOpened={worksMenuOpen}
-        setIsOpened={setWorksMenuOpen}
-        targetRef={targetRef}
-        options={worksMenuOptions}
-      />
-      <MobileNavMenu
-        isOpened={mobileMenuOpen}
-        setIsOpened={setMobileMenuOpen}
-      />
-    </>
+          <span
+            className={`block w-6 h-px bg-black transition-all duration-300 ${
+              menuOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-px bg-black transition-all duration-300 origin-center ${
+              menuOpen ? "-rotate-45 -translate-y-[6px]" : ""
+            }`}
+          />
+        </button>
+
+        <Link
+          href="/"
+          className="text-lg font-black tracking-[0.25em] uppercase"
+        >
+          BOLD
+        </Link>
+
+        <button className="p-1 cursor-pointer" aria-label="검색">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          menuOpen ? "max-h-64" : "max-h-0"
+        }`}
+      >
+        <div className="bg-white border-t border-neutral-100 px-6 py-6">
+          <nav className="flex flex-col gap-5">
+            <Link
+              href="/"
+              onClick={() => setMenuOpen(false)}
+              className="text-xs tracking-[0.2em] uppercase font-semibold"
+            >
+              HOME
+            </Link>
+            <Link
+              href="/works"
+              onClick={() => setMenuOpen(false)}
+              className="text-xs tracking-[0.2em] uppercase font-semibold"
+            >
+              WORKS
+            </Link>
+            <div className="pl-4 flex flex-col gap-3 border-l border-neutral-200">
+              {worksCategories.map((cat) => (
+                <Link
+                  key={cat}
+                  href={`/works?category=${cat}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[11px] tracking-[0.15em] uppercase text-neutral-400"
+                >
+                  {cat}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
   );
 }
