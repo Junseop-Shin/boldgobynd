@@ -119,6 +119,7 @@ const SearchButton = styled(IoIosSearch)<{
   scrolled: boolean;
   headerColor?: boolean;
 }>`
+  display: none;
   background: none;
   border: none;
   font-size: 1.3rem;
