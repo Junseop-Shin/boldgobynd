@@ -1,10 +1,12 @@
-// pages/works/[id].js
 import { useRouter } from "next/router";
+import Head from "next/head";
 import Layout from "../../components/Layout";
 import WorksDetail from "../../components/WorksDetail";
 import WorksDetailHeader from "../../components/WorksDetailHeader";
 import WorksDetailFooter from "../../components/WorksDetailFooter";
 import { works, Work } from "../../assets/works";
+
+const SITE_URL = "https://boldgobynd.vercel.app";
 
 interface Params {
   title: string;
@@ -13,19 +15,41 @@ interface Params {
 export default function WorkDetailPages({ work }: { work: Work }) {
   const router = useRouter();
 
-  // fallback이 true인 경우 로딩 상태 처리
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
+  const ogImage = `${SITE_URL}${work.thumbnailImage}`;
+  const ogTitle = `${work.titleDesc} — Studio BOLD`;
+  const ogDescription = work.workDetail ?? work.categoryDesc;
+  const ogUrl = `${SITE_URL}/works/${work.title}`;
+
   return (
-    <article>
-      <Layout headerBgColor>
-        <WorksDetailHeader work={work} />
-        <WorksDetail work={work} />
-        <WorksDetailFooter />
-      </Layout>
-    </article>
+    <>
+      <Head>
+        <title>{ogTitle}</title>
+        <meta name="description" content={ogDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={ogTitle} />
+        <meta property="og:description" content={ogDescription} />
+        <meta property="og:url" content={ogUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
+        <meta property="og:image:alt" content={work.titleDesc} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={ogTitle} />
+        <meta name="twitter:description" content={ogDescription} />
+        <meta name="twitter:image" content={ogImage} />
+      </Head>
+      <article>
+        <Layout headerBgColor>
+          <WorksDetailHeader work={work} />
+          <WorksDetail work={work} />
+          <WorksDetailFooter />
+        </Layout>
+      </article>
+    </>
   );
 }
 

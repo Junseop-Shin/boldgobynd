@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
@@ -13,6 +14,9 @@ import LetsTalkSection from "../components/sections/LetsTalkSection";
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>BOLD — 브랜드 성장 파트너, 스튜디오 볼드</title>
+      </Head>
       <Header headerColor headerBgColor={false} />
       <main>
         <Hero />
