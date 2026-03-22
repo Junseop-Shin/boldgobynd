@@ -70,7 +70,7 @@ const ThumbnailGrid = styled.div`
   gap: 16px;
 
   @media ${MOBILE} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -99,6 +99,10 @@ const ThumbnailOverlay = styled.div<{ isHovered: boolean }>`
   transition: transform 0.5s ease;
   justify-content: flex-end;
   gap: 10px;
+
+  @media ${MOBILE} {
+    display: flex;
+  }
 `;
 
 const ThumbnailTitle = styled.p`

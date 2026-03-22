@@ -7,6 +7,7 @@ import DropdownMenu from "./common/DropdownMenu";
 import { MOBILE, MOBILE_BREAKPOINT, worksMenuOptions } from "../assets/common";
 import { IoIosSearch } from "react-icons/io";
 import MobileNavMenu from "./common/MobileNavMenu";
+import SearchOverlay from "./common/SearchOverlay";
 
 const NavContainer = styled.nav<{ scrolled: boolean; headerBgColor: boolean }>`
   position: fixed;
@@ -114,18 +115,24 @@ const MobileMenuButton = styled.button<{
   }
 `;
 
-const MobileSearchButton = styled(IoIosSearch)<{
+const SearchButton = styled(IoIosSearch)<{
   scrolled: boolean;
   headerColor?: boolean;
 }>`
-  display: none;
   background: none;
   border: none;
+  font-size: 1.3rem;
   filter: ${(props) =>
     !props.scrolled && !props.headerColor
-      ? "brightness(0) invert(1)" // 흰색으로 변환
+      ? "brightness(0) invert(1)"
       : "none"};
-  cursor: not-allowed;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
 
   @media ${MOBILE} {
     display: block;
@@ -136,6 +143,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [worksMenuOpen, setWorksMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const targetRef = useRef<HTMLAnchorElement>(null);
   const router = useRouter();
 
@@ -205,10 +213,10 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
               WORKS
             </NavLink>
           </NavLinks>
-          <MobileSearchButton
+          <SearchButton
             headerColor={headerColor}
             scrolled={scrolled}
-            aria-disabled
+            onClick={() => setSearchOpen(true)}
           />
         </NavContent>
       </NavContainer>
@@ -222,6 +230,7 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
         isOpened={mobileMenuOpen}
         setIsOpened={setMobileMenuOpen}
       />
+      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

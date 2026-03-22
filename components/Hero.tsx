@@ -13,8 +13,13 @@ const Section = styled.section`
 
   @media ${MOBILE} {
     cursor: default;
-    height: auto;
+    height: calc(100vh - 72px);
+    margin-top: 72px;
     position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
   }
 `;
 
@@ -25,6 +30,7 @@ const MobileHero = styled.div`
 
   @media ${MOBILE} {
     display: block;
+    padding: 3rem 0;
   }
 `;
 

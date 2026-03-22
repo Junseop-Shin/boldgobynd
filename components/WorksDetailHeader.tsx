@@ -6,9 +6,29 @@ import { Work } from "../assets/works";
 import { MOBILE } from "../assets/common";
 
 /* 히어로 이미지: Section 패딩(5rem 2rem)을 상쇄해 전체폭으로 */
+const HeroImage = styled(Image)`
+  width: 100%;
+  height: auto;
+  display: block;
+
+  @media ${MOBILE} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
 const HeroWrap = styled.div`
   margin: -5rem -2rem 0;
   line-height: 0;
+
+  @media ${MOBILE} {
+    margin: -2.5rem 0 0;
+    position: relative;
+    height: 56vw;
+    min-height: 220px;
+    overflow: hidden;
+  }
 `;
 
 /* 설명글: 이미지 열 시작점(테이블 430px + gap 3rem)에 맞춤 */
@@ -28,7 +48,8 @@ const WorksTitle = styled.p`
   line-height: 1.5;
 
   @media ${MOBILE} {
-    font-size: 18px;
+    font-size: 22px;
+    line-height: 1.4;
   }
 `;
 
@@ -50,7 +71,7 @@ const WorksTag = styled.label`
 
   @media ${MOBILE} {
     background-color: transparent;
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(165, 165, 165);
   }
 `;
@@ -61,9 +82,10 @@ const WorksDescriptionDetail = styled.label`
   line-height: 2;
 
   @media ${MOBILE} {
-    font-size: 13px;
-    line-height: 1.5;
-    letter-spacing: -1;
+    font-size: 15px;
+    line-height: 1.6;
+    word-break: keep-all;
+    display: block;
   }
 `;
 
@@ -71,12 +93,11 @@ export default function WorksDetailHeader({ work }: { work: Work }) {
   return (
     <>
       <HeroWrap>
-        <Image
+        <HeroImage
           src={work.mainImage}
           alt="Lead with BOLD"
           width={1919}
           height={933}
-          style={{ width: "100%", height: "auto", display: "block" }}
           priority
         />
       </HeroWrap>

@@ -307,6 +307,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
         <FullscreenImage
           image={images[fullscreenImageIndex]}
           length={images.length}
+          currentIndex={fullscreenImageIndex}
           closeFullscreen={closeFullscreen}
           setFullscreenImageIndex={setFullscreenImageIndex}
           transform={transform}

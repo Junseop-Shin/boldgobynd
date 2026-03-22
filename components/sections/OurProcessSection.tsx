@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Responsive } from "../Responsive";
+import FadeUpAnimation from "../common/FadeUpAnimation";
 
 const services = [
   {
@@ -39,18 +40,18 @@ const Section = styled.section`
 `;
 
 const Intro = styled.div`
-  padding: 4rem 2rem 2.5rem;
+  padding: 2rem 2rem 1.5rem;
 `;
 
 const HR = styled.hr`
   border: none;
-  border-top: 1px solid #000;
+  border-top: 2px solid #000;
   margin-bottom: 2rem;
 `;
 
 const Label = styled.p`
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -58,15 +59,16 @@ const Label = styled.p`
 `;
 
 const Title = styled.h2`
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   font-weight: 900;
-  line-height: 1.35;
+  line-height: 1.3;
   margin-bottom: 2rem;
+  word-break: keep-all;
 `;
 
 const Body = styled.p`
-  font-size: 0.875rem;
-  line-height: 2;
+  font-size: 1rem;
+  line-height: 1.9;
   padding-left: 1rem;
   margin-bottom: 1rem;
 
@@ -82,32 +84,52 @@ const Dash = styled.p`
 `;
 
 const Bold = styled.p`
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   padding-left: 1rem;
-  line-height: 2;
+  line-height: 1.9;
 `;
 
 const ServiceList = styled.div`
-  padding: 0 2rem 4rem;
+  padding: 0 2rem 5rem;
+  border-top: 2px solid #000;
 `;
 
 const ServiceItem = styled.div`
-  border-top: 1px solid #000;
-  padding: 2rem 0 2.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1.5rem 0;
+  display: flex;
+  gap: 1rem;
+
+  &:first-child {
+    border-top: none;
+  }
+`;
+
+const ServiceNum = styled.span`
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  padding-top: 0.25rem;
+  min-width: 1rem;
+  flex-shrink: 0;
+`;
+
+const ServiceContent = styled.div`
+  flex: 1;
 `;
 
 const ServiceTitle = styled.p`
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const ServiceDesc = styled.p`
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: 0.95rem;
   line-height: 1.8;
-  margin-bottom: 1rem;
+  color: #333;
+  margin-bottom: 0.75rem;
 `;
 
 const ServiceItems = styled.ul`
@@ -116,7 +138,8 @@ const ServiceItems = styled.ul`
 `;
 
 const ServiceItemLi = styled.li`
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  color: #555;
   line-height: 1.8;
   display: flex;
   gap: 0.5rem;
@@ -127,46 +150,53 @@ function OurProcessMobile() {
     <Section>
       <Intro>
         <HR />
-        <Label>
-          <span>●</span> Our Process
-        </Label>
-        <Title>
-          브랜드는
-          <br />
-          한순간의 디자인이 아니라
-          <br />
-          <strong>오래도록 누적되는 설계</strong>입니다.
-        </Title>
-        <Body>
-          볼드는 브랜드가 고객과 만나는 모든 지점을 고려한 설계를 지향합니다.
-          단순한 결과물이 아닌, 브랜드가 지속적으로 작동하고 일관된 인상을 남길 수 있도록{" "}
-          <strong>전체 디자인 흐름</strong>을 체계적으로 다듬습니다.
-        </Body>
-        <Body>
-          이 과정은 단발적인 디자인을 넘어{" "}
-          <strong>시간이 지나도 흔들리지 않는 브랜드 경험</strong>을 만드는 데 초점을 맞춥니다.
-        </Body>
-        <Dash>–</Dash>
-        <Bold>우리는 브랜드의 &apos;존재 방식&apos;을 함께 만듭니다.</Bold>
+        <FadeUpAnimation>
+          <Label>
+            <span>●</span> Our Process
+          </Label>
+          <Title>
+            브랜드는
+            <br />
+            한순간의 디자인이 아니라
+            <br />
+            <strong>오래도록 누적되는 설계</strong>입니다.
+          </Title>
+        </FadeUpAnimation>
+        <FadeUpAnimation delay={0.15}>
+          <Body>
+            볼드는 브랜드가 고객과 만나는 모든 지점을 고려한 설계를 지향합니다.
+            단순한 결과물이 아닌, 브랜드가 지속적으로 작동하고 일관된 인상을 남길 수 있도록{" "}
+            <strong>전체 디자인 흐름</strong>을 체계적으로 다듬습니다.
+          </Body>
+          <Body>
+            이 과정은 단발적인 디자인을 넘어{" "}
+            <strong>시간이 지나도 흔들리지 않는 브랜드 경험</strong>을 만드는 데 초점을 맞춥니다.
+          </Body>
+          <Dash>–</Dash>
+          <Bold>우리는 브랜드의 &apos;존재 방식&apos;을 함께 만듭니다.</Bold>
+        </FadeUpAnimation>
       </Intro>
-      <ServiceList>
-        {services.map((s) => (
-          <ServiceItem key={s.num}>
-            <ServiceTitle>
-              {s.num}.&nbsp;&nbsp;{s.title}
-            </ServiceTitle>
-            <ServiceDesc>{s.desc}</ServiceDesc>
-            <ServiceItems>
-              {s.items.map((item) => (
-                <ServiceItemLi key={item}>
-                  <span>-</span>
-                  {item}
-                </ServiceItemLi>
-              ))}
-            </ServiceItems>
-          </ServiceItem>
-        ))}
-      </ServiceList>
+      <FadeUpAnimation>
+        <ServiceList>
+          {services.map((s) => (
+            <ServiceItem key={s.num}>
+              <ServiceNum>{s.num}</ServiceNum>
+              <ServiceContent>
+                <ServiceTitle>{s.title}</ServiceTitle>
+                <ServiceDesc>{s.desc}</ServiceDesc>
+                <ServiceItems>
+                  {s.items.map((item) => (
+                    <ServiceItemLi key={item}>
+                      <span>–</span>
+                      {item}
+                    </ServiceItemLi>
+                  ))}
+                </ServiceItems>
+              </ServiceContent>
+            </ServiceItem>
+          ))}
+        </ServiceList>
+      </FadeUpAnimation>
     </Section>
   );
 }

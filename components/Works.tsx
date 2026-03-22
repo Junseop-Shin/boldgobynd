@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import ImageGallery from "./common/ImageGallery";
 import { MOBILE, worksMenuOptions } from "../assets/common";
-import { ABOUT_TITLE } from "../assets/image";
+import { ABOUT_TITLE, ABOUT_TITLE_MOBILE } from "../assets/image";
 import { galleryImages } from "../assets/works";
 
 /* 히어로: Section 패딩(5rem 2rem) 상쇄, 헤더 높이(72px)만큼 아래 여백 노출 */
@@ -60,6 +60,20 @@ const WorksContainer = styled.div`
   width: 100%;
 `;
 
+const DesktopHeroImg = styled(Image)`
+  @media ${MOBILE} {
+    display: none !important;
+  }
+`;
+
+const MobileHeroImg = styled(Image)`
+  display: none !important;
+
+  @media ${MOBILE} {
+    display: block !important;
+  }
+`;
+
 const ContentWrap = styled.div`
   max-width: 1232px;
   width: 100%;
@@ -75,12 +89,20 @@ export default function Works() {
   return (
     <WorksContainer>
       <HeroWrap>
-        <Image
+        <DesktopHeroImg
           src={ABOUT_TITLE}
           alt="Think Bold, Create Beyond"
           width={2500}
           height={795}
           style={{ width: "52%", height: "auto", display: "block" }}
+          priority
+        />
+        <MobileHeroImg
+          src={ABOUT_TITLE_MOBILE}
+          alt="Think Bold, Create Beyond"
+          width={1080}
+          height={1080}
+          style={{ width: "80%", height: "auto", display: "block" }}
           priority
         />
       </HeroWrap>

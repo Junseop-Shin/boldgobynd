@@ -25,9 +25,6 @@ const MobileMenu = styled(motion.div)`
   display: flex;
   flex-direction: column;
 
-  & > *:nth-last-child(-n + 1) {
-    height: 100%;
-  }
 `;
 
 const WorkContainer = styled.div`
@@ -66,12 +63,13 @@ const CloseButton = styled.button`
 `;
 
 const ArrowButton = styled(IoIosArrowDown)<{ isOpened: boolean }>`
-  width: auto;
-  height: 100%;
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
   transition: transform 0.3s ease;
   transform: ${(props) => (props.isOpened ? "rotate(180deg)" : "none")};
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  margin-right: 1rem;
 
   &:hover {
     opacity: 0.5;

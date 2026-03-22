@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { MOBILE } from "../../assets/common";
 
 const fadeUpVar = {
   hidden: { opacity: 0, y: 36 },
@@ -10,6 +11,10 @@ const fadeUpVar = {
 const Section = styled.section`
   background: #d4f5e2;
   padding: 6rem 0;
+
+  @media ${MOBILE} {
+    padding: 3rem 0;
+  }
 `;
 
 const Inner = styled.div`
@@ -21,6 +26,11 @@ const Inner = styled.div`
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
+
+  @media ${MOBILE} {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
 `;
 
 const LeftCol = styled.div``;
@@ -38,6 +48,11 @@ const Heading = styled.h2`
   line-height: 1.2;
   color: #111;
   margin-bottom: 2.5rem;
+  word-break: keep-all;
+
+  @media ${MOBILE} {
+    font-size: 2.4rem;
+  }
 `;
 
 const Desc = styled.p`

@@ -1,7 +1,8 @@
-import styled, { keyframes } from "styled-components";
-import Image from "next/image";
+import styled from "styled-components";
 import { Responsive } from "../Responsive";
-import { works } from "../../assets/works";
+import ImageCarousel from "../common/ImageCarousel";
+import { workDetailFooterImages } from "../../assets/works";
+import FadeUpAnimation from "../common/FadeUpAnimation";
 
 const whyItems = [
   { title: "Insight First", desc: "감이 아니라 근거로 설계합니다. 브랜드에 필요한 핵심 질문부터 시작합니다." },
@@ -9,39 +10,25 @@ const whyItems = [
   { title: "Long-Term Partner", desc: "'런칭'이 아닌 '성장'을 목표로 합니다. 우리는 단발성 브랜드가 아닌, 지속가능한 브랜드를 만듭니다." },
 ];
 
-const marqueeItems = [...works].reverse();
-const row1 = marqueeItems.slice(0, Math.ceil(marqueeItems.length / 2));
-const row2 = marqueeItems.slice(Math.ceil(marqueeItems.length / 2));
-
-const marqueeAnim = keyframes`
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-`;
-
-const marqueeReverseAnim = keyframes`
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-`;
-
 const Section = styled.section`
-  background: #000;
+  background: rgba(0, 0, 0, 0.85);
   color: #fff;
 `;
 
 const Content = styled.div`
-  padding: 4rem 2rem 3rem;
+  padding: 4rem 2rem 5rem;
 `;
 
 const HR = styled.hr`
   border: none;
-  border-top: 1px solid #333;
+  border-top: 2px solid #fff;
   margin-bottom: 2rem;
 `;
 
 const Label = styled.p`
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: #555;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #fff;
   margin-bottom: 2rem;
   display: flex;
   align-items: center;
@@ -49,10 +36,11 @@ const Label = styled.p`
 `;
 
 const Title = styled.h2`
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   font-weight: 900;
-  line-height: 1.35;
+  line-height: 1.3;
   margin-bottom: 3rem;
+  word-break: keep-all;
 `;
 
 const Items = styled.div`
@@ -62,85 +50,60 @@ const Items = styled.div`
 `;
 
 const ItemTitle = styled.h3`
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: #d4f5e2;
 `;
 
 const ItemDesc = styled.p`
-  font-size: 0.85rem;
-  color: #aaa;
+  font-size: 0.95rem;
+  color: #ccc;
   line-height: 1.8;
 `;
 
-const MarqueeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-bottom: 4rem;
-  overflow: hidden;
+const Dash = styled.p`
+  color: #d4f5e2;
+  font-size: 1.2rem;
+  margin: 2rem 0 0.75rem;
 `;
 
-const MarqueeRow = styled.div<{ $reverse?: boolean }>`
-  overflow: hidden;
+const Tagline = styled.p`
+  font-size: 1rem;
+  font-weight: 900;
+  color: #d4f5e2;
+  margin-bottom: 1rem;
 `;
-
-const MarqueeTrack = styled.div<{ $reverse?: boolean }>`
-  display: flex;
-  gap: 0.5rem;
-  width: max-content;
-  animation: ${({ $reverse }) => ($reverse ? marqueeReverseAnim : marqueeAnim)} 20s linear infinite;
-`;
-
-const MarqueeThumb = styled.div`
-  flex-shrink: 0;
-  width: 192px;
-  height: 128px;
-  position: relative;
-  overflow: hidden;
-`;
-
-function MarqueeRowComp({ items, reverse }: { items: typeof row1; reverse?: boolean }) {
-  const doubled = [...items, ...items];
-  return (
-    <MarqueeRow $reverse={reverse}>
-      <MarqueeTrack $reverse={reverse}>
-        {doubled.map((work, i) => (
-          <MarqueeThumb key={`${work.title}-${i}`}>
-            <Image src={work.thumbnailImage} alt={work.title} fill style={{ objectFit: "cover" }} />
-          </MarqueeThumb>
-        ))}
-      </MarqueeTrack>
-    </MarqueeRow>
-  );
-}
 
 function WhyBoldMobile() {
   return (
     <Section>
       <Content>
         <HR />
-        <Label>
-          <span>●</span> Why BOLD
-        </Label>
-        <Title>
-          다르게 일합니다.
-          <br />
-          그래서 <strong>결과도 다릅니다.</strong>
-        </Title>
-        <Items>
-          {whyItems.map((item) => (
-            <div key={item.title}>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemDesc>{item.desc}</ItemDesc>
-            </div>
-          ))}
-        </Items>
+        <FadeUpAnimation>
+          <Label>
+            <span>●</span> Why BOLD
+          </Label>
+          <Title>
+            다르게 일합니다.
+            <br />
+            그래서 <strong>결과도 다릅니다.</strong>
+          </Title>
+        </FadeUpAnimation>
+        <FadeUpAnimation delay={0.15}>
+          <Items>
+            {whyItems.map((item) => (
+              <div key={item.title}>
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemDesc>{item.desc}</ItemDesc>
+              </div>
+            ))}
+          </Items>
+          <Dash>–</Dash>
+          <Tagline>We Build Bold Brands.</Tagline>
+        </FadeUpAnimation>
       </Content>
-      <MarqueeWrapper>
-        <MarqueeRowComp items={row1} />
-        <MarqueeRowComp items={row2} reverse />
-      </MarqueeWrapper>
+      <ImageCarousel images={workDetailFooterImages} peek />
     </Section>
   );
 }

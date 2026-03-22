@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaSearchMinus, FaSearchPlus } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoCopyOutline } from "react-icons/io5";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { CarouselImage } from "./ImageCarousel";
 import { TransformState } from "../../utils/useFullScreenImage";
@@ -10,6 +10,7 @@ import FullScreenOverlay from "./FullScreenOverlay";
 interface FullscreenImageProps {
   image: CarouselImage;
   length: number;
+  currentIndex: number;
   closeFullscreen: () => void;
   setFullscreenImageIndex: Dispatch<SetStateAction<number>>;
   transform: TransformState;
@@ -35,6 +36,17 @@ const FullImage = styled.img<{ transform: TransformState }>`
       ${(props) => props.transform.translateY}px
     );
   transition: transform 0.5s ease;
+`;
+
+const IndexLabel = styled.div`
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  user-select: none;
 `;
 
 const ButtonContainer = styled.div`
@@ -91,6 +103,20 @@ const CloseButton = styled(IoClose)`
   }
 `;
 
+const CopyButton = styled(IoCopyOutline)`
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const NavigationButton = styled.button<{ isfullscreen?: boolean }>`
   position: absolute;
   top: 50%;
@@ -132,11 +158,15 @@ const NextButton = styled(NavigationButton)`
 const FullscreenImage = ({
   image,
   length,
+  currentIndex,
   closeFullscreen,
   setFullscreenImageIndex,
   transform,
   setTransform,
 }: FullscreenImageProps) => {
+  const handleCopy = () => {
+    navigator.clipboard.writeText(window.location.origin + image.thumbnailImage);
+  };
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragStartTranslate, setDragStartTranslate] = useState({ x: 0, y: 0 });
@@ -287,7 +317,9 @@ const FullscreenImage = ({
           transform={transform}
         />
       </FullscreenImageContainer>
+      <IndexLabel>{currentIndex + 1} / {length}</IndexLabel>
       <ButtonContainer>
+        <CopyButton onClick={handleCopy} />
         <MinusButton onClick={() => handleZoom(0.8)} />
         <PlusButton onClick={() => handleZoom(1.2)} />
         <CloseButton onClick={closeFullscreen} />
