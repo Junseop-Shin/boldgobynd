@@ -27,7 +27,7 @@ export default function WorksDetailFooter() {
       <FadeUpAnimation>
         <WorksFooterTitle>OTHER PROJECTS</WorksFooterTitle>
       </FadeUpAnimation>
-      <ImageCarousel images={workDetailFooterImages} isLinked />
+      <ImageCarousel images={workDetailFooterImages} isLinked peek />
     </WorksDetailFooterContainer>
   );
 }

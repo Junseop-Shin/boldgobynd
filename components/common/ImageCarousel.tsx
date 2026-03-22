@@ -17,19 +17,21 @@ interface ImageCarouselProps {
   images: CarouselImage[];
   autoPlayInterval?: number;
   isLinked?: boolean;
+  peek?: boolean; // 좌우 이전/다음 이미지를 부분 노출
 }
 
 // 스타일드 컴포넌트
-const GalleryContainer = styled.div`
+const GalleryContainer = styled.div<{ peek?: boolean }>`
   width: 100%;
   margin: 0 auto;
   position: relative;
+  overflow: ${(props) => (props.peek ? "hidden" : "visible")};
 `;
 
-const CarouselWrapper = styled.div`
+const CarouselWrapper = styled.div<{ peek?: boolean }>`
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: ${(props) => (props.peek ? "visible" : "hidden")};
   margin: 5rem 0;
 `;
 
@@ -113,10 +115,13 @@ const NextButton = styled(NavigationButton)`
   right: 16px;
 `;
 
+const PEEK_FRACTION = 0.2; // 좌우 1/5 노출
+
 const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   autoPlayInterval = 5000,
   isLinked = false,
+  peek = false,
 }) => {
   const [slidesToShow, setSlidesToShow] = useState<number>(4);
   const [currentIndex, setCurrentIndex] = useState<number>(slidesToShow * 2);
@@ -155,16 +160,15 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
     if (containerRef.current) {
       const containerWidth = containerRef.current.clientWidth;
       const slides = window.innerWidth < MOBILE_BREAKPOINT ? 2 : 4;
-      const width = containerWidth / slides;
-      // const newIndex = (currentIndex * slidesToShow) % slides;
+      // peek 모드: 좌우 PEEK_FRACTION씩 부분 노출
+      const divisor = peek ? slides + PEEK_FRACTION * 2 : slides;
+      const width = containerWidth / divisor;
 
       setSlideWidth(width);
       setSlidesToShow(slides);
-      // setCurrentIndex(newIndex);
-      // setTranslateX(-newIndex * width);
-      setTranslateX(-currentIndex * width);
+      setTranslateX(-(currentIndex - (peek ? PEEK_FRACTION : 0)) * width);
     }
-  }, [currentIndex]);
+  }, [currentIndex, peek]);
 
   useEffect(() => {
     calculateDimensions();
@@ -174,8 +178,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // 인덱스 변경 시 translateX 업데이트
   useEffect(() => {
-    setTranslateX(-currentIndex * slideWidth);
-  }, [currentIndex, slideWidth]);
+    setTranslateX(-(currentIndex - (peek ? PEEK_FRACTION : 0)) * slideWidth);
+  }, [currentIndex, slideWidth, peek]);
 
   const slideTo = (index: number) => {
     setCurrentIndex(index);
@@ -251,8 +255,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   }, [currentIndex]);
 
   return (
-    <GalleryContainer ref={containerRef}>
-      <CarouselWrapper>
+    <GalleryContainer ref={containerRef} peek={peek}>
+      <CarouselWrapper peek={peek}>
         <CarouselTrack
           translateX={translateX}
           transitionEnabled={transitionEnabled}

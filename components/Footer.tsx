@@ -1,39 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import { businessInfo } from "../assets/business";
-import Email from "./common/Email";
 
 const FooterSection = styled.footer`
-  display: flex;
-  background-color: #222;
-  color: white;
-  padding: 2rem 2rem 0.5rem;
-  justify-content: center;
+  background: #222;
+  color: #ccc;
+  padding: 2.5rem 0;
 `;
 
-const FooterContainer = styled.div`
+const FooterInner = styled.div`
+  max-width: 1232px;
   margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 `;
 
-const FooterDescription = styled.p`
-  text-align: center;
-  font-size: 14px;
+const CompanyName = styled.p`
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+`;
+
+const Info = styled.p`
+  font-size: 0.95rem;
   color: #aaa;
-  line-height: 1.5;
-  word-wrap: break-word;
-`;
-
-const FooterBottom = styled.div`
-  text-align: center;
-  padding-top: 2rem;
+  line-height: 1.9;
 `;
 
 const Copyright = styled.p`
-  font-size: 14px;
-  color: #9c9ea2;
-  font-family: "BebasNeue", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
-    "Nanum Gothic", "Noto Sans", "sans-serif";
-  font-weight: bold;
+  font-size: 0.82rem;
+  color: #666;
+  margin-top: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 `;
 
 export default function Footer() {
@@ -41,25 +41,14 @@ export default function Footer() {
 
   return (
     <FooterSection>
-      <FooterContainer>
-        <FooterDescription>
-          {`${businessInfo.company}  |  대표 ${businessInfo.ceo}`}
-        </FooterDescription>
-        <FooterDescription>
-          사업자등록번호 {businessInfo.businessRegistrationNumber}
-        </FooterDescription>
-        <FooterDescription>
-          {`${businessInfo.phone}  |  `}
-          <Email email={businessInfo.email} />
-        </FooterDescription>
-        <FooterDescription>{businessInfo.operatingTime}</FooterDescription>
-        <FooterDescription>{businessInfo.address}</FooterDescription>
-        <FooterBottom>
-          <Copyright>
-            COPYRIGHT ⓒ {currentYear} STUDIOBOLD ALL RIGHTS RESERVED.
-          </Copyright>
-        </FooterBottom>
-      </FooterContainer>
+      <FooterInner>
+        <CompanyName>StudioBOLD</CompanyName>
+        <Info>{businessInfo.email}</Info>
+        <Info>{businessInfo.phone}</Info>
+        <Copyright>
+          Copyright © {currentYear} StudioBOLD All Rights Reserved.
+        </Copyright>
+      </FooterInner>
     </FooterSection>
   );
 }

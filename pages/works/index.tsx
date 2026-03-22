@@ -5,7 +5,7 @@ import Works from "../../components/Works";
 
 export default function WorksPage() {
   return (
-    <Layout showFooterContact>
+    <Layout headerBgColor>
       <Works />
     </Layout>
   );

@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import FadeUpAnimation from "./common/FadeUpAnimation";
 import { Work } from "../assets/works";
-import FullWidthImage from "./common/FullWidthImage";
 import { MOBILE } from "../assets/common";
 
+/* 히어로 이미지: Section 패딩(5rem 2rem)을 상쇄해 전체폭으로 */
+const HeroWrap = styled.div`
+  margin: -5rem -2rem 0;
+  line-height: 0;
+`;
+
+/* 설명글: 이미지 열 시작점(테이블 430px + gap 3rem)에 맞춤 */
 const WorksDetailHeaderBody = styled.div`
   padding: 3rem 2rem 0;
-  padding-left: 35vw;
+  padding-left: calc(430px + 3rem);
+
   @media ${MOBILE} {
     padding-left: 0;
     width: 92vw;
@@ -62,13 +70,16 @@ const WorksDescriptionDetail = styled.label`
 export default function WorksDetailHeader({ work }: { work: Work }) {
   return (
     <>
-      <FullWidthImage
-        width={1919}
-        height={933}
-        src={work.mainImage}
-        sizes={`${MOBILE} 1000px, 1500px`}
-        alt="Lead with BOLD"
-      />
+      <HeroWrap>
+        <Image
+          src={work.mainImage}
+          alt="Lead with BOLD"
+          width={1919}
+          height={933}
+          style={{ width: "100%", height: "auto", display: "block" }}
+          priority
+        />
+      </HeroWrap>
       <WorksDetailHeaderBody>
         <FadeUpAnimation>
           <WorksTitle>{work.titleDesc}</WorksTitle>

@@ -187,30 +187,22 @@ export default function Header({ headerColor = true, headerBgColor = false }) {
           </Logo>
           <NavLinks>
             <NavLink
-              href="/about"
+              href="/"
               scrolled={scrolled}
               headerColor={headerColor}
-              active={router.pathname === "/about"}
+              active={router.pathname === "/"}
             >
-              ABOUT
+              HOME
             </NavLink>
             <NavLink
               href="/works"
               scrolled={scrolled}
               headerColor={headerColor}
-              active={router.pathname === "/works"}
+              active={router.pathname.startsWith("/works")}
               ref={targetRef}
               onMouseEnter={() => setWorksMenuOpen(true)}
             >
               WORKS
-            </NavLink>
-            <NavLink
-              href="/contact"
-              headerColor={headerColor}
-              scrolled={scrolled}
-              active={router.pathname === "/contact"}
-            >
-              CONTACT
             </NavLink>
           </NavLinks>
           <MobileSearchButton

@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import MountUnmountAnimation from "./MountUnmoundAnimation";
 import FullScreenOverlay from "./FullScreenOverlay";
@@ -119,8 +119,8 @@ const MobileNavMenu = ({ isOpened, setIsOpened }: MobileNavMenuProps) => {
         transition={{ type: "spring", damping: 20, duration: 0.5 }}
       >
         <CloseButton onClick={() => setIsOpened(false)}>✕</CloseButton>
-        <MobileNavLink href="/about" onClick={() => setIsOpened(false)}>
-          About
+        <MobileNavLink href="/" onClick={() => setIsOpened(false)}>
+          Home
         </MobileNavLink>
         <WorkContainer>
           <MobileNavLink href="/works" onClick={() => setIsOpened(false)}>
@@ -154,9 +154,6 @@ const MobileNavMenu = ({ isOpened, setIsOpened }: MobileNavMenuProps) => {
             ))}
           </MobileSubmenu>
         </MountUnmountAnimation>
-        <MobileNavLink href="/contact" onClick={() => setIsOpened(false)}>
-          Contact
-        </MobileNavLink>
       </MobileMenu>
     </MountUnmountAnimation>
   );

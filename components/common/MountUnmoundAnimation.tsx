@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
+import { AnimatePresence, HTMLMotionProps, motion } from "framer-motion";
 
 interface MountUnmountProps extends HTMLMotionProps<"div"> {
   isVisible: boolean;

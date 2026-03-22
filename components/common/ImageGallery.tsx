@@ -29,39 +29,44 @@ const GalleryTagTabs = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 120px;
-  gap: 8px;
+  gap: 3rem;
   padding: 3rem 0;
 
   @media ${MOBILE} {
-    gap: 2px;
-    padding: 2.5rem 0;
+    gap: 1.2rem;
+    padding: 2rem 0;
   }
 `;
 
 const GalleryTag = styled.button<{ active: boolean }>`
-  width: 160px;
+  width: 140px;
+  height: 36px;
   position: relative;
-  border: ${({ active }) => (active ? "1px solid black" : "none")};
-  padding: 8px 16px;
+  border: none;
+  padding: 0;
   background-color: transparent;
   cursor: pointer;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  letter-spacing: 1px;
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  color: ${({ active }) => (active ? "#111" : "#999")};
+  font-weight: ${({ active }) => (active ? "700" : "400")};
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #111;
+  }
 
   @media ${MOBILE} {
-    width: 100px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 0.7rem;
+    width: 90px;
+    height: 30px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
   }
 `;
 
 const ThumbnailGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 
   @media ${MOBILE} {
@@ -119,9 +124,7 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
   const [activeTag, setActiveTag] = useState<DropdownMenuOptionProps>(
     categories.find((category) => category.title === tag) || categories[0]
   );
-  const [hoveredTag, setHoveredTag] = useState<DropdownMenuOptionProps | null>(
-    null
-  );
+  const [hoveredTag, setHoveredTag] = useState<DropdownMenuOptionProps | null>(null);
   const [hoveredImage, setHoveredImage] = useState<GalleryImage | null>(null);
 
   const filteredImages = useMemo(
@@ -160,7 +163,6 @@ const ImageGallery = ({ images, categories }: ImageGalleryProps) => {
             onMouseEnter={() => setHoveredTag(category)}
             onMouseLeave={() => setHoveredTag(null)}
             key={category.title}
-            data-content={category.subtitle || category.title}
           >
             {hoveredTag === category && activeTag !== category
               ? category.subtitle
