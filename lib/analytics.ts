@@ -1,4 +1,4 @@
-const INGESTOR_URL = process.env.NEXT_PUBLIC_INGESTOR_URL || 'https://ingestor.nuclearbomb6518.com';
+const INGESTOR_URL = process.env.NEXT_PUBLIC_INGESTOR_URL;
 
 function getAnonymousId(): string {
   const key = '_aid';
